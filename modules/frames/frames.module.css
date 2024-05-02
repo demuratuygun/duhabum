@@ -1,0 +1,45 @@
+
+.picture3 {
+    z-index: 9;
+    position: fixed;
+    filter: blur(1px);
+    padding-right: 40%;
+}
+
+.title {
+    position: absolute;
+    top: 40%;
+    left: 7%;
+    max-width: 250px;
+    font-family: 'Sarpanch', sans-serif;
+    font-size: 4rem;
+    line-height: 4rem;
+    font-weight: 800;
+    opacity: 0.8;
+}
+
+.packages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width: 500px) {
+    .picture {
+        margin-left: 30%;
+    }
+    .title {
+        font-size: 3rem;
+        line-height: 3.1rem;
+        font-weight: 800;
+        opacity: 0.9;
+    }
+    .packages {
+        flex-direction: column;
+
+    }
+    .picture3 {
+        filter: blur(1px);
+        padding-right: 12%;
+    }
+}

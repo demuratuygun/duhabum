@@ -1,0 +1,32 @@
+
+
+.lightsmoke {
+    background-image: radial-gradient(#ffffff3c, #ffffff00 70%);
+    height: 800px;
+    width: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 6%;
+  }
+  
+  .light {
+    background-color: #ffffff;
+    height: 12px;
+    width: 200px;
+    border-radius: 10px;
+    margin: -12px 0px 0px 10px;
+    filter: blur(2px);
+  }
+  
+  .lightemmit {
+    background-color: #ffffffb9;
+    width: 220px;
+    border-radius: 10px;
+
+    position: relative;
+    top: -4px;
+    height: 18px;
+    filter: blur(22px);
+  }
+

@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 214, 219, 220;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 25, 25, 25;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.fullFrame {
+  float: left;
+  width: 100vw;
+  height: 100vh;
+  overflow: clip;
+}
+
+.noSelect {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+
+}
+
+.text {
+  font-family: 'Saira', sans-serif;
+  font-size: 1.2rem;
+
+}
+
+
+.box {
+  background-color: #66666628;
+  backdrop-filter: blur(12px);
+  border: #66666650 solid 1px;
+  border-radius: 12px;
+  
+}
+
+button {
+  background-color: #66666628;
+  backdrop-filter: blur(12px);
+  border: #66666650 solid 1px;
+  border-radius: 12px;
+  padding: 10px 25px;
+  transition: 1s ease;
+
+}
+
+button:hover {
+  background-color: #66666655;
+  backdrop-filter: blur(12px);
+  border: #66666650 solid 1px;
+  border-radius: 12px;
+  padding: 10px 25px;
+}
+
+.icons {
+  opacity: 0.66;
+  transition: 1s ease;
+}
+
+.icons:hover {
+  opacity: 1;
+}
+
+.headerLandscape {
+  position: sticky;
+  margin-top: 1.5%;
+  font-family: 'Saira', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 400;  
+  display: flex;
+  justify-content: center;
+  column-gap: 5rem;
+}
+
+.headerVertical {
+  display: none;
+}
+
+@media only screen and (max-width: 500px) {
+
+  .headerLandscape {
+    display: none;
+  }
+
+  .headerVertical {
+    position: sticky;
+    margin: 1.5vh;
+    font-family: 'Saira', sans-serif;
+    font-size: 1.9rem;
+    display: flex;
+    justify-content: start;
+    color: #fff;
+  }
+
+  .headerMenu {
+    backdrop-filter: blur(12px);
+    background-color: #000b;
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    right: 0px;
+    margin: 0px;
+    padding: 16% 0px;
+    row-gap: 20px;
+    font-family: 'Saira', sans-serif;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: #fff;
+    z-index: 1000;
+  }
+  
+}
