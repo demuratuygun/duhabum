@@ -25,6 +25,12 @@ body {
   }
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .fullFrame {
   float: left;
   width: 100vw;
@@ -48,29 +54,61 @@ body {
 
 
 .box {
-  background-color: #66666628;
-  backdrop-filter: blur(12px);
+  background-color: #28282866;
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
   border: #66666650 solid 1px;
   border-radius: 12px;
-  
 }
 
 button {
-  background-color: #66666628;
-  backdrop-filter: blur(12px);
+  background-color: #66666650;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
   border: #66666650 solid 1px;
   border-radius: 12px;
   padding: 10px 25px;
   transition: 1s ease;
-
+  min-width:auto;
 }
 
 button:hover {
-  background-color: #66666655;
+  background-color: #66666666;
   backdrop-filter: blur(12px);
   border: #66666650 solid 1px;
   border-radius: 12px;
   padding: 10px 25px;
+}
+
+input {
+  background-color: #6666662b;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  border: #66666650 solid 1px;
+  border-radius: 8px;
+  padding: 9px 20px;
+  transition: 1s ease;
+  min-width: 270px;
+}
+
+input:focus {
+  background-color: #66666644;
+  backdrop-filter: blur(12px);
+  border: #66666650 solid 1px;
+  padding: 11px 20px;
+  font-size: 1rem;
+  
+}
+
+input::placeholder {
+  text-align: right;
+  color: #666666;
+  opacity: 1; /* Firefox */
+}
+
+input::-ms-input-placeholder { /* Edge 12 -18 */
+  text-align: right;
+  color: #666666;
 }
 
 .icons {
@@ -97,6 +135,14 @@ button:hover {
   display: none;
 }
 
+.sectionbutton{
+  color: #fff;
+}
+.sectionbutton:hover {
+  color: #3DE581;
+  transition: 1s ease;
+}
+
 @media only screen and (max-width: 500px) {
 
   .headerLandscape {
@@ -115,7 +161,7 @@ button:hover {
 
   .headerMenu {
     backdrop-filter: blur(12px);
-    background-color: #000b;
+    background-color: #0008;
     position: fixed;
     width: 100%;
     top: 0px;
@@ -129,7 +175,7 @@ button:hover {
     align-items: center;
     flex-direction: column;
     color: #fff;
-    z-index: 1000;
+    z-index: 990;
   }
   
 }

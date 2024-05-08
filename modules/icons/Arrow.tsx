@@ -1,11 +1,20 @@
+'use client'
+import { motion } from "framer-motion";
+
+
+const item = {
+    hidden: {  y: 0, opacity: 0 },
+    visible: { opacity:1, y:[-30,45,-5], transition:{ delay: 2, repeat: Infinity, duration: 2 } }
+  }
 
 export default function Arrow() {
     
     return (
-        <svg  className="icons" style={{width: "5rem", height:"5rem", margin: "2rem 0rem 0rem 0.6rem"}} viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <motion.svg variants={item} 
+            className="icons" style={{width: "5rem", height:"5rem", margin: "2rem 0rem 0rem 0.6rem"}} viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_d_192_573)">
         <path d="M69 48.1535L51.3503 65M51.3503 65L33 48.1535M51.3503 65V29"  stroke="white" stroke-width="5" stroke-linecap="round"/>
-        <rect x="9" y="5" width="84" height="84" rx="28" stroke="white" stroke-width="4"/>
+
         </g>
         <defs>
         <filter id="filter0_d_192_573" x="0" y="0" width="102" height="102" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
@@ -19,7 +28,7 @@ export default function Arrow() {
         <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_192_573" result="shape"/>
         </filter>
         </defs>
-        </svg>
+        </motion.svg>
     );
   }
   

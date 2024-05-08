@@ -2,7 +2,7 @@
 export default function Cancel() {
     
     return (
-        <svg width="67" height="67" viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="icons" width="67" height="67" viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_f_244_92)">
         <path d="M22.6018 42.3496L45.3496 19.6018" stroke="white" stroke-opacity="0.4" stroke-width="5" stroke-linecap="round"/>
         </g>

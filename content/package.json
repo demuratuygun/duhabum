@@ -1,0 +1,6 @@
+{
+    "tr": [
+    {"plan": "basic plan", "price": 4999, "duration": "4 Ay", "content": ["Özel  antreman Plani","Beslenme Planlaması","Karın Kası ve Kardiyo ","Düzenli Form Kontrol"]},
+    {"plan": "premium", "price": 5999, "duration": "6 Ay", "content": ["Özel  antreman Plani","Beslenme Planlaması","Karın Kası ve Kardiyo ","Düzenli Form Kontrol","sinirsiz danismanlik","Görüntülü Görüşmeler"]}
+  
+]}

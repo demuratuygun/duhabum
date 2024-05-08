@@ -1,26 +1,55 @@
+'use client'
 import Image from 'next/image';
-import styles from './frames.module.css';
 import SocialMedia from '../components/Social';
+import { motion } from 'framer-motion';
+
+
+
+const container = {
+  hidden: { 
+      y: "-50%",
+      transition: {
+          type: "tween",
+          delayChildren: 0.5,
+          staggerChildren:0.3
+        }
+  },
+  visible: {
+     y: 0,
+    transition: {
+      type: "tween",
+      delayChildren: 0.5,
+      staggerChildren:0.3
+    }
+  }
+}
+  
+const item = {
+  hidden: { y: -20, opacity: 0, filter: "blur(20px)" },
+  visible: { y: 0, opacity: 1, filter: "blur(0px)", transition:{duration: 1} }
+}
 
 export default function ContactFrame() {
   return (
-    <div style={{ position: "relative", display: "flex", flexDirection: 'column', justifyContent: "center", alignItems: "center", width: "100vw", height: "100vh", paddingTop: "20vh" }}>
+    <div id="contactId" className='select-none' style={{ position: "relative", display: "flex", flexDirection: 'column', justifyContent: "center", alignItems: "center", width: "100%", height: "100vh", paddingTop: "7vh" }}>
 
-        <Image style={{ paddingTop: '50px' }} src="/backindark.png" layout="fill" objectFit="contain" alt="duha bum in dark"/>
+        <Image draggable="false" style={{ paddingTop: '50px' }} src="/backindark.png" layout="fill" objectFit="contain" alt="duha bum in dark"/>
 
-        <div style={{ display: "flex", flexDirection: "row", margin: "4%", paddingBottom: "10%", zIndex: 900 }}> 
+        <motion.div drag="x" dragConstraints={{ left: -300, right: 300 }} style={{ zIndex:900}}>
+          <motion.div variants={container} initial="hidden" whileInView="visible" className={'flex flex-row m-2 pb-8 z-50 h-max noSelect'}>
             {[1,1,1].map( i => 
-            <div style={{ display: "flex", flexDirection: "column", margin: "1rem", width: "250px", padding: "2.2rem 2rem" }} className='box'>
-                <Image style={{ marginBottom: "1.5rem" }} src={"/profiles/"+i+".png"} height={96} width={96} alt="duha bum in dark"/>
+            <motion.div variants={item} style={{ display: "flex", flexDirection: "column", margin: "1rem", width: "250px", padding: "2.2rem 2rem" }} className='box'>
+                <Image draggable="false" style={{ marginBottom: "1.5rem" }} src={"/profiles/"+i+".png"} height={96} width={96} alt="duha bum in dark"/>
                 <div className='text' style={{ fontSize: "1.5rem", fontWeight: 500 }}> mehmet ozgor </div>
                 <div className='text' style={{ fontSize: "1rem", opacity: 0.7 }}> bir ayda etkisini gosterdi harika tek kelimeyle </div>
-            </div>
+            </motion.div>
             )}
-        </div>
+            </motion.div>
+        </motion.div>
 
-        <div style={{ position: "absolute", bottom: "5%", left: "10%" }}>
+        <motion.div variants={container} initial="hidden" whileInView="visible" style={{ position: "absolute", bottom: "18%", left: 0, width:'100%', }} className='center'>
             <SocialMedia />
-        </div>
+        </motion.div>
         
         
     </div>

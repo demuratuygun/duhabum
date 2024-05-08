@@ -1,15 +1,21 @@
-
+'use client'
 import styles from './frames.module.css';
 import Package from '../components/Package';
+import { useRouter } from 'next/navigation';
+import packages from '../../content/package.json';
 
 
 export default function PackageFrame() {
+
+  const router = useRouter();
+
   return (
-    <div className={styles.packages} style={{ position: 'relative', width: "100vw",  padding: "0px", margin: "0px",overflow: 'clip'  }}>
+    <div id="pakagesId" className={styles.packages} style={{ position: 'relative', width: "100vw",  padding: "0px", margin: "0px",overflow: 'clip', zIndex: 700  }}>
         
-        <Package plan='basic plan' price={4490} duration='4 Ay' content={["Özel  antreman Plani","Beslenme Planlaması","Karın Kası ve Kardiyo ","Düzenli Form Kontrol"]} />
-        <Package plan='premium' price={5990} duration='6 Ay' content={["Özel  antreman Plani","Beslenme Planlaması","Karın Kası ve Kardiyo ","Düzenli Form Kontrol","sinirsiz danismanlik","Görüntülü Görüşmeler"]} />
-      
+        {packages.tr.map( (pack, i) => 
+          <Package pack={pack} click={() => router.push( "/package/"+i )}/> 
+        )}
+    
     </div>
   );
 }
