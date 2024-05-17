@@ -1,6 +1,7 @@
 {
     "tr": [
-    {"plan": "basic plan", "price": 4999, "duration": "4 Ay", "content": ["Özel  antreman Plani","Beslenme Planlaması","Karın Kası ve Kardiyo ","Düzenli Form Kontrol"]},
-    {"plan": "premium", "price": 5999, "duration": "6 Ay", "content": ["Özel  antreman Plani","Beslenme Planlaması","Karın Kası ve Kardiyo ","Düzenli Form Kontrol","sinirsiz danismanlik","Görüntülü Görüşmeler"]}
+    {"plan": "başlangıç", "price": 1999, "duration": "x 1 Ay", "content": ["Özel antreman Planı","Beslenme Planlaması","Supplement rehberliği","Düzenli Form Kontrolü", "Sınırsız whatsapp iletişim"]},
+    {"plan": "temel paket", "price": 1599, "duration": "x 3 Ay", "content": ["Özel antreman Planı","Beslenme Planlaması","Supplement rehberliği","Düzenli Form Kontrolü", "Sınırsız whatsapp iletişim", "100% gelişim garantisi"]},
+    {"plan": "premium", "price": 1500, "duration": "x 6 Ay", "content": ["Özel  antreman Planı","Beslenme Planlaması","Supplement rehberliği","Düzenli Form Kontrol","zoom/whatsapp iletişim", "100% gelişim garantisi"]}
   
 ]}

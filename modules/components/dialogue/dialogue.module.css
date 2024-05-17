@@ -1,0 +1,89 @@
+
+.display {
+    background-color: #161414;
+    width: 100%;
+    height: 6.6rem;
+    color: #ffffff;
+    position: relative;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+    margin-bottom: 3rem;
+}
+
+.displayLabel {
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: absolute;
+    top: 1.8rem;
+    left: 2rem;
+}
+
+.displayNumber{
+    font-size: 2rem;
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+
+}
+
+.displayUnit{
+    color: #fff8;
+    font-size: 1rem;
+    position: absolute;
+    top: 3.7rem;
+    right: 2.1rem;
+
+}
+
+.pickContainer {
+    width: 100%;
+    text-align: center;
+    padding: 1rem 2rem;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+
+}
+
+.pickInner {
+    display: inline;
+    vertical-align: baseline;
+}
+
+.pickLabel {
+    color: #DFDFDF80;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding-right: 9px;
+
+}
+
+.pickNumber {
+    color: #DFDFDF;
+    font-size: 1.8rem;
+    font-weight: 600;
+
+}
+
+.pickUnit {
+    color: #DFDFDF80;
+    font-size: 1.2rem;
+    font-weight: 600;
+
+}
+
+.pickSign {
+    float: right;
+    font-size: 2rem;
+    padding: 0rem 0.5rem 1rem 0.5rem;
+    position: relative;
+    top: -4px;
+}
+
+.pickSign:hover {
+    color: #1BE2A6;
+    transition: 1.5s ease;
+}

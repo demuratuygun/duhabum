@@ -29,8 +29,8 @@ export default function TransitionFrame() {
         <div style={{ display: "flex", flexDirection: "row", margin: "4%", zIndex: 500 }}>
             {[1,2,1].map( i => 
             <motion.div style={{ x, opacity, display: "flex", flexDirection: "row", margin: "8px", width:"max-content" }}>
-                <Image draggable="false" style={{ margin: "7px" }} src={"/transitions/"+i+"before.png"} height={7} width={110} alt="duha bum in dark"/>
                 <Image draggable="false" style={{ margin: "7px" }} src={"/transitions/"+i+"after.png"} height={7} width={110} alt="duha bum in dark"/>
+                <Image draggable="false" style={{ margin: "7px" }} src={"/transitions/"+i+"before.png"} height={7} width={110} alt="duha bum in dark"/>
             </motion.div>
             )}
         </div>
