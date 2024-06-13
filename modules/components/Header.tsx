@@ -37,19 +37,19 @@ export default function Header({}) {
     const { scrollYProgress } = useScroll();
     const menuScale = useTransform(scrollYProgress, [0, 0.1], [1, 0.87]);
     const menuOpaacity = useTransform(scrollYProgress, [0, 0.1], [1, 0.66]);
-    const menuy = useTransform(scrollYProgress, [0, 0.1], [10, 0]);
+    const menuy = useTransform(scrollYProgress, [0, 0.1], [20, 0]);
 
     const scrolltoFrame = (frameId:string) => {
       let element = document.getElementById(frameId);
       window.scrollTo({ top: element?.offsetTop??2000, behavior: "smooth" })
     }
-
+    
     return (
         <>
         <motion.div style={{ scale:menuScale, opacity:menuOpaacity, y:menuy }} whileHover={{opacity:1}} variants={container} initial="hidden" animate="visible" className="headerLandscape noSelect">
             <motion.div onClick={()=> scrolltoFrame("pakagesId")} variants={item} className='sectionbutton' >Paketler</motion.div>
-            <motion.div onClick={()=> scrolltoFrame("transitionsId")} variants={item} className='sectionbutton' >Değişim</motion.div>
-            <motion.div onClick={()=> scrolltoFrame("contactId")} variants={item} className='sectionbutton'>İletişim</motion.div>
+            <motion.div onClick={()=> scrolltoFrame("transitionsId")} variants={item} className='sectionbutton' >Garanti</motion.div>
+            <motion.div onClick={()=> scrolltoFrame("processId")} variants={item} className='sectionbutton'>İşleyiş</motion.div>
         </motion.div>
         <div className="headerVertical noSelect">
             <div onClick={() => setExpended(true)}>
@@ -63,8 +63,8 @@ export default function Header({}) {
                     <Cancel/>
                 </div>
                 <motion.div onClick={()=> scrolltoFrame("pakagesId")} variants={item}>Paketler</motion.div>
-                <motion.div onClick={()=> scrolltoFrame("transitionsId")} variants={item}>Değişim</motion.div>
-                <motion.div onClick={()=> scrolltoFrame("contactId")} variants={item}>İletişim</motion.div>
+                <motion.div onClick={()=> scrolltoFrame("transitionsId")} variants={item}>Garanti</motion.div>
+                <motion.div onClick={()=> scrolltoFrame("processId")} variants={item}>İşleyiş</motion.div>
             </motion.div>
             </div>:null}
             </AnimatePresence>

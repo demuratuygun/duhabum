@@ -1,70 +1,52 @@
 'use client'
 import Package from "@/modules/components/Package";
-import { motion } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import packages from '../../../content/package.json';
 import { useRouter } from "next/navigation";
 import Arrow from "@/modules/icons/cancel";
 
-import Image from 'next/image';
+
 import styles from './package.module.css';
 import Display from "@/modules/components/dialogue/Display";
 import PickNumber from "@/modules/components/dialogue/PickNumber";
 import Next from "@/modules/icons/Next";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
 import { describe } from "node:test";
+import CreditCard from "@/modules/components/dialogue/CreditCard";
+import Calculator from "@/modules/components/dialogue/Calculator";
+import Control from "@/modules/components/dialogue/Control";
+import Text from '@/modules/components/Text';
+import Select from "@/modules/components/dialogue/Select";
+import AskText from "@/modules/components/dialogue/AskText";
+import Login from "@/modules/components/Login";
 
 
-interface InputProps { turnPage: (param: number) => void }
-const Register:React.FC<InputProps> = ({turnPage}) => {
-  const [gender, setGender] = useState("man");
-
-  return(
-    <>
-    <div style={{display: 'flex', flexDirection: "column", gap: 15}}>
-
-      <div style={{ margin:"3rem 1rem", fontFamily:"'Sarpanch', sans-serif", fontWeight:800, fontSize:"2.5rem",lineHeight:"1.75rem" }}><span style={{fontSize:"1.2rem"}}>{" BASIC"}</span><br/> DUHABUM </div>
-      <input type="text" placeholder="eposta"/>
-      <input type="password" placeholder="parola belirle"/>
-      <div style={{margin: "1rem", padding: "0.3rem"}}>
-        <span style={{ opacity: gender=="man"?1:0.4}} onClick={()=>setGender("man")} className="text noSelect">erkek</span>
-        <span style={{ paddingLeft: '1rem', opacity: gender=="woman"?1:0.4}} onClick={()=>setGender("woman")} className="text noSelect">kadin</span>
-      </div>
-      
-    </div>
-    <Control turnPage={(dir) => turnPage(dir)}/>
-    </>
-  )
-}
 
 
-interface InputProps { turnPage: (param: number) => void }
-const Input:React.FC<InputProps> = ({turnPage}) => {
+interface InputProps { turnPage: (param: number) => void; name: string; }
+const Input:React.FC<InputProps> = ({turnPage, name}) => {
   const [myCard, setMyCard] = useState(true);
   
 
   return(
     <>
-    <div style={{display: 'flex', flexDirection: "column", gap: 15}}>
+    
+    <div style={{ maxWidth: "100vw", padding: "4%", display: 'flex', flexDirection: "column", gap: 15 }}>
       
-      <div style={{ position:"relative", borderRadius: "8px", backgroundColor: "#5554", width: "24rem", height: "16rem", maxWidth: "90%", margin:"5%" }}>
-        <Image style={{margin: "2rem"}} src="/chip.png" height={38} width={50} alt="duha bum in dark"/>
-        <div style={{ margin: "1.5rem 1rem", position: 'absolute', bottom: 0 }}>
-          <input className="creditcard" type="text" placeholder="ISIM SOYISIM"/>
-          <input className="creditcard" type="text" placeholder="xxxx xxxx xxxx xxxx"/>
-        </div>
-      </div>
+      <CreditCard name={name}/>
+      
+      <div style={{ marginTop: "2rem", width:"100%", lineHeight:"1.5rem" }}>
 
-      <div style={{margin:"0px 5%"}}>
-        <input className="creditcard" style={{ minWidth:"110px", width:"6rem", float:"left"}} type="text" placeholder="AY YIL"/>
-        <input className="creditcard" style={{ minWidth:"110px", width:"6rem", float:"right", textAlign:"right"}} type="text" placeholder="CVV"/>
-      </div>
-      
-      <div style={{marginTop: "2rem", margin:"5%" }}>
-        {myCard? null:<><input style={{ minWidth:"100px", width:"24rem" }} type="text" placeholder="ISIM SOYISIM"/><br/></>}
-        <input style={{ minWidth:"100px", width:"24rem" }} type="text" placeholder="TELEFON"/>
-        <div style={{margin: "0rem 1rem", padding: "0.3rem"}}>
-          <span style={{ opacity: myCard?1:0.4}} onClick={()=>setMyCard(true)} className="text noSelect">kart benim</span>
-          <span style={{ paddingLeft: '1rem', opacity: myCard?0.4:1}} onClick={()=>setMyCard(false)} className="text noSelect">baskasinin</span>
+        <div style={{ opacity: 0.5, width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
+          <div onClick={()=>setMyCard(true)} className="text noSelect">Duhabum Essential kocluk 6 ay</div>
+          <div style={{ minWidth: '6rem', textAlign: "right" }} onClick={()=>setMyCard(false)} className="text noSelect">5500₺</div>
+        </div>
+        <div style={{ opacity: 0.5, width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
+          <div onClick={()=>setMyCard(true)} className="text noSelect">%15 ogrenci indirimi</div>
+          <div style={{ minWidth: '6rem', textAlign: "right" }} onClick={()=>setMyCard(false)} className="text noSelect">-775 ₺</div>
+        </div>
+        <div style={{ width: "100%", fontSize:"2rem", fontWeight:500 ,textAlign: "right", padding: '1.8rem 0.5rem', marginTop: '0.6rem', borderTop:"1px solid #2a2a2a" }} className="text"> 
+          4775<span style={{fontWeight:500, paddingLeft:7}}>₺</span>
         </div>
       </div>
 
@@ -76,26 +58,13 @@ const Input:React.FC<InputProps> = ({turnPage}) => {
 
 
 
-
-interface CTRProps { turnPage: (param: number) => void }
-const Control:React.FC<CTRProps> = ({ turnPage }) => {
-  return(
-    <div style={{position: "fixed" , right: "5rem", display:"flex", flexDirection:"row", rotate:"90deg"}}>
-      <span style={{ rotate:"180deg", opacity: 0.5, paddingLeft: "5rem" }} onClick={() => turnPage(-1)}><Next/></span>
-      <span onClick={() => turnPage(1)}><Next/></span>
-    </div>
-  )
-}
-
-
-
-interface InfoProps { title:string, text:string, turnPage: (param: number) => void }
-const Info:React.FC<InfoProps> = ({ title, text, turnPage }) => {
+interface InfoProps { text:string, turnPage: (param: number) => void }
+const Info:React.FC<InfoProps> = ({ text, turnPage }) => {
   return(
     <>
-      <div className="noSelect" style={{ fontWeight: 200, color: "#DFDFDF99", textAlign: "left", padding: "36px 30px", fontSize: "1.3rem", lineHeight: "1.8rem", marginBottom:"1rem", maxWidth:"30rem"}}>
-        <span style={{ fontWeight: 500, position:"relative", bottom:20, color: "#DFDFDF", textAlign: "left" }}>{title}</span><br/>{text}
-      </div>
+      <p style={{ fontWeight: 400, fontSize: '1.5rem', lineHeight: '1.9rem' }}>
+        <Text text={text} />
+      </p>
       <Control turnPage={(dir) => turnPage(dir)}/>
     </>
   )
@@ -103,207 +72,207 @@ const Info:React.FC<InfoProps> = ({ title, text, turnPage }) => {
 
 
 
-interface BMRProps { setObject: (param: any, direction:number) => void }
-const BMR:React.FC<BMRProps> = ({ setObject }) => {
-
-  const [BMR, setBMR] = useState(1762);
-
-  const [height, setHeight] = useState(178);
-  const [weight, setWeight] = useState(74);
-  const [years, setYears] = useState(19);
-
-  useEffect( () => {
-    setBMR( 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * years) )
-  }, [height, weight, years] );
-
-  const turnPage = (direction: number) => {
-    setObject({"height": height, "weight": weight, "years": years, "BMR":BMR}, direction);
-  }
-
-  return(
-    <>
-      <div className={styles.container}>
-        <Display value={BMR} label="BMR" unit="Kalori / Gün" />
-        
-        <PickNumber value={height} label="boy" unit="cm"  range={[100, 270]} onChange={(diff:number) => setHeight(prevHeight=>prevHeight+diff)}/>
-        <PickNumber value={weight} label="kilo" unit="kg" range={[30, 300]} onChange={(diff:number) => setWeight(prevWeight=>prevWeight+diff)} />
-        <PickNumber value={years} label="yaş" unit="yıl" range={[10, 100]} onChange={(diff:number) => setYears(prevYears=>prevYears+diff)} />
-
-      </div>
-
-      <Control turnPage={turnPage}/>
-    </>
-  )
-
-}
 
 
-
-interface TDEEProps { BMR:number, setObject: (param: any, direction:number) => void }
-const TDEE:React.FC<TDEEProps> = ({ BMR, setObject }) => {
+interface TDEEProps { BMR:number, value: number, setList: (keys:string[],  theList:any[], direction:number) => void }
+const TDEE:React.FC<TDEEProps> = ({ BMR, value, setList }) => {
 
   const activityLevels = [
-    {level: 1, title:"Hareketsiz (Sedanter)", text: "Masa başı işte çalışanlar, günün büyük kısmını oturarak geçirenler", factor:1.2, value: 10, unit:"dk'dan az"},
-    {level: 2, title:"Hafif Aktif", text: "Günlük rutininiz bazı yürüyüşler içeriyorsa. Öğrenciler, ofis çalışanları", factor:1.375, value: 25, unit:"dk'dan a"},
-    {level: 3, title:"Orta Düzeyde Aktif", text: "Gun icinde ayakta olmayi gerektiren bir rutinin varsa, Öğretmenler, kasa görevlisi", factor:1.55, value: 40, unit:"dk'dan az"},
-    {level: 4, title:"Çok Aktif", text: "Fiziksel olarak efor gerektiren bir rutininiz varsa, posta taşıyıcıları, perekende çalışanları", factor:1.725,  value: 60, unit:"dk'dan az"},
-    {level: 5, title:"Son Derece Aktif", text: "fiziksel olarak zorlu bir rutininiz varsa, Profesyonel sporcular, ağır fiziksel işlerde çalışanlar", factor:1.9, value: 90, unit:"dk'dan çok "},
-
+    {level: 1, title:"Hareketsiz (Sedanter)", text: "Günün büyük kısmını oturarak geçirenler", factor:1.4, value: 10, unit:"dk'dan az"},
+    {level: 2, title:"Hafif Aktif", text: "Günlük rutininiz bazı yürüyüşler içeriyorsa. Öğrenci, ofis çalışanı", factor:1.5, value: 25, unit:"dk'dan a"},
+    {level: 3, title:"Orta Düzeyde Aktif", text: "Görece hareketli veya gün içinde ayakta olmayi gerektiren bir rutinin varsa, Öğretmen, Kasiyer", factor:1.6, value: 40, unit:"dk'dan az"},
+    {level: 4, title:"Çok Aktif", text: "Fiziksel olarak efor gerektiren bir rutininiz varsa, temizlik görevlisi, perekende çalışanı", factor:1.8,  value: 60, unit:"dk'dan az"},
+    {level: 5, title:"Son Derece Aktif", text: "fiziksel olarak zorlu bir rutininiz varsa, Profesyonel sporcular, ağır fiziksel işlerde çalışanlar", factor:2, value: 90, unit:"dk'dan çok "},
   ]
 
   const [TDEE, setTDEE] = useState(2423);
+  const [level, setLevel] = useState(value-1);
 
-  const [level, setLevel] = useState(1);
-  const [title, setTitle] = useState("Hafif Aktif");
-  const [text, setText] = useState("Günlük rutin yürüyüş içerir veya haftada bir veya iki kez yoğun egzersiz yapılır. Çoğu öğrenci bu kategoriye girer.");
-
-
-  useEffect( () => {
-    setTDEE( BMR* activityLevels[level]["factor"] )  
-  }, [level] );
-
-  const turnPage = (direction: number) => {
-    setObject({"level": level}, direction);
+  const calculateTDEE = ( values:number[] ) => {
+    let val = values[0]-1;
+    setLevel(val);
+    return activityLevels[val].factor * BMR;
   }
 
   return(
     <>
-      <div className={styles.container} style={{paddingBottom:"6rem"}}>
-        <Display value={TDEE} label="TDEE" unit="Kalori / Gün" />
-        <PickNumber value={activityLevels[level]["level"]} range={[1, 5]} label="seviye" unit="" onChange={(diff:number) => setLevel(prevLevel=> prevLevel+diff)}/>
-        <div className="noSelect" style={{ position:"absolute", top: "calc(50% + 4rem)", maxWidth:"20rem", padding: "36px 30px", fontWeight: 200, color: "#DFDFDFa0", textAlign: "center", fontSize: "1.1rem", lineHeight: "1.36rem"}}>
-          <span style={{ fontWeight: 500, color: "#DFDFDFe0" }}>{activityLevels[level]["title"]}</span><br/>{activityLevels[level]["text"]}
-        </div>
-      </div>
+        <Calculator key={'TDEE'} display={{label: "TDEE", unit: "Kalori / Gün", val: TDEE}}
+          Values={[{label:"seviye", val:level+1, unit:"", range:[1,5]}]} 
+          calculate={calculateTDEE} 
+          setObject={(theList:any[], direction:number) => setList(["PAL"], theList, direction)}
+        />
+        <motion.div initial={{opacity:0, y:-20}} animate={{opacity:1, y:0}} transition={{delay:0.5, duration:1}} className="noSelect" style={{ position:"absolute", left: 0, bottom: "8rem", height:"180px", width:"100%", display:"flex", alignItems: "center", justifyContent: "center", fontWeight: 200, color: "#DFDFDFa0", textAlign: "center", fontSize: "1.1rem", lineHeight: "1.36rem"}}>
+          <div style={{ width: '320px', padding: '0px 1em' }}>
+            <span style={{ fontWeight: 500, color: "#DFDFDFe0", maxWidth:"400px" }}>{activityLevels[level]["title"]}</span><br/>{activityLevels[level]["text"]}
+          </div>
+        </motion.div>
 
-      <Control turnPage={turnPage}/>
+      
     </>
   )
 
 }
-
-
-
-interface ASKProps { title:string, setObject: (param: any, direction:number) => void }
-const ASKhistory:React.FC<ASKProps> = ({ title, setObject }) => {
-
-  const [ask, setAsk] = useState(title);
-  const [GYM, setGYM] = useState(6);
-  const [trainer, setTrainer] = useState(0);
-
-  const turnPage = (direction: number) => { setObject({"trainer": trainer, "GYM":GYM}, direction) }
-
-  return(
-    <>
-      <div className={styles.container}>
-        <div className="noSelect" style={{ textAlign: "center", top:"3rem", paddingBottom: "5rem", fontWeight: 500, color: "#DFDFDF", fontSize: "1.4rem", lineHeight: "1.8rem" }}>{ask}</div>
-        <PickNumber value={GYM} label="salon" unit="ay"  range={[0, 200]} onChange={(diff:number) => setGYM(prevGYM=>prevGYM+diff)}/>
-        <PickNumber value={trainer} label="koçluk" unit="ay"  range={[0, 200]} onChange={(diff:number) => setTrainer(prevTrainer=>prevTrainer+diff)}/>
-
-      </div>
-      <Control turnPage={turnPage}/>
-    </>
-  )
-
-}
-
-
-interface ASKProps { title:string, setObject: (param: any, direction:number) => void }
-const ASKweekly:React.FC<ASKProps> = ({ title, setObject }) => {
-
-  const [ask, setAsk] = useState(title);
-  const [GYM, setGYM] = useState(5);
-  const [trainer, setTrainer] = useState(100);
-
-  const turnPage = (direction: number) => { setObject({"trainer": trainer, "GYM":GYM}, direction) }
-
-  return(
-    <>
-      <div className={styles.container}>
-        <div className="noSelect" style={{ textAlign: "center", top:"3rem", paddingBottom: "5rem", fontWeight: 500, color: "#DFDFDF", fontSize: "1.4rem", lineHeight: "1.8rem" }}>{ask}</div>
-        <PickNumber value={GYM} label="haftada" unit="gun"  range={[0, 7]} onChange={(diff:number) => setGYM(prevGYM=>prevGYM+diff)}/>
-        <PickNumber value={trainer} label="günde" unit="saat" step={10} range={[0, 360]} onChange={(diff:number) => setTrainer(prevTrainer=>prevTrainer+diff)}/>
-
-      </div>
-      <Control turnPage={turnPage}/>
-    </>
-  )
-
-}
-
-
-
-interface ASKProps { title:string, setObject: (param: any, direction:number) => void }
-const ASKbudget:React.FC<ASKProps> = ({ title, setObject }) => {
-
-  const [ask, setAsk] = useState(title);
-  const [GYM, setGYM] = useState(2000);
-  const [trainer, setTrainer] = useState(100);
-
-  const turnPage = (direction: number) => { setObject({"trainer": trainer, "GYM":GYM}, direction) }
-
-  return(
-    <>
-      <div className={styles.container}>
-        <div className="noSelect" style={{ textAlign: "center", top:"3rem", paddingBottom: "5rem", fontWeight: 500, color: "#DFDFDF", fontSize: "1.4rem", lineHeight: "1.8rem" }}>{ask}</div>
-        <PickNumber value={GYM} label="butce" unit="tl" step={200} range={[0, 100000]} onChange={(diff:number) => setGYM(prevGYM=>prevGYM+diff)}/>
-      </div>
-      <Control turnPage={turnPage}/>
-    </>
-  )
-
-}
-
 
 
 
 export default function Form({params}:{params:{pid:number}}) {
 
-  const router = useRouter()
-
-  const [data, setData] = useState<any>({});
+  const router = useRouter();
+  const [data, setData] = useState<any>({
+    gender: "ERKEK",
+    height: 178,
+    weight: 78,
+    years: 19
+  });
   const [page, setPage] = useState(0);
+
 
 
   const setObject = (theObj:any, direction:number) => {
     setData( (prevData: any) => {
       let d = {...prevData};
       for (const [key, value] of Object.entries(theObj)) d[key] = value;
+      console.log(d);
+      return d;
+    })
+    setPage( prevPage => prevPage+direction);
+  }
+
+  const setList = (keys:string[], theList:any[], direction:number) => {
+    setData( (prevData: any) => {
+      let d = {...prevData};
+      keys.forEach((element, i) => {
+         d[element] = theList[i].val;
+      });
+      console.log(d);
       return d;
     })
     setPage( prevPage => prevPage+direction);
   }
 
   const turnPage = (dir:number) => {
-    setPage( prevPage => {
-      let page = prevPage+dir;
-      if( page<0 ) router.back();
-      else if( page> 9 ) router.push("/"); 
-      return page;
-    })
+    setPage( prevPage => prevPage+dir)
   } 
 
+  useEffect(() => {
+    if( page<0 ) router.back();
+      else if( page>= questions.length ) router.push("/"); 
+  }, [page]);
+  
+  const calculateBMR = (values:number[]) => {
+    //if( data['gender'] && data['gender']=='man' )
+      return 88.362 + (13.397 * values[0]) + (4.799 * values[1]) - (5.677 * values[2]);
+    //BMR=447.593+(9.247×weight in kg)+(3.098×height in cm)−(4.330×age in year for woman
+  }
+
+  const questions = [
+          <AskText  setObject={( theList, direction) => setObject( theList, direction)}//Basal Metabolizma Hizi: vücudun dinlenme halindeyken kullandığı minimum enerji
+            question="iletişim bilgileri"
+            entries={[
+              { value: data["name"]??"", key:"name", example:[ 'isim soyisim', 'duha duman'], verify:"^[a-zA-Z ]{3,}$" },
+              { value: data["phone"]??"", key:"phone", example:[ 'telefon girin', '0 555 555 55 55'], verify:'^\\d{10,}$' }
+            ]} key="name"
+          />,
+          <Input turnPage={turnPage} name={data["name"]??""} />,
+          <Info text="Soracagimiz sorulara gore antreman plani olusturulacaktir lutfen dikkatli cevap verin" turnPage={turnPage} />,
+          <AskText key="goal" setObject={( theList, direction) => setObject( theList, direction)}
+            question="Duhabum Koçluk Hizmeti ile Hedefiniz Nedir?"
+            entries={[ { value: data["goal"]??"", key:"goal", example:[ 'örneğin; kilo verip kas oranımı korumak', 'dengeli kilo alıp kas kütlesi eklemek'], verify:'', long:true } ]} 
+          />,
+          <Select key="reach" defaultValue={data["reach"]??""} usekey="reach" question="Duhabum Koçluga Nereden Ulastiniz?" options={['instagram', 'youtube', 'tiktok', 'diğer']} setObject={( theList, direction) => setObject( theList, direction)}/>,
+          <Select key="gender" defaultValue={data["gender"]??""} usekey="gender" question="cinsiyetiniz" options={['ERKEK', 'KADIN']} setObject={( theList, direction) => setObject( theList, direction)}/>,
+          <Calculator key="BMR" 
+            display={{label: "BMR", unit: "Kalori / Gün", val: calculateBMR([data["weight"]??78, data["height"]??178, data["years"]??19])}}
+            Values={[
+              {val:data["weight"]??78, unit:"kg", label:"kilo", range:[30,300]}, 
+              {val:data["height"]??178, unit:"cm", label:"boy", range:[100,260]}, 
+              {val:data["years"]??19, unit:"yıl", label:"yaş", range:[6,100]}]} 
+            calculate={calculateBMR} 
+            setObject={(theList:any[], direction:number) => setList(["weight", "height", "years"], theList, direction)}
+          />,
+          <Info text="Toplam Enerji Harcaması: vücudunuzun bir günde yaktığı toplam kalori miktarı" turnPage={turnPage} />,
+          <TDEE BMR={calculateBMR([data.weight, data.height, data.years])??1762} value={data["PAL"]??2} setList={setList} />,
+          <Calculator key="meal" Description="Günde ortalama Kaç öğün tüketiyorsunuz?"
+            Values={[ {val:data["meals"]??2, unit:"öğün", label:"günde", range:[0,12]} ]} 
+            setObject={(theList:any[], direction:number) => setList(["meals"], theList, direction)}
+          />,
+          <AskText key="protein" setObject={( theList, direction) => setObject( theList, direction)}
+            question="protein, yağ, karbonhidrat sebze veya yeşillik olarak sık tuketiğiniz gıdaları bütçeni dikkate alarak yazar mısın"
+            entries={[
+              { value: data["protein"]??"", key:"protein", example:[ 'protein kaynakların', 'hindi, yumurta, tavuk', 'balik, kirmizi et'], verify:'' },
+              { value: data["carbohydrates"]??"", key:"carbohydrates", example:[ 'karbonhidrat kaynakların', 'makarna, bulgur, ekmek', 'pirinç, yulaf'], verify:'' },
+              { value: data["vegetable"]??"", key:"vegetable", example:[ 'sebze ve yeşillik', 'marul, salatalik', 'brokoli, biber' ], verify:'' },
+              { value: data["fats"]??"", key:"fats", example:[ 'yağ kaynakların', 'tereyagi ', 'zeytinyagi' ], verify:'' },
+            ]} 
+          />,
+          <AskText key="supplement" setObject={( theList, direction) => setObject( theList, direction)}
+            question="Supplement Kullaniyor Musunuz? Kullandiklarinizi Yazar Misiniz?"
+            entries={[ { value: data["supplement"]??"", key:"supplement", example:[ 'kullanmıyorum', 'protegin tozu', 'creatine omega 3', 'vitamin hapı'], verify:'' },]} 
+          />,
+          <Calculator key="budget" Description="Toplam beslenme veya supplement için ayırdığın veya ayırabileceiğin aylık bütçe"
+            Values={[ {val:data["budget"]??1000, unit:"tl", label:"bütçe", step:200, range:[0,99999]} ]} 
+            setObject={(theList:any[], direction:number) => setList(["budget"], theList, direction)}
+          />,
+          <AskText key="allergy" setObject={( theList, direction) => setObject( theList, direction)}
+            question="Besin Alerjiniz Var Mi?"
+            entries={[ { value: data["allergy"]??"", key:"allergy", example:[ 'Alerjen', 'yumurta', 'fıstık', 'süt, soya' ], verify:'' },]} 
+          />,
+          <AskText key="disease" setObject={( theList, direction) => setObject( theList, direction)}
+            question="Kronik Hastaliginiz Var Mi?"
+            entries={[ { value: data["disease"]??"", key:"disease", example:[ 'Kronik rahatsızlık', 'Şeker Hastalığı', 'Yüksek Tansiyon', 'Kalp Yetmezliği', 'Astim, Epilepsi' ], verify:'' },]} 
+          />,
+          <AskText key="injury" setObject={( theList, direction) => setObject( theList, direction)}
+            question="Daha önce yasadiginiz bir sakatlık var mı?"
+            entries={[ { value: data["injury"]??"", key:"injury", example:[ 'kas-iskelet sorunları', 'Menisküs Yırtığı', 'Omuz Çıkığı, Bel Ağrısı', 'Ön Çapraz Bağ (ACL) Yırtığı' ], verify:'' },]} 
+          />,
+          <Calculator key="history" Description="Daha once spor salonuna gittin mi gittiysen kaç ay"
+            Values={[ {val:data["GymHistory"]??0, unit:"ay", label:"", range:[0,300]} ]} 
+            setObject={(theList:any[], direction:number) => setList(["GymHistory"], theList, direction)}
+          />,
+          <Calculator key="gym" Description="kac aydir Aktif Olarak GYMe gidiyorsun?"
+            Values={[ {val:data["GymCurrently"]??0, unit:"ay", label:"", range:[0,300]} ]} 
+            setObject={(theList:any[], direction:number) => setList(["GymCurrently"], theList, direction)}
+          />,
+          <AskText key="chest" setObject={( theList, direction) => setObject( theList, direction)}
+            question="Her kas grubu icin formunu en iyi bildiginiz 2 egzersiz yazar mısın"
+            entries={[ 
+              { value: data["chest"]??"", key:"chest", example:[ 'göğüs', 'Bench Press, Machine Chest Fly' ], verify:'' },
+              { value: data["shoulder"]??"", key:"shoulder", example:[ 'omuz', 'Smith Machine Shoulder Press', 'Dumbbell Lateral Raise' ], verify:'' },
+              { value: data["back"]??"", key:"back", example:[ 'sırt', 'Lat Pulldown, Barbell Row' ], verify:'' },
+            ]} 
+          />,
+          <AskText key="forearm" setObject={( theList, direction) => setObject( theList, direction)}
+            question="Her kas grubu icin formunu en iyi bildiginiz 2 egzersiz yazar mısın"
+            entries={[ 
+              { value: data["forearm"]??"", key:"forearm", example:[ 'ön kol', 'Dumbell Curl, Hammer Curl' ], verify:'' },
+              { value: data["reararm"]??"", key:"reararm", example:[ 'arka kol', 'Pushdown (halat)', 'Cable Triceps Pushdown' ], verify:'' },
+              { value: data["leg"]??"", key:"leg", example:[ 'bacak', 'Leg Press, Leg extension' ], verify:'' }
+            ]} 
+          />,
+          <Calculator key="GymDays" Description="haftada kac gun kac dakika spora ayirmayi planliyorsun"
+            Values={[ 
+              {val:data["GymDaysinWeek"]??5, unit:"gün", label:"haftada", range:[1,7]}, 
+              {val:data["GymTimeinDay"]??90, unit:"dk", label:"günde", step:10, range:[0,300]} ]} 
+            setObject={(theList:any[], direction:number) => setList(["GymDaysinWeek", "GymTimeinDay"], theList, direction)}
+          />,
+          <Info text="tesekkür ederiz size en kısa sürede whatsapp üzerinden dönüş sağlayacağız " turnPage={turnPage} />
+  ];
+
+  //<Start title="Basal Metabolizma Hizi" text="vücudun dinlenme halindeyken kullandığı minimum enerji" turnPage={turnPage} />:
   return (
 
-    <main className={"center flex-col md:flex-row"}>
+    <main className={"center flex-col md:flex-row"} style={{ fontSize: "1.1rem" }}>
       
-      {/* <Input params={params}/> */}
-      
-      { page==0? <Register turnPage={turnPage} />:
-        page==1? <Info title="Basal Metabolizma Hizi" text="vücudun dinlenme halindeyken kullandığı minimum enerji" turnPage={turnPage} />:
-        page==2? <BMR setObject={setObject} />:
-        page==3? <Info title="Toplam Enerji Harcaması" text="vücudunuzun bir günde yaktığı toplam kalori miktarı" turnPage={turnPage} />:
-        page==4? <TDEE BMR={data["BMR"]??1762} setObject={setObject} />:
-        page==5? <ASKhistory title="Daha once spor salonuna gittin mi veya koçluk hizmeti aldın mı aldıysan kaç ay" setObject={setObject}/>:
-        page==6? <ASKweekly title="haftada kac gun kac dakika spora ayirmayi planliyorsun" setObject={setObject}/>:
-        page==7? <ASKbudget title="Toplam beslenme veya supplement icin ayirdigin butce" setObject={setObject}/>:
-        page==8? <Input turnPage={turnPage} />:
-        page==9? <Info title="tesekkur ederiz" text="size en kisa surede whatsapp uzerinden donus saglayacagiz" turnPage={turnPage} />:
-        null
-        
-      }
+      { questions[page] }
 
     </main>
   
   );
 }
+
+  // <AskText  setObject={( theList, direction) => setObject( theList, direction)}
+  //   question="Supplement Kullaniyor Musunuz? Kullandiklarinizi Yazar Misiniz?"
+  //   entries={[
+  //     { key:"supplement", example:['Yok', 'Whey Protein 2000 Gr', 'Protein Bar 50 Gr'], verify:'.{2,}' }
+  //   ]} 
+  // />

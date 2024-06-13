@@ -10,7 +10,7 @@ export default function PackageFrame() {
   const router = useRouter();
 
   return (
-    <div id="pakagesId" className={styles.packages} style={{ position: 'relative', width: "100vw",  padding: "0px", margin: "0px",overflow: 'clip', zIndex: 700  }}>
+    <div id="pakagesId" className={styles.packages} style={{ position: 'relative', width: "100vw",  padding: "10% 0px 0px 0px", margin: "0px", overflow: 'clip', zIndex: 700  }}>
         
         {packages.tr.map( (pack, i) => 
           <Package pack={pack} click={() => router.push( "/package/"+i )}/> 

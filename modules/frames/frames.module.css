@@ -1,4 +1,6 @@
 .picture{
+    position:absolute;
+    right: 20%;
     z-index: 9;
 } 
 .picture2 {
@@ -16,34 +18,71 @@
 
 .title {
     position: absolute;
-    top: 40%;
+    bottom: 24%;
     left: 7%;
-    max-width: 250px;
+    max-width: 420px;
     font-family: 'Sarpanch', sans-serif;
     font-size: 4rem;
-    line-height: 4rem;
+    line-height: 3.4rem;
     font-weight: 800;
-    opacity: 0.8;
     z-index: 900;
+    color: #FFF;
+    opacity: 1;
+}
+
+.description {
+    width: 100%;
+    padding: 7% 5% 0% 0%;
+    font-family: 'Saira', sans-serif;
+    font-size: 1.3rem;
+    line-height: 1.7rem;
+    font-weight: 300;
+    color: #fff8;
+}
+
+.paragraph {
+    width: 100%;
+    max-width: 50rem;
+    font-family: 'Saira', sans-serif;
+    font-size: 2rem;
+    line-height: 2.6rem;
+    font-weight: 250;
+    color: #fffb;
+    z-index: 900;
+    
 }
 
 .packages {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100vh;
+    
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 1.8rem;
+      
 }
 
 
 @media only screen and (max-width: 500px) {
     .picture {
-        margin-left: 20%;
+        right: 0%;
+        margin-left: 0%;
+
     }
+
     .title {
-        font-size: 3rem;
-        line-height: 3.1rem;
+        font-size: 3.5rem;
+        line-height: 3.2rem;
         font-weight: 800;
         opacity: 0.9;
+        top: 12%;
     }
     .packages {
         flex-direction: column;
@@ -53,4 +92,19 @@
         filter: blur(1px);
         padding-right: 12%;
     }
+    .packages {
+        align-items: center;
+    }
+
+    .paragraph {
+        padding: 2rem;
+        font-size: 1.7rem;
+        line-height: 2.1rem;
+    }
+
+    .social {
+        left: calc(3.5rem + 44px);
+
+    }
+
 }

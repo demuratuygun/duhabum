@@ -1,0 +1,135 @@
+.page {
+    width: 100%;
+    padding: 16rem 0rem;
+
+}
+
+.block {
+    margin: 2rem 0rem;
+    width: 100%;
+    color: #999;
+    transition: 1s ease;
+    display: flex;
+    justify-content: center;
+
+}
+
+.wrap {
+    max-width: 45rem;
+    width: 100%;
+}
+
+.title {
+    width: 100%;
+    font-family: 'Sarpanch', sans-serif;
+    font-size: 3rem;
+    line-height: 2.8rem;
+    font-weight: 800;
+    z-index: 900;
+    color: #FFF;
+    margin-bottom: 6rem;
+    text-transform: capitalize;
+    padding: 0rem 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.subnote {
+    font-family: 'Saira', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    font-weight: 400;
+    color: #aaa;
+}
+
+.subtitle {
+    max-width: 45rem;
+    font-family: 'Saira', sans-serif;
+    font-size: 1.7rem;
+    line-height: 1.9rem;
+    font-weight: 500;
+    width: 100%;
+    margin: 2rem 0rem;
+    padding-top: 2rem;
+    color: #fff;
+    
+}
+
+.paragraph {
+    max-width: 45rem;
+    position: relative;
+    font-family: 'Saira', sans-serif;
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+    font-weight: 350;
+    width: 100%;
+    transition: 1s ease;
+}
+
+.intro {
+    font-weight: 500;
+    color: #fff;
+    text-transform: capitalize;
+}
+
+.block:hover {
+    color: #fff;
+}
+
+.whatsapp {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: -6rem;
+    height: 100%;
+    top: 0px;
+    transition: 1s ease;
+    opacity: 0.25;
+}
+
+.whatsapp:hover {
+    opacity: 1;
+    transition: 1s ease;
+    transition-delay: 1000ms;
+}
+
+.block:hover .whatsapp {
+    display: flex;
+    transition-delay: 1000ms;
+    transition: 1s ease;
+}
+
+
+@media only screen and (max-width: 500px) {
+
+    .whatsapp {
+        position: static;
+        justify-content: left;
+        transition: 1s ease;
+        opacity: 0.44;
+        margin: 0.8rem 0rem 2rem 0rem;
+    }
+
+    .page {
+        padding: 8rem 2rem;
+        width: 100%;
+    }
+
+    .subtitle {
+        margin: 1rem 0rem;
+        margin-top: 1rem;
+    }
+
+    .title {
+        width: 100%;
+        padding: 0px;
+        font-size: 2.5rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    .wrap {
+
+    }
+}

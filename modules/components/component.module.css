@@ -1,0 +1,14 @@
+
+.counter {
+  padding: 0px 10px;
+  color: #fff4;
+  font-size: 2rem;
+  transition: 1s ease;
+}
+
+.counter:hover {
+  color: #fff;
+  font-size: 2rem;
+  transition: 1s ease;
+}
+

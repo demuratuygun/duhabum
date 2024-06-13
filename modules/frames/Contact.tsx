@@ -1,6 +1,5 @@
 'use client'
 import Image from 'next/image';
-import SocialMedia from '../components/Social';
 import { motion } from 'framer-motion';
 
 
@@ -31,7 +30,7 @@ const item = {
 
 export default function ContactFrame() {
   return (
-    <div id="contactId" className='select-none' style={{ position: "relative", display: "flex", flexDirection: 'column', justifyContent: "center", alignItems: "center", width: "100%", height: "100vh", paddingTop: "7vh" }}>
+    <div className='select-none' style={{ position: "relative", display: "flex", flexDirection: 'column', justifyContent: "center", alignItems: "center", width: "100%", height: "100vh", paddingTop: "7vh" }}>
 
         <Image draggable="false" style={{ paddingTop: '50px' }} src="/backindark.png" layout="fill" objectFit="contain" alt="duha bum in dark"/>
 
@@ -47,9 +46,7 @@ export default function ContactFrame() {
             </motion.div>
         </motion.div>
 
-        <motion.div variants={container} initial="hidden" whileInView="visible" style={{ position: "absolute", bottom: "18%", left: 0, width:'100%', }} className='center'>
-            <SocialMedia />
-        </motion.div>
+        
         
         
     </div>

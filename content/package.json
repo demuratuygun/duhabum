@@ -1,7 +1,48 @@
 {
     "tr": [
-    {"plan": "başlangıç", "price": 1999, "duration": "x 1 Ay", "content": ["Özel antreman Planı","Beslenme Planlaması","Supplement rehberliği","Düzenli Form Kontrolü", "Sınırsız whatsapp iletişim"]},
-    {"plan": "temel paket", "price": 1599, "duration": "x 3 Ay", "content": ["Özel antreman Planı","Beslenme Planlaması","Supplement rehberliği","Düzenli Form Kontrolü", "Sınırsız whatsapp iletişim", "100% gelişim garantisi"]},
-    {"plan": "premium", "price": 1500, "duration": "x 6 Ay", "content": ["Özel  antreman Planı","Beslenme Planlaması","Supplement rehberliği","Düzenli Form Kontrol","zoom/whatsapp iletişim", "100% gelişim garantisi"]}
+    {   
+        "plan": "TekSeansFit", 
+        "default":1, 
+        "prices": [0, 399], 
+        "duration": [1,1],  
+        "unit":"hafta", 
+        "content": [ 
+            "Kişisel üç antreman Planı",
+            "Beslenme Planlaması",
+            "Supplement rehberliği", 
+            "videolu egzersiz formları", 
+            "uzaktan eğitim değildir" 
+            ]},
+    {
+        "plan": "Essential", 
+        "default":3, 
+        "prices": [1000, 999, 949, 915, 874, 832, 791, 749, 708, 666, 624, 583, 650], 
+        "duration": [1,12], 
+        "unit":"ay",  
+        "content": [
+            "100% gelişim garantisi", 
+            "Kişisel antreman Planı",
+            "Beslenme Planlaması",
+            "Supplement rehberliği",
+            "Haftalık Form Kontrolü", 
+            "Sınırsız whatsapp iletişim" 
+            ]
+        },
+    {
+        "plan": "Premium", 
+        "default":3, 
+        "prices": [2000, 1999, 1933, 1866, 1799, 1733, 1666, 1599, 1533, 1466, 1399, 1333, 1266, 1450], 
+        "duration": [1,12], 
+        "unit":"ay", 
+        "content": [
+            "100% gelişim garantisi", 
+            "Özel  antreman Planı",
+            "Beslenme Planlaması",
+            "Supplement rehberliği",
+            "Haftalık Form Kontrol",
+            "Sınırsız whatsapp iletişim", 
+            "Detaylı Videolu Görüşme"
+        ]
+    }
   
 ]}

@@ -39,8 +39,114 @@
 
 .pickContainer {
     width: 100%;
+    margin: 0;
+    padding: 0%;
     text-align: center;
-    padding: 1rem 2rem;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.pickLabel {
+    color: #DFDFDF80;
+    font-size: 1.2em;
+    font-weight: 500;
+    padding-right: 9px;
+    vertical-align: baseline;
+
+}
+
+.pickNumber {
+    color: #DFDFDF;
+    font-size: 1.8em;
+    font-weight: 500;
+    vertical-align: baseline;
+
+}
+
+.pickUnit {
+    color: #DFDFDF80;
+    font-size: 1.2em;
+    font-weight: 500;
+    vertical-align: baseline;
+
+}
+
+.pickSign {
+    color: #ffffff3b;
+    padding: 0px 2%;
+    font-size: 2.2em;
+    font-weight: 300;
+    vertical-align: baseline;
+    transition: 1.5s ease;
+
+
+}
+
+.pickSign:hover {
+    color: #fffb;
+    transition: 1.5s ease;
+}
+
+input.pickNumber {
+    color: #DFDFDF;
+    font-size: 1.8em;
+    font-weight: 600;
+    vertical-align: baseline;
+    max-width: 120px;
+    text-align: center;
+    padding: 0px;
+    margin: 0px 2px;
+    text-align: center;
+    display: inline;
+}
+
+input.pickNumber:hover {
+    color: #fff;
+
+
+    
+}
+
+
+
+.container {
+    width: 20rem;
+    font-family: 'Saira', sans-serif;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.5rem;
+
+}
+
+.CalculatorTop {
+    text-align: center;
+    width: 100%;
+    position: relative;
+    top:-4rem;
+}
+
+.CalculatorText {
+    padding: 0;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    
+}
+
+.select {
+    color: #DFDFDF88;
+    font-size: 1.25em;
+    line-height: 1.66rem;
+    padding: 0.7rem 0px;
+    text-align: center;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
@@ -48,42 +154,80 @@
 
 }
 
-.pickInner {
-    display: inline;
-    vertical-align: baseline;
+.select:hover {
+    color: #FFFc;
+    transition: 1s ease;
 }
 
-.pickLabel {
-    color: #DFDFDF80;
+.askTextExample {
+    top: 0;
+    left: 0;
+    position: absolute;
+    font-weight: 400;
     font-size: 1.2rem;
-    font-weight: 600;
-    padding-right: 9px;
+    padding: 10px 12px;
+    transition: 1s ease;
+    z-index: 0;
+    color: #DFDFDF58;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.askTextCaret {
+    display: inline-block;
+    width: 1.3px;
+    height: 1.5rem;
+    background-color: #fff;
+    position: absolute;
+    top:13px;
+    left:5%;
+    animation: blink 1.4s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+.TextEnterContainer {
+    position: relative; 
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
 
 }
 
-.pickNumber {
-    color: #DFDFDF;
-    font-size: 1.8rem;
-    font-weight: 600;
+@media only screen and (max-width: 500px) {
 
-}
+    .container {
+        width: 100vw;
+        height: 100vh;
+        gap: 0rem;
+    }
 
-.pickUnit {
-    color: #DFDFDF80;
-    font-size: 1.2rem;
-    font-weight: 600;
+    .CalculatorTop {
+        position: absolute;
+        top: 0rem;
+    }
 
-}
+    .CalculatorText {
+        padding: 3rem 2.3rem;
+    }
 
-.pickSign {
-    float: right;
-    font-size: 2rem;
-    padding: 0rem 0.5rem 1rem 0.5rem;
-    position: relative;
-    top: -4px;
-}
+    .TextEnterContainer{
+        width: 90%;
+        margin: 5%;
+    }
 
-.pickSign:hover {
-    color: #1BE2A6;
-    transition: 1.5s ease;
 }

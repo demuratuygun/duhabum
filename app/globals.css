@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
+
 :root {
   --foreground-rgb: 214, 219, 220;
   --background-start-rgb: 0, 0, 0;
@@ -52,6 +57,14 @@ body {
   transition: 1s ease;
 }
 
+.control {
+  position: fixed;
+  right: 5rem;
+  display: flex;
+  flex-direction: row;
+  rotate: 90deg;
+}
+
 
 .box {
   background-color: #28282866;
@@ -60,6 +73,22 @@ body {
   border: #66666650 solid 1px;
   border-radius: 12px;
 }
+
+p {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+  font-family: 'Saira', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #DFDFDFCD;
+  margin: 1rem;
+  max-width:300px;
+  text-align: center;
+}
+
+
 
 button {
   background-color: #66666650;
@@ -75,67 +104,106 @@ button {
 button:hover {
   background-color: #66666666;
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: #66666650 solid 1px;
   border-radius: 12px;
   padding: 10px 25px;
 }
 
+
+
+
+textarea {
+  font-family: 'Saira', sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  background-color: #0000;
+  border: #66666650 solid 0px;
+  border-radius: 8px;
+  padding: 9px 10px;
+  transition: 1s ease;
+  color: #DFDFDF;
+}
+
+textarea::placeholder{
+  color: #0000;
+}
+
+textarea:focus::placeholder {
+  color: #DFDFDF60;
+  text-align: center;
+}
+
+textarea:focus {
+  background-color: #5552;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 1.2rem;
+  transition: 1s ease;
+}
+
 input {
   font-family: 'Saira', sans-serif;
   font-weight: 400;
+  font-size: 1.2rem;
   background-color: #0000;
-  -webkit-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px);
   border: #66666650 solid 0px;
   border-radius: 8px;
   padding: 9px 20px;
   transition: 1s ease;
-  min-width: 320px;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-}
-
-input.creditcard {
-  background-color: #5550;
-  backdrop-filter: blur(12px);
-  padding: 9px 16px;
-  font-size: 1.3rem;
-  transition: 1s ease;
-  letter-spacing: 0.1rem;
-
-}
-
-input.creditcard:focus  {
-  color:#3DE581;
-  background-color: #5550;
-  backdrop-filter: blur(12px);
-  font-size: 1.3rem;
-  padding:  9px 16px;
-  transition: 1s ease;
+  color: #DFDFDF;
 }
 
 input:focus {
-  background-color: #5554;
-  backdrop-filter: blur(12px);
+  background-color: #5552;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 11px 20px;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   transition: 1s ease;
 }
 
+input.verifyed:focus {
+  background-color: #5554;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 11px 20px;
+  font-size: 1.2rem;
+  transition: 1s ease;
+  color: #DFDFDF;
+}
+
 input::placeholder {
-  color: #DFDFDF44;
+  color: #DFDFDF00;
   opacity: 1; /* Firefox */
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
   cursor: default;
+  font-size: 1.2rem;
+}
+
+input:focus::placeholder {
+  color: #DFDFDF60;
+  text-align: center;
+  opacity: 1; /* Firefox */
+  font-size: 1.4rem;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+  font-size: 1.2rem;
 }
 
 input::-ms-input-placeholder { /* Edge 12 -18 */
   text-align: right;
-  color: #DFDFDF44;
+  color: #DFDFDF60;
+  font-size: 1.4rem;
+  border-bottom: #66666650 solid 1px;
+
 }
+
 
 .icons {
   opacity: 0.66;
@@ -168,6 +236,12 @@ input::-ms-input-placeholder { /* Edge 12 -18 */
   color: #3DE581;
   transition: 1s ease;
 }
+
+::selection {
+  color: #3DE581;    
+  background-color: #000;
+}
+
 
 @media only screen and (max-width: 500px) {
 
@@ -204,4 +278,16 @@ input::-ms-input-placeholder { /* Edge 12 -18 */
     z-index: 990;
   }
   
+  .control {
+    position: fixed;
+    bottom: 5rem;
+    right: 0rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    rotate: 0deg;
+  }
+
 }
