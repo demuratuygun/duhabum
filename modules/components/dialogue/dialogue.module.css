@@ -165,7 +165,7 @@ input.pickNumber:hover {
     position: absolute;
     font-weight: 400;
     font-size: 1.2rem;
-    padding: 10px 12px;
+    padding: 0.8rem;
     transition: 1s ease;
     z-index: 0;
     color: #DFDFDF58;
@@ -184,7 +184,7 @@ input.pickNumber:hover {
     height: 1.5rem;
     background-color: #fff;
     position: absolute;
-    top:13px;
+    top:1rem;
     left:5%;
     animation: blink 1.4s step-end infinite;
 }

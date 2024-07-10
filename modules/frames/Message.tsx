@@ -45,13 +45,14 @@ export default function MessageFrame() {
 
         <motion.div variants={container} initial="hidden" whileInView="visible"  className={styles.title}> 
           
-          <Text text="%15 ogrenci indirimi" />
+          <Text text="Her Asamada Yanindayim" />
           
           <motion.div className={styles.description} variants={item}>
-              Bu indirimden yararlanmak için, öğrenci belgenizi göndermeniz gerekmektedir.
-              <div className='noSelect icons' style={{ width: "100%", paddingTop: '4%', display:"flex", flexDirection:"row", justifyContent:"start" }}>
-                <ArrowUp /> <div style={{ fontSize: "1.7rem", fontWeight: 400,  }}> INCELE </div>
-              </div>
+              Sorularını anında yanıtlıyor, planlamadan uygulamaya her adımı birlikte atıyoruz
+              <a href="/article/Isleyis" className={styles.goto}>
+                <div> INCELE </div>
+                <ArrowUp color={"#fff"}/>
+              </a>
             </motion.div>
         
         </motion.div>

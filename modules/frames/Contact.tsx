@@ -35,7 +35,7 @@ export default function ContactFrame() {
         <Image draggable="false" style={{ paddingTop: '50px' }} src="/backindark.png" layout="fill" objectFit="contain" alt="duha bum in dark"/>
 
         <motion.div drag="x" dragConstraints={{ left: -300, right: 300 }} style={{ zIndex:900}}>
-          <motion.div variants={container} initial="hidden" whileInView="visible" className={'flex flex-row m-2 pb-8 z-50 h-max noSelect'}>
+          <motion.div className={'flex flex-row m-2 pb-8 z-50 h-max noSelect'}>
             {[1,1,1].map( i => 
             <motion.div variants={item} style={{ display: "flex", flexDirection: "column", margin: "1rem", width: "250px", padding: "2.2rem 2rem" }} className='box'>
                 <Image draggable="false" style={{ marginBottom: "1.5rem" }} src={"/profiles/"+i+".png"} height={96} width={96} alt="duha bum in dark"/>

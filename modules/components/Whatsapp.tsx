@@ -32,7 +32,6 @@ export default function whatsapp({}) {
         <div className='box' style={{width:'300px', zIndex:1000, position:'fixed', left: '2rem', bottom: '2rem'}}> 
           <TextEnter focus={false} 
               Value={""}
-              keyword={"whatsapp"} 
               verify={""} 
               examples={['bana istedigini sorabilirsin', 'bir merhaba de sana donelim']}
               caret long

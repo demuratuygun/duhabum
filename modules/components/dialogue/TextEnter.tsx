@@ -4,9 +4,8 @@ import styles from './dialogue.module.css';
 import Text from '../Text'; 
 
 
-interface CalculatorProps {  
-  keyword: string;
-  verify: string;
+interface CalculatorProps {
+  verify?: string;
   question?: string;
   examples: string[];
   long?: boolean;
@@ -16,9 +15,10 @@ interface CalculatorProps {
   focus?: boolean;
   caret?: boolean;
   Value?: string;
+  border?: boolean;
 }
 
-export default function TextEnter({ keyword, verify, Value, examples, long=false, caret=true, onChange, onBlur=()=>null, onFocus=()=>null, focus=false }: CalculatorProps) {
+export default function TextEnter({ verify, Value, examples, long=false, caret=true, onChange, onBlur=()=>null, onFocus=()=>null, focus=false, border=false }: CalculatorProps) {
 
   const [value, setValue] = useState(Value??"");
   const [example, setExample] = useState(0);
@@ -86,7 +86,7 @@ export default function TextEnter({ keyword, verify, Value, examples, long=false
                 value={value} ref={textareaRef} 
               />
               :
-              <input style={{ width:'100%', zIndex:1000, position:"relative", textAlign: value.length>0?'center':'left' }} 
+              <input style={{ width:'100%', zIndex:1000, position:"relative", textAlign: value.length>0?'center':'left', backgroundColor: "#66666650", padding: "0.8rem", border: border?'#66666650 solid 1px':'none',  }} 
                 placeholder={examples[0]}
                 onFocus={() => {setIsFocus(true);onFocus();}} 
                 onBlur={() => {setIsFocus(false); onBlur();}} 

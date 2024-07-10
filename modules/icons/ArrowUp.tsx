@@ -1,13 +1,15 @@
 'use client'
 
-export default function ArrowUp() {
+
+
+export default function ArrowUp({color="#FFF8"}:{color?: string}) {
     
     return (
-      <svg style={{ width: "1em", height:"1.4rem", margin:'0.2rem 1rem 0px 0px', padding:0, }} 
+      <svg style={{ width: "0.8em", height:"0.8em", margin:'0.2em 0.6em', padding:0, }} 
         viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg"
       >
         <g filter="url(#filter0_d_192_573)">
-          <path d="M1.5 2L25.5 2M25.5 2V26M25.5 2L1.5 26"  stroke="#727272" stroke-width="3" stroke-linecap="round"/>
+          <path d="M1.5 2L25.5 2M25.5 2V26M25.5 2L1.5 26"  stroke={color} stroke-width="4" stroke-linecap="round"/>
         </g>
         <defs>
         <filter id="filter0_d_192_573" x="0" y="0" width="102" height="102" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">

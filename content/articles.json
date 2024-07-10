@@ -1,31 +1,27 @@
 {
     "tr": {
         "IadePolitikamiz": {
-            "title": "iade Politikamiz",
+            "title": "İade Politikamız",
             "content": [
                 {"paragraph": "Duhabum Fitness Online Koçluk Hizmeti olarak müşteri memnuniyeti önceliğimizdir. Sunduğumuz hizmetten tam anlamıyla memnun kalmamanız durumunda iade politikamız aşağıdaki koşullara göre işler:"},
-                {"intro":"Program Hazırlanmadı İade Garantisi: ", "paragraph": "Eğer öğrencinin antrenman programı henüz hazırlanmamışsa, kesintisiz bir şekilde iade sağlanır. Bu durumda ödemiş olduğunuz ücret tamamen iade edilir."},
-                {"intro":"Program Tamamlandıysa: ", "paragraph": "Eğer öğrencinin beslenme ve antrenman programı hazırlandıysa ve hizmetten yararlanıldıysa, iade politikamız şu şekildedir: İade talebinizde, ödemiş olduğunuz ücretten 449 TL kesilerek kalan tutarın tamamı iade edilir."},
-                {"intro":"Program Süresi İçinde İade Talebi: ", "paragraph": "Eğer öğrenci programın ortasında iade talebinde bulunmak isterse, örneğin 3 aylık bir program aldı ve 1. aydan sonra iade talebinde bulunuyorsa, 1. ayın ücreti indirimsiz fiyattan düşülerek kalan tutar iade edilir."},
+                {"intro": "Ödeme Yapıldı Ama Sürece Başlanmadı: ", "paragraph": "Eğer öğrenci programı almışsa ve sürece başlamamışsa öğrenci için üzerinde çalışılan beslenme, antrenman ve kardiyo programının ücreti (599 TL) düşülerek diğer tutarın tamamı iade edilir."},
+                {"intro": "Program Süresi İçinde İade Talebi: ", "paragraph": "Eğer öğrenci programın ortasında iade talebinde bulunmak isterse, örneğin 3 aylık bir program aldı ve 1. aydan sonra iade talebinde bulunuyorsa, 1. ayın ücreti indirimsiz fiyattan düşülerek kalan tutar iade edilir."},
                 {"paragraph": "İade taleplerinizde, ödeme yapılan yönteme bağlı olarak iade işlemleriniz en kısa sürede gerçekleştirilir."},
                 {"paragraph": "Lütfen iade talebiniz için iletişim bilgileri üzerinden bizimle iletişime geçiniz."}
             ]
         },
         "Isleyis": {
-            "title": "Surec nasil calisir",
+            "title": "Süreç Nasıl Çalışır",
             "content": [
-                {"paragraph":"Duhabum olarak, üyelerimize sağladığımız hizmetlerin etkin ve şeffaf bir şekilde yürütülmesi için belirli bir süreç takip ediyoruz. Üyelik sürecinizin başında size iki dosya gönderiyoruz"},
-                
-                {"header": "İlk Dosya", "paragraph":"Bu dosya, size özel olarak hazırlanan antrenman, beslenme ve kardiyo planlarını içerir. Ayrıca, ilerlemenizi takip edebilmeniz için bir ölçüm tablosu da bu dosyadadir."},
-                {"intro":"Antrenman Planı: ", "paragraph": "Kişisel fitness hedeflerinize uygun olarak hazırlanan antrenman programı. Her bir egzersiz için video desteği sağlanmaktadır."},
-                {"intro":"Beslenme Planı: ", "paragraph": "Sağlıklı beslenme ilkelerine dayalı kişisel beslenme planı."},
-                {"intro":"Kardiyo Planı: ", "paragraph": "Kondisyonunuzu artırmak için tasarlanmış kardiyo egzersizleri."},
-                {"intro":"Ölçüm Tablosu: ", "paragraph": "İlerlemenizi izlemek için kullanabileceğiniz ölçüm tablosu."},
-
-                {"header": "İkinci dosya"},
-                {"intro":"Takip Checklist'i: ", "paragraph": "Sizinle birlikte ilerlemenizi takip edeceğimiz bir checklist bulunur. Bu checklist, WhatsApp üzerinden bize gönderdiğiniz kanıtlara dayalı olarak doldurulacaktır. Örneğin, beslenme checklist'inde, size verdiğimiz öğünleri yediğinize dair WhatsApp üzerinden fotoğraf gönderdiğinizde, biz de o günü checklist'e ekleyeceğiz. Aynı şekilde, antrenmanlarınızı ve kardiyo seanslarınızı tamamladığınıza dair kanıtlarınızı bize ilettiğinizde, bu bilgileri checklist'e işleyeceğiz."},
-                {"paragraph": "Üyelerimiz, bu checklistte yer alan görevlerin %85'ini veya daha fazlasını tamamladığında ve buna rağmen vücutlarında herhangi bir değişim gözlemlenmediğinde, koşulsuz para iadesi garantisi sunuyoruz. Bu şekilde, programlarımızın etkinliğini ve sizin memnuniyetinizi garanti altına alıyoruz."}
-
+                {"paragraph": "Duhabum olarak, üyelerimize sağladığımız hizmetlerin etkin ve şeffaf bir şekilde yürütülmesi için belirli bir süreç takip ediyoruz. Üyelik sürecinizin başında size iki dosya gönderiyoruz."},
+                {"header": "İlk Dosya", "paragraph": "Bu dosya, size özel olarak hazırlanan antrenman, beslenme ve kardiyo planlarını içerir. Ayrıca, ilerlemenizi takip edebilmeniz için bir ölçüm tablosu da bu dosyadadır."},
+                {"intro": "Antrenman Planı: ", "paragraph": "Kişisel fitness hedeflerinize uygun olarak hazırlanan antrenman programı. Her bir egzersiz için video desteği sağlanmaktadır."},
+                {"intro": "Beslenme Planı: ", "paragraph": "Sağlıklı beslenme ilkelerine dayalı kişisel beslenme planı."},
+                {"intro": "Kardiyo Planı: ", "paragraph": "Kondisyonunuzu artırmak için tasarlanmış kardiyo egzersizleri."},
+                {"intro": "Ölçüm Tablosu: ", "paragraph": "İlerlemenizi izlemek için kullanabileceğiniz ölçüm tablosu."},
+                {"header": "İkinci Dosya"},
+                {"intro": "Takip Checklist'i: ", "paragraph": "Sizinle birlikte ilerlemenizi takip edeceğimiz bir checklist bulunur. Bu checklist, WhatsApp üzerinden bize gönderdiğiniz kanıtlara dayalı olarak doldurulacaktır. Örneğin, beslenme checklist'inde, size verdiğimiz öğünleri yediğinize dair WhatsApp üzerinden fotoğraf gönderdiğinizde, biz de o günü checklist'e ekleyeceğiz. Aynı şekilde, antrenmanlarınızı ve kardiyo seanslarınızı tamamladığınıza dair kanıtlarınızı bize ilettiğinizde, bu bilgileri checklist'e işleyeceğiz."},
+                {"paragraph": "Üyelerimiz, bu checklist'te yer alan görevlerin %80'ini veya daha fazlasını tamamladığında ve buna rağmen vücutlarında herhangi bir değişim gözlemlenmediğinde, koşulsuz para iadesi garantisi sunuyoruz. Bu şekilde, programlarımızın etkinliğini ve sizin memnuniyetinizi garanti altına alıyoruz."}
             ]
         }
     }

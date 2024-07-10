@@ -102,10 +102,10 @@ button {
 }
 
 button:hover {
-  background-color: #66666666;
+  background-color: #fff2;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: #66666650 solid 1px;
+  border: #fff8 solid 1px;
   border-radius: 12px;
   padding: 10px 25px;
 }
@@ -148,7 +148,7 @@ input {
   font-size: 1.2rem;
   background-color: #0000;
   border: #66666650 solid 0px;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 9px 20px;
   transition: 1s ease;
   color: #DFDFDF;

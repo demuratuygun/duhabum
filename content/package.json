@@ -3,8 +3,8 @@
     {   
         "plan": "TekSeansFit", 
         "default":1, 
-        "prices": [0, 399], 
-        "duration": [1,1],  
+        "prices": [599], 
+        "duration": [1],  
         "unit":"hafta", 
         "content": [ 
             "Kişisel üç antreman Planı",
@@ -12,12 +12,13 @@
             "Supplement rehberliği", 
             "videolu egzersiz formları", 
             "uzaktan eğitim değildir" 
-            ]},
+            ]
+    },
     {
         "plan": "Essential", 
-        "default":3, 
-        "prices": [1000, 999, 949, 915, 874, 832, 791, 749, 708, 666, 624, 583, 650], 
-        "duration": [1,12], 
+        "default":12, 
+        "prices": [1099, 2799, 5999], 
+        "duration": [1,3,12], 
         "unit":"ay",  
         "content": [
             "100% gelişim garantisi", 
@@ -27,12 +28,12 @@
             "Haftalık Form Kontrolü", 
             "Sınırsız whatsapp iletişim" 
             ]
-        },
+    },
     {
         "plan": "Premium", 
-        "default":3, 
-        "prices": [2000, 1999, 1933, 1866, 1799, 1733, 1666, 1599, 1533, 1466, 1399, 1333, 1266, 1450], 
-        "duration": [1,12], 
+        "default":12, 
+        "prices": [1999,4999,9999], 
+        "duration": [1,3,12], 
         "unit":"ay", 
         "content": [
             "100% gelişim garantisi", 

@@ -16,6 +16,18 @@
     padding-right: 40%;
 }
 
+.countdown {
+    position: absolute;
+    font-family: 'Sarpanch', sans-serif;
+    font-size: 10rem;
+    line-height: 3.4rem;
+    font-weight: 500;
+    z-index: 900;
+    color: #FFF;
+    opacity: 1;
+    text-align: center;
+}
+
 .title {
     position: absolute;
     bottom: 24%;
@@ -32,12 +44,13 @@
 
 .description {
     width: 100%;
-    padding: 7% 5% 0% 0%;
+    padding-top: 7%;
     font-family: 'Saira', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     line-height: 1.7rem;
-    font-weight: 300;
-    color: #fff8;
+    font-weight: 400;
+    color: #fff9;
+    letter-spacing: 0.04;
 }
 
 .paragraph {
@@ -67,6 +80,57 @@
     position: absolute;
     bottom: 1.8rem;
       
+}
+
+.goto {
+    opacity: 0.6;
+    transition: 1s ease;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+    width: 100%;
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: #fff;
+    animation: blink 1.4s step-end infinite;
+}
+
+.goto:hover {
+    opacity: 1;
+}
+
+.countdownDescription {
+    width: 100%;
+    max-width: 800px;
+    padding-top: 1rem;
+    padding-bottom: 2.5rem;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    font-weight:400
+}
+
+.countdownWrap {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: row;
+    align-items:last baseline;
+}
+
+.countdownButton{
+    font-size: 1.5rem;
+    max-width: 5rem;
+    height: 3.5rem;
+    margin-left: 0.5rem;
+    font-weight: 700;
+    background-color: #FFF;
+    color: #222;
 }
 
 
@@ -105,6 +169,27 @@
     .social {
         left: calc(3.5rem + 44px);
 
+    }
+
+    .countdown {
+        font-size: 4rem;
+    }
+
+    .countdownDescription {
+        padding: 1rem 1.2rem;
+        font-size: 1.3rem;
+        line-height: 1.8rem;
+        font-weight:400
+    }
+
+    .countdownWrap {
+        flex-direction:column;
+        
+    }
+
+    .countdownButton{
+        margin: 0rem 1.2rem;
+        
     }
 
 }

@@ -60,10 +60,12 @@
     position: relative;
     font-family: 'Saira', sans-serif;
     font-size: 1.5rem;
-    line-height: 2.5rem;
+    line-height: 2.4rem;
+    letter-spacing: 0.03em;
     font-weight: 350;
     width: 100%;
     transition: 1s ease;
+    
 }
 
 .intro {
@@ -121,10 +123,15 @@
         margin-top: 1rem;
     }
 
+    .paragraph {
+        font-size: 1.1rem;
+        
+    }
+
     .title {
         width: 100%;
         padding: 0px;
-        font-size: 2.5rem;
+        font-size: 2.4rem;
         display: flex;
         justify-content: center;
     }

@@ -106,7 +106,6 @@ export default function AskText({ question, entries, long=false, setObject }: Ca
           {entries.map( (entry, i) => 
             <TextEnter focus={focus==i} 
               Value={entry.value??""}
-              keyword={entry.key} 
               verify={entry.verify} 
               examples={entry.example} 
               long={entry.long??false} 
