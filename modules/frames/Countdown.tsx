@@ -92,7 +92,7 @@ export default function Countdown() {
   return (
     <div style={{ position: "fixed", top:0, left:0, width:'100vw', height:'100vw', display:close?'none':'block', zIndex:999, transition: '1s ease', overflow:'clip'}}>
 
-    <div style={{ position:'absolute', top:0, left:0, width:'100vw', height:'100vw', backgroundColor: "#0009", zIndex:999, transition: '1s ease' }} onClick={()=>setClose(true)}></div>
+    <div className='box' style={{ position:'absolute', top:0, left:0, width:'100vw', height:'100vw', zIndex:999, transition: '1s ease', borderRadius:0, border:'none' }} onClick={()=>setClose(true)}></div>
 
     <div className={styles.emailFrame} >
 

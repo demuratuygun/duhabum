@@ -40,54 +40,62 @@ const offers = {
 
 export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, months:number, setObject:(param: any, direction: number) => void }) {
     
-      const [discounts, setDiscounts] = useState<discount[]>([]);
-      const [code, setCode] = useState("");
-      const [installment, setInstallment] = useState<number>(12);
-      const [selected, setSelected] = useState(0);
+    const [discounts, setDiscounts] = useState<discount[]>([]);
+    const [code, setCode] = useState("");
+    const [installment, setInstallment] = useState<number>(12);
+    const [selected, setSelected] = useState(0);
+    const [options, setOptions] = useState([
+        {duration: 3, plan:'Essential', price: 2799},
+        {duration: 6, plan:'Essential', price: 3840}
+    ]);
 
-      const [options, setOptions] = useState([
-            {duration: 3, plan:'Essential', price: 2799},
-            {duration: 6, plan:'Essential', price: 3840}
-        ]);
+    const checoutRef = useRef({
+        code: code,
+        promotions: discounts,
+        plan: plan,
+        option: options[selected],
+        installment: selected === 0 && installment > 6 ? 6 : installment,
+        installmentRate: installmentRates[(selected === 0 && installment > 6 ? 6 : installment) - 1]
+    });
 
-        const [checout, setChecout] = useState({
-            code: code,
-            promotions:discounts,
-            plan: plan,
-            option: options[selected],
-            installment: selected==0 && installment>6? 6 : installment,
-            installmentRate: installmentRates[(selected==0 && installment>6? 6 : installment)-1]
-        });
     
     
-      const turnPage = (direction: number) => {
-        console.log(checout)
-        setObject( {checkout: checout}, direction);
+    const turnPage = ( direction: number ) => {
+        console.log(checoutRef.current)
+        setObject( {checkout: checoutRef.current}, direction);
+    }
 
-      }
-
-      useEffect( () => {
-        
-        setChecout(
-            {
+    useEffect( () => {
+        let c = {
                 code: code,
                 promotions:discounts,
                 plan: plan,
+
                 option: options[selected],
+                
                 installment: selected==0 && installment>6? 6 : installment,
                 installmentRate: installmentRates[(selected==0 && installment>6? 6 : installment)-1]
             }
-        )
-      }, [code, discounts, options, selected, installment, plan]);
+        checoutRef.current = c;
+        console.log(c);
 
-      const onChange = (change:string) => {
+    }, [code, discounts, options, selected, installment, plan]);
+
+    const onChange = (change:string) => {
+    
         change = change.toUpperCase();
-        for (const [key, value] of Object.entries(codes))
-            if(change == key) setDiscounts(value)
+        for (const [key, value] of Object.entries(codes)) {
+            if(change == key) {
+                setDiscounts(value);
+                
+                break;
+            }
+        }
         setCode( change )
-      }
+    }
 
-      useEffect( () => {
+    useEffect( () => {
+
         let code = localStorage.getItem("code");
         if(code) onChange(code);
 
@@ -114,7 +122,7 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
                 {discounts?.length>0?
 
                     discounts?.map( (promo, index) => 
-                        <div className={styles.CalculatorText} style={{ fontSize: "1.3rem", width:"%100" }}>
+                        <div key={`discountRow-${index}`} className={styles.CalculatorText} style={{ fontSize: "1.3rem", width:"%100" }}>
                             <Text text={`%${promo.rate} ${promo.name}`+(index==discounts.length-1?" ile":'')} />
                         </div>
                     )
@@ -132,10 +140,10 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
             { options.map( (option, index) => {
 
                 const divide = option.duration<3? Math.min(3,installment): option.duration<5? Math.min(6, installment) : installment;
-                const amount = Math.floor((discounts.reduce((a,b)=>a*(100-b.rate)/100, option.price*installmentRates[divide-1]))/divide);
+                const amount = Math.floor((discounts.reduce((a,b)=>a*(100-b.rate)/100, option.price)*installmentRates[divide-1])/divide);
         
                 return (
-                <motion.div animate={{opacity:1}} initial={{opacity:0}} transition={{duration:1}} className='box noSelect' onClick={()=>setSelected(index)}
+                <motion.div key={'offerBox-'+index} animate={{opacity:1}} initial={{opacity:0}} transition={{duration:1}} className='box noSelect' onClick={()=>setSelected(index)}
                     style={{width:'100%', padding: '2rem', fontSize: "1.3rem", backgroundColor:selected==index?'#aaaaaa24':'#0000', position:"relative", marginBottom: '0.5rem', border: index>0?"#fff4 solid 1px":'' }}
                 >
                     { 
@@ -173,7 +181,7 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
           
           </div>
     
-          <Control turnPage={turnPage} />
+          <Control turnPage={ (direction: number) => turnPage(direction) } />
      
         </>
       );

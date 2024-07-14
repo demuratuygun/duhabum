@@ -98,7 +98,7 @@ export default function TextEnter({ verify, Value, examples, long=false, caret=t
             {
             value.length==0 && !isFocus? examples.map( 
                 (opt, i) => i==example?
-                    <div className={styles.askTextExample} style={{zIndex:0}}>
+                    <div key={'example'+i} className={styles.askTextExample} style={{zIndex:0}}>
                         <Text text={examples[example]} speed={0.1}/>
                     </div>
                 :null)

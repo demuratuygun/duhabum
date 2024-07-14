@@ -1,62 +1,20 @@
 'use client'
-import Package from "@/modules/components/Package";
+
 import { motion, useScroll } from "framer-motion";
 import packages from '../../../../content/package.json';
 import { useRouter } from "next/navigation";
-import Arrow from "@/modules/icons/cancel";
 
-
-import styles from './package.module.css';
-import Display from "@/modules/components/dialogue/Display";
-import PickNumber from "@/modules/components/dialogue/PickNumber";
-import Next from "@/modules/icons/Next";
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
-import { describe } from "node:test";
+import { useEffect, useState } from "react";
 import CreditCard from "@/modules/components/dialogue/CreditCard";
 import Calculator from "@/modules/components/dialogue/Calculator";
 import Control from "@/modules/components/dialogue/Control";
 import Text from '@/modules/components/Text';
 import Select from "@/modules/components/dialogue/Select";
 import AskText from "@/modules/components/dialogue/AskText";
-import Login from "@/modules/components/Login";
 import MakeOffer from "@/modules/components/dialogue/MakeOffer";
 import Checkout from "@/modules/components/dialogue/Checkout";
+import Payment from "@/modules/components/Payment";
 
-
-
-
-interface InputProps { turnPage: (param: number) => void; name: string; }
-const Input:React.FC<InputProps> = ({turnPage, name}) => {
-  const [myCard, setMyCard] = useState(true);
-  
-
-  return(
-    <>
-    
-    <div style={{ maxWidth: "100vw", padding: "4%", display: 'flex', flexDirection: "column", gap: 15 }}>
-      
-      <CreditCard name={name}/>
-      
-      <div style={{ marginTop: "2rem", width:"100%", lineHeight:"1.5rem" }}>
-
-        <div style={{ opacity: 0.5, width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
-          <div onClick={()=>setMyCard(true)} className="text noSelect">Duhabum Essential kocluk 6 ay</div>
-          <div style={{ minWidth: '6rem', textAlign: "right" }} onClick={()=>setMyCard(false)} className="text noSelect">5500₺</div>
-        </div>
-        <div style={{ opacity: 0.5, width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
-          <div onClick={()=>setMyCard(true)} className="text noSelect">%15 ogrenci indirimi</div>
-          <div style={{ minWidth: '6rem', textAlign: "right" }} onClick={()=>setMyCard(false)} className="text noSelect">-775 ₺</div>
-        </div>
-        <div style={{ width: "100%", fontSize:"2rem", fontWeight:500 ,textAlign: "right", padding: '1.8rem 0.5rem', marginTop: '0.6rem', borderTop:"1px solid #2a2a2a" }} className="text"> 
-          4775<span style={{fontWeight:500, paddingLeft:7}}>₺</span>
-        </div>
-      </div>
-
-    </div>
-    <Control turnPage={(dir) => turnPage(dir)}/>
-    </>
-  )
-}
 
 
 
@@ -177,7 +135,7 @@ export default function Form({params}:{params:{packageId:number, month:string}})
               { value: data["phone"]??"", key:"phone", example:[ 'telefon girin', '0 555 555 55 55'], verify:'^\\d{10,}$' }
             ]} key="name"
           />,
-          <Input turnPage={turnPage} name={data["name"]??""} />,
+          <Payment data={data.checkout} setObject={turnPage} name={data["name"]??""} />,
           <Info text="Soracagimiz sorulara gore antreman plani olusturulacaktir lutfen dikkatli cevap verin" turnPage={turnPage} />,
           <AskText key="goal" setObject={( theList, direction) => setObject( theList, direction)}
             question="Duhabum Koçluk Hizmeti ile Hedefiniz Nedir?"

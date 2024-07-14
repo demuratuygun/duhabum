@@ -45,7 +45,7 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
 
       {duration == 1 ? null :
         <div style={{ zIndex:100, position: "absolute", top: '-0.8rem', width: "calc(100% - 6rem)", display:'flex', justifyContent:'center' }}>
-          <div style={{ width:'fit-content', backgroundColor: pack.plan=="Premium"? "#dec016":"#ccc", color: "#222", padding: '0.1rem 1rem', borderRadius: "0.5rem", fontSize: "1rem", fontWeight: 600 }}>
+          <div style={{ width:'fit-content', backgroundImage: 'url("silver.jpg")', filter:'brightness(0.8)', color: "#222", padding: '0.1rem 1rem', borderRadius: "0.5rem", fontSize: "1rem", fontWeight: 600 }}>
             aylik %{Math.ceil((1- (pack.prices[pack.duration.indexOf(duration)]/pack.duration[pack.duration.indexOf(duration)]/mothlyFullPrice))*100)  } daha az
           </div>
         </div>

@@ -31,44 +31,74 @@ interface checkoutType {
 
 export default function Checkout({ data, setObject}:{ data:checkoutType, setObject:(param: any, direction: number) => void }) {
     
-    const [discounts, setDiscounts] = useState<discount[]>([]);
-    //const [data, setData] = useState(data);
+    const [date, setDate] = useState((new Date()).toLocaleString("tr-TR"));
+
+    const countdown = () => {
+        setTimeout(() => {
+            setDate((new Date()).toLocaleString("tr-TR"));
+            countdown();
+        }, 1000);
+      };
 
     useEffect(() => {
-        console.log(data)
+        console.log(data);
+        countdown();
     }, [])
 
     const turnPage = (direction: number) => {
 
 
 
-        setObject( {checkout: {}}, direction);
+        setObject( {}, direction);
 
     };
+
+    const monthlyPayment = Math.round(data.promotions.reduce((a,b)=>a*(100-b.rate)/100, data.option.price)*data.installmentRate/data.installment)
 
     return (
         <>
 
-            <div style={{ marginTop: "2rem", width:"100%", lineHeight:"1.5rem", position:'relative' }}>
+            <div style={{ marginBottom: "2rem", width:"100%", lineHeight:"1.5rem", position:'relative', fontWeight: 300 }}>
 
-                <div style={{ position:'absolute', top: '-5rem', left: 0, color: "#fff3", fontSize: "4rem", fontWeight: 100 }}>{data.code}</div>
+                <div style={{  width: "100%", color: "#fff3", padding:'0.9rem', paddingBottom: '1.8rem', fontSize: "1.9rem", fontWeight: 100, lineHeight:"2.3rem"}}>
+                    {date}<br/>
+                    <div style={{ color: "#fff3", fontSize: "2rem", fontWeight: 100 }}>{data.code??''}</div>
+                </div>
 
                 <div style={{ opacity: 1, width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
-                    <div className="text noSelect">6 aylık Essential Plan </div>
-                    <div style={{ minWidth: '6rem', textAlign: "right" }} className="text noSelect">5500 ₺</div>
+                    <div className="text noSelect">{data.option.duration} aylık {data.option.plan} Plan </div>
+                    <div style={{ minWidth: '6rem', textAlign: "right" }} className="text noSelect">{data.option.price} ₺</div>
                 </div>
-                <div style={{ opacity: 0.5, width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
-                    <div className="text noSelect">%15 ogrenci indirimi</div>
-                    <div style={{ minWidth: '6rem', textAlign: "right" }} className="text noSelect">-775 ₺</div>
-                </div>
-                <div style={{ opacity: 0.5, width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem', marginTop:'1rem', paddingTop: '2rem', borderTop:"#666 solid 1px"  }}>
-                        <div className="text noSelect">6 ay taksit </div>
-                        <div style={{ minWidth: '6rem', textAlign: "right" }} className="text noSelect">aylik 500 ₺</div>
+                
+                {data.promotions.map((promo,i) => 
+                    {
+                        const lastamount = Math.round(data.promotions.slice(0, i).reduce((a,b)=>a*(100-b.rate)/100, data.option.price));
+                        const amount = Math.round(data.promotions.slice(0, i+1).reduce((a,b)=>a*(100-b.rate)/100, data.option.price));
+                        return(
+                    <div style={{ opacity: 0.5, width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
+                        <div className="text noSelect">{`%${promo.rate} ${promo.name}`} </div>
+                        <div style={{ minWidth: '6rem', textAlign: "right" }} className="text noSelect">- {lastamount - amount} ₺</div>
                     </div>
-                <div style={{ width: "100%", fontSize:"2rem", fontWeight:400 ,textAlign: "right", padding: '1.8rem 0rem', marginTop: '0.6rem', }} className="text"> 
-                    4775<span style={{fontWeight:500, paddingLeft:7}}>₺</span>
-                    
+                    )}
+                )
+                }
+
+                { data.installment>1?
+                    <div style={{ opacity: 0.5, width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
+                        <div className="text noSelect"> vade farkı </div>
+                        <div style={{ minWidth: '6rem', textAlign: "right" }} className="text noSelect">+ {monthlyPayment*data.installment - Math.round(data.promotions.reduce((a,b)=>a*(100-b.rate)/100, data.option.price))} ₺</div>
+                    </div> : null
+                }
+                
+                <div style={{ opacity: 0.5, width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem', marginTop:'1rem', paddingTop: '2.7rem', borderTop:"#666 solid 1px"  }}>
+                        <div className="text noSelect">{data.installment} ay taksitle </div>
+                        <div style={{ minWidth: '6rem', textAlign: "right" }} className="text noSelect">aylik {monthlyPayment} ₺</div>
+                    </div>
+                <div style={{ width: "100%", fontSize:"2rem", fontWeight:300 ,display: "flex", justifyContent:'space-between', padding: '0.9rem', paddingTop: "1.6rem" }} className="text"> 
+                    <div style={{ color: "#fff3", fontSize: "2rem", fontWeight: 100 }}>{''}</div>
+                    <div>{monthlyPayment*data.installment}<span style={{fontWeight:500, paddingLeft:7}}>₺</span></div>
                 </div>
+                
             </div>
 
     
