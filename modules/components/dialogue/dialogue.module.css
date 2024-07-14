@@ -78,7 +78,7 @@
 }
 
 .pickSign {
-    color: #ffffff3b;
+    color: #ffffff88;
     padding: 0px 2%;
     font-size: 2.2em;
     font-weight: 300;
@@ -214,6 +214,8 @@ input.pickNumber:hover {
         width: 100vw;
         height: 100vh;
         gap: 0rem;
+        padding: 0rem 1rem 5rem 1rem;
+
     }
 
     .CalculatorTop {

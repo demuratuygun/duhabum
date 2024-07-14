@@ -78,15 +78,15 @@ export default function TextEnter({ verify, Value, examples, long=false, caret=t
           animate="visible"
         >
             { long?
-              <textarea style={{ width:'100%', height: Math.max((value.length/12),6)+"em", zIndex:1000, position:"relative", textAlign: value.length>0?'center':'left' }} 
+              <textarea style={{ width:'100%', height: Math.max((value.length/12),6)+"em", zIndex:1000, position:"relative", textAlign: value.length>0?'center':'left', backgroundColor: '#4443' }} 
                 placeholder={examples[0]}
                 onFocus={() => {setIsFocus(true);onFocus()}} 
-                onBlur={() => {setIsFocus(false); onBlur();}} 
+                onBlur={() => {setIsFocus(false); onBlur();}}   
                 onChange={handleChange}
                 value={value} ref={textareaRef} 
               />
               :
-              <input style={{ width:'100%', zIndex:1000, position:"relative", textAlign: value.length>0?'center':'left', backgroundColor: "#66666650", padding: "0.8rem", border: border?'#66666650 solid 1px':'none',  }} 
+              <input style={{ width:'100%', zIndex:1000, position:"relative", textAlign: value.length>0?'center':'left',  padding: "0.8rem", border: border?'#888 solid 1px':'none', backgroundColor: '#4443' }}
                 placeholder={examples[0]}
                 onFocus={() => {setIsFocus(true);onFocus();}} 
                 onBlur={() => {setIsFocus(false); onBlur();}} 

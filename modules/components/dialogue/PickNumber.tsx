@@ -40,21 +40,18 @@ export default function PickNumber({value, onChange, label, unit, range, step=1}
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    const sum = useCallback(async (sign:number) => {
+    const sum = useCallback((sign:number) => {
         setNumber((prevNumber:number) => {
-            let newNumber;
+            let newNumber = prevNumber + (sign * step);
             if (Array.isArray(range)) {
-                newNumber = prevNumber + (sign * step);
                 if (range[0] > newNumber) return range[0];
-                else if (range[1] < newNumber) return range[1];
+                if (range[1] < newNumber) return range[1];
             } else if (range) {
                 const currentIndex = range.values.indexOf(prevNumber);
                 const nextIndex = currentIndex + sign;
                 if (nextIndex < 0) return range.values[0];
-                else if (nextIndex >= range.values.length) return range.values[range.values.length - 1];
+                if (nextIndex >= range.values.length) return range.values[range.values.length - 1];
                 newNumber = range.values[nextIndex];
-            } else {
-                newNumber = prevNumber + (sign * step);
             }
             return newNumber;
         });
@@ -65,7 +62,7 @@ export default function PickNumber({value, onChange, label, unit, range, step=1}
         await sleep(1000);
 
         let iteration = 1;
-        while (isHolding.current == holdCount) {
+        while (isHolding.current === holdCount) {
             sum(sign);
             await sleep(iteration < 12 ? 600 - (40 * iteration) : 100);
 
@@ -90,7 +87,9 @@ export default function PickNumber({value, onChange, label, unit, range, step=1}
         }
     }, [number, range, onChange]);
 
-    useEffect(() => setNumber(value), [value]);
+    useEffect(() => {
+        setNumber(value)
+    }, [value]);
 
     useEffect(() => {
         return () => {
@@ -100,7 +99,7 @@ export default function PickNumber({value, onChange, label, unit, range, step=1}
 
     return (
         <div className={styles.pickContainer}>
-            <span style={{color: (!range || (Array.isArray(range) && range[0] < number) || (range && !Array.isArray(range) && range.values[0] < number)) ? '#ffffff3b' : '#ffffff18'}}
+            <span style={{color: (!range || (Array.isArray(range) && range[0] < number) || (range && !Array.isArray(range) && range.values[0] < number)) ? '#ffffff66' : '#ffffff3b'}}
                 className={styles.pickSign} 
                 onClick={() => sum(-1)}
                 onTouchStart={() => onDown(-1)}
@@ -118,7 +117,7 @@ export default function PickNumber({value, onChange, label, unit, range, step=1}
                 <span className={styles.pickUnit}>{unit}</span>
             </div>
               
-            <span style={{color: (!range || (Array.isArray(range) && number < range[1]) || (range && !Array.isArray(range) && number < range.values[range.values.length - 1])) ? '#ffffff3b' : '#ffffff18'}}
+            <span style={{color: (!range || (Array.isArray(range) && number < range[1]) || (range && !Array.isArray(range) && number < range.values[range.values.length - 1])) ? '#ffffff66' : '#ffffff3b'}}
                 className={styles.pickSign} 
                 onClick={() => sum(1)}
                 onTouchStart={() => onDown(1)} 

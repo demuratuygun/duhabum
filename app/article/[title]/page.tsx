@@ -1,5 +1,6 @@
 'use client'
 import articles from '../../../content/articles.json';
+import packages from '../../../content/package.json';
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import styles from './article.module.css';
@@ -35,6 +36,7 @@ export default function Article({ params }: { params: { title: string } }) {
     useEffect(() => {
         const articleData = articlesData.tr[params.title];
         if (articleData) {
+            //articleData.replace();
             setArticle(articleData);
         } else {
             router.push('/404');

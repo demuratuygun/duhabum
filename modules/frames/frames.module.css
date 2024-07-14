@@ -133,6 +133,24 @@
     color: #222;
 }
 
+.countdownButton:hover{
+    background-color: #3DE581;
+    color: #222;
+}
+
+.emailFrame {
+    z-index:999;
+    transition: 1s ease;
+    width: 80%;
+    height: 80vh;
+    top: 10vh;
+    left: 10%;
+    border: #fff solid 1px;
+    position: absolute;
+    border-radius: 2rem;
+    background-color: #000;
+    overflow: hidden;
+}
 
 @media only screen and (max-width: 500px) {
     .picture {
@@ -190,6 +208,11 @@
     .countdownButton{
         margin: 0rem 1.2rem;
         
+    }
+
+    .emailFrame {
+        width: 90%;
+        left: 5%;
     }
 
 }

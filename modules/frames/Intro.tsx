@@ -35,7 +35,7 @@ export default function IntroFrame() {
     <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100vh", paddingTop: "20vh" }}>
         
         <motion.div viewport={{amount:'some'}} initial={{opacity:0}} whileInView={{opacity:1}} transition={{duration:2}} exit={{opacity:0, transition:{duration:3}}} className={styles.picture}>
-          <Image className='noSelect' src="/duha2.png" height={800} width={610} alt="duha bum in dark"/>
+          <Image className='noSelect' src="/duha2.png" height={800} width={610} style={{zIndex:2}} alt="duha bum in dark"/>
         </motion.div>
         
         <motion.div 

@@ -1,7 +1,7 @@
 'use client'
 import Package from "@/modules/components/Package";
 import { motion, useScroll } from "framer-motion";
-import packages from '../../../content/package.json';
+import packages from '../../../../content/package.json';
 import { useRouter } from "next/navigation";
 import Arrow from "@/modules/icons/cancel";
 
@@ -19,6 +19,8 @@ import Text from '@/modules/components/Text';
 import Select from "@/modules/components/dialogue/Select";
 import AskText from "@/modules/components/dialogue/AskText";
 import Login from "@/modules/components/Login";
+import MakeOffer from "@/modules/components/dialogue/MakeOffer";
+import Checkout from "@/modules/components/dialogue/Checkout";
 
 
 
@@ -115,7 +117,7 @@ const TDEE:React.FC<TDEEProps> = ({ BMR, value, setList }) => {
 
 
 
-export default function Form({params}:{params:{pid:number}}) {
+export default function Form({params}:{params:{packageId:number, month:string}}) {
 
   const router = useRouter();
   const [data, setData] = useState<any>({
@@ -166,7 +168,9 @@ export default function Form({params}:{params:{pid:number}}) {
   }
 
   const questions = [
-          <AskText  setObject={( theList, direction) => setObject( theList, direction)}//Basal Metabolizma Hizi: vücudun dinlenme halindeyken kullandığı minimum enerji
+          <MakeOffer plan={packages.tr[params.packageId]} months={parseInt(params.month)} setObject={( theList, direction) => setObject( theList, direction)}/>,
+          <Checkout setObject={( theList, direction) => setObject( theList, direction)} data={data.checkout??{}}/>,
+          <AskText setObject={( theList, direction) => setObject( theList, direction)}//Basal Metabolizma Hizi: vücudun dinlenme halindeyken kullandığı minimum enerji
             question="iletişim bilgileri"
             entries={[
               { value: data["name"]??"", key:"name", example:[ 'isim soyisim', 'duha duman'], verify:"^[a-zA-Z ]{3,}$" },

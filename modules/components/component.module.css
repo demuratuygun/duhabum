@@ -12,3 +12,11 @@
   transition: 1s ease;
 }
 
+.gradientText {
+  background: linear-gradient(to right, #66FA75, #2CDAED);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* Additional vendor prefixes for better compatibility */
+  background-clip: text;
+  text-fill-color: transparent;
+}

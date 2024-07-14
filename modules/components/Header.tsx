@@ -40,7 +40,7 @@ export default function Header({}) {
     const menuy = useTransform(scrollYProgress, [0, 0.1], [20, 0]);
 
     const scrolltoFrame = (frameId:string) => {
-      let element = document.getElementById(frameId);
+      const element = document.getElementById(frameId);
       window.scrollTo({ top: element?.offsetTop??2000, behavior: "smooth" })
     }
     

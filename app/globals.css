@@ -131,11 +131,12 @@ textarea::placeholder{
 
 textarea:focus::placeholder {
   color: #DFDFDF60;
+  background-color: #6664;
   text-align: center;
 }
 
 textarea:focus {
-  background-color: #5552;
+  background-color: #0000;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   font-size: 1.2rem;

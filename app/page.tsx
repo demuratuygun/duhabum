@@ -23,6 +23,7 @@ export default function Home() {
       <Whatsapp />
       
       <div style={{ position: "absolute", top: 0, left:0, display: 'flex', flexDirection: 'column', gap: "200px", width: '100%', overflow: 'clip' }}>
+        
         <Countdown />
         <IntroFrame />
         <MessageFrame />
