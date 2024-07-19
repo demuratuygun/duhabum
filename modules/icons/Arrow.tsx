@@ -12,7 +12,7 @@ export default function Arrow() {
     return (
         <motion.svg variants={item} className="icons" style={{width: "5rem", height:"5rem", margin: "2rem 0rem 0rem 0.6rem"}} viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_d_192_573)">
-        <path d="M69 48.1535L51.3503 65M51.3503 65L33 48.1535M51.3503 65V29"  stroke="white" stroke-width="5" stroke-linecap="round"/>
+        <path d="M69 48.1535L51.3503 65M51.3503 65L33 48.1535M51.3503 65V29"  stroke="white" stroke-width="5" strokeLinecap="round"/>
 
         </g>
         <defs>

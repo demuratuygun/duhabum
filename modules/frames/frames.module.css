@@ -16,17 +16,7 @@
     padding-right: 40%;
 }
 
-.countdown {
-    position: absolute;
-    font-family: 'Sarpanch', sans-serif;
-    font-size: 10rem;
-    line-height: 3.4rem;
-    font-weight: 500;
-    z-index: 900;
-    color: #FFF;
-    opacity: 1;
-    text-align: center;
-}
+
 
 .title {
     position: absolute;
@@ -105,19 +95,34 @@
     opacity: 1;
 }
 
-.countdownDescription {
+.countdown {
+    font-family: 'Sarpanch', sans-serif;
+    font-size: 10rem;
+    line-height: 3.4rem;
+    font-weight: 500;
+    z-index: 900;
+    color: #FFF;
+    opacity: 1;
+    text-align: center;
+    min-width: 600px;
+    
+}
+
+.countdownPromotion {
     width: 100%;
     max-width: 800px;
-    padding-top: 1rem;
-    padding-bottom: 2.5rem;
-    font-size: 1.4rem;
+    padding: 1.5rem 0rem;
     line-height: 2rem;
-    font-weight:400
+    font-size: 4rem;
+    line-height: 3rem;
+    font-weight: 500;
+    color: #B7FE04;
+    text-align: center;
 }
 
 .countdownWrap {
     width: 100%;
-    max-width: 500px;
+    max-width: 420px;
     display: flex;
     flex-direction: row;
     align-items:last baseline;
@@ -131,10 +136,11 @@
     font-weight: 700;
     background-color: #FFF;
     color: #222;
+    padding-top: 0.5rem;
 }
 
 .countdownButton:hover{
-    background-color: #3DE581;
+    background-color: #B7FE04;
     color: #222;
 }
 
@@ -150,6 +156,12 @@
     border-radius: 2rem;
     background-color: #000;
     overflow: hidden;
+}
+
+.stopwatch {
+    font-family: 'Sarpanch', sans-serif;
+    font-size: 6rem;
+    margin: 0rem;
 }
 
 @media only screen and (max-width: 500px) {
@@ -191,28 +203,39 @@
 
     .countdown {
         font-size: 4rem;
+        min-width: none;
+        padding: 1rem;
     }
 
-    .countdownDescription {
-        padding: 1rem 1.2rem;
-        font-size: 1.3rem;
-        line-height: 1.8rem;
-        font-weight:400
+    .countdownPromotion {
+        padding: 0.5rem;
+        font-size: 3rem;
+        line-height: 3rem;
+        font-weight: 500;
+        color: #B7FE04;
+        padding-bottom: 1rem;
+
     }
 
     .countdownWrap {
         flex-direction:column;
+
         
     }
 
     .countdownButton{
-        margin: 0rem 1.2rem;
-        
+        margin: 0rem 5%;
+        width: 90%;
+        max-width: none;
     }
 
     .emailFrame {
         width: 90%;
         left: 5%;
+    }
+
+    .stopwatch {
+        font-size: 4rem;
     }
 
 }

@@ -1,10 +1,8 @@
 'use client'
 import articles from '../../../content/articles.json';
-import packages from '../../../content/package.json';
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import styles from './article.module.css';
-import Whatsapp from '@/modules/components/Whatsapp';
 import Logo from '@/modules/icons/Logo';
 
 interface ArticleContent {
@@ -87,8 +85,7 @@ export default function Article({ params }: { params: { title: string } }) {
     return (
         <main className={styles.page} onClick={(e) => console.log(e)}>
 
-            <div style={{ position: "fixed", right: 16, bottom: 16, zIndex:900, scale:0.7 }}
-                onClick={() => router.push('/') }><Logo type='big'/></div>
+            <div style={{ position: "fixed", right: 20, top: 30, zIndex:1000 }} onClick={() => router.push("/")}><Logo type=''/></div>
 
             <div className={styles.title}>
                 <div className={styles.wrap}>
@@ -98,7 +95,7 @@ export default function Article({ params }: { params: { title: string } }) {
              </div>
            
             {article.content.map((section, index) => (
-                <div key={index+1} className={styles.block} id={"paragraph"+(index+1)}>
+                <div key={"paragraph"+index+1} className={styles.block} id={"paragraph"+(index+1)}>
                     <div className={styles.wrap}>
                         
                         {section.header && <h2 className={styles.subtitle}>{section.header}</h2>}

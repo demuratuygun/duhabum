@@ -84,6 +84,8 @@ export default function Transition() {
         objectFit="contain"
         alt="duha bum in dark"
       />
+      
+      <motion.div drag="x" dragConstraints={{ left: -300, right: 300 }} style={{ zIndex:900}}>
       <div style={{ display: 'flex', flexDirection: 'row', margin: '4%', zIndex: 500 }}>
         {[1, 2, 1].map((i) => (
           <motion.div
@@ -109,6 +111,8 @@ export default function Transition() {
           </motion.div>
         ))}
       </div>
+      </motion.div>
+      
       <motion.div className={styles.paragraph} variants={item}>
         3 aylık veya daha uzun bir programa kayıt olun. Antrenman, beslenme ve kardiyo planının en az %80'ini uygulayın.
         Değişim görmezseniz paranız iade!

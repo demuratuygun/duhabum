@@ -17,7 +17,7 @@ const container = {
         }
   },
   visible: {
-    opacity: 0.7, y: 0,
+    opacity: 1, y: 0,
     transition: {
       type: "tween",
           delayChildren: 0.5,
@@ -36,18 +36,25 @@ interface datatype {
   phone?:string
 }
 
-export default function Countdown() {
+export default function Countdown({close}: {close: Function}) {
 
   const [counter, setCounter] = useState(180);
-  const [close, setClose] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
   const [data, setData] = useState<datatype>({});
   const [inputState, setInputState] = useState<string>("email");
-
+  const [focus, setFocus] = useState(false);
 
   useEffect(() => {
     let code = localStorage.getItem("code");
-    if(code) setClose(true);
+    if(code) close();
+    countdown(counter);
+
+    const handleKeydownWrapper = (e: KeyboardEvent) => setFocus(true);
+    window.addEventListener('keydown', handleKeydownWrapper);
+    return () => {
+      window.removeEventListener('keydown', handleKeydownWrapper);
+    };
+
   }, []);
 
   const countdown = (count:number) => {
@@ -60,10 +67,6 @@ export default function Countdown() {
       setCounter(0);
     }
   };
-
-  useEffect( () => {
-    countdown(counter);
-  }, [])
 
   const onChange = (value:string) => {
     setData(prevData => {
@@ -90,58 +93,64 @@ export default function Countdown() {
   }
 
   return (
-    <div style={{ position: "fixed", top:0, left:0, width:'100vw', height:'100vw', display:close?'none':'block', zIndex:999, transition: '1s ease', overflow:'clip'}}>
+    <div style={{ position: "fixed", top:0, left:0, width:'100vw', height:'100vh', zIndex:1000, transition: '1s ease', overflow:'clip'}}>
 
-    <div className='box' style={{ position:'absolute', top:0, left:0, width:'100vw', height:'100vw', zIndex:999, transition: '1s ease', borderRadius:0, border:'none' }} onClick={()=>setClose(true)}></div>
+    <div style={{ backgroundColor:'#0008', position:'absolute', top:0, left:0, width:'100vw', height:'100vh', zIndex:999, borderRadius:0, border:'none' }} onClick={() => close()}></div>
 
-    <div className={styles.emailFrame} >
+    <div className={styles.emailFrame} onClick={() => setFocus(false)}>
+      
+      <div style={{ position:"absolute", background: "#000 url('emailPromo.jpg') no-repeat 100%/100%", top:0, left:0, width: '100%', height:'100%', zIndex:10, opacity:0.7, filter:"blur(2px)", backgroundPosition:'center',  }}></div>
 
-      <div style={{ position: "absolute", top:'2rem', right: '2rem', zIndex:998 }} onClick={() => setClose(true)}>
-        <Cancel/>     
+      <div style={{ position: "absolute", top:'2rem', right: '2rem', zIndex:998 }} onClick={() => close()}>
+        <Cancel/>
       </div>
     
-      <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "100%", paddingTop: "20vh" }}>
-        
-        <motion.div viewport={{amount:'some'}} initial={{opacity:0}} whileInView={{opacity:1}} transition={{duration:2}} exit={{opacity:0, transition:{duration:3}}} className={styles.picture}>
-          <Image className='noSelect' src="/duha2.png" height={800} width={610} alt="duha bum in dark"/>
-        </motion.div>
-        
-        <motion.div 
-          variants={container} 
-          initial="hidden" 
-          whileInView="visible" 
-          className={styles.countdown}
-          style={{opacity:1, color: '#FFF'}}
-        > 
-            <Text text={ inputState=="code"? (isStudent?"VIP720":"VIP620"): "00:"+(Math.floor(counter/60)+"").padStart(2, '0')+":"+(counter%60+"").padStart(2, '0')}/>
+      <div style={{ position: 'absolute', display: "flex", justifyContent: "center", alignItems: "center", flexDirection:'column', width: "100%", height: "100%", zIndex:500 }}>
 
-            <motion.div className={styles.description} variants={item} style={{ width: "100%", paddingTop: "4rem", textAlign:"center", display: 'flex', justifyContent:'center', flexDirection:"column", color: '#fff' }}>
-             
-              <div className={styles.countdownDescription}>
-                {inputState=="code"? "24 saat geçerli indirim kodunu sana uygun paketi seçtikten hemen sonra taksitlendirme sayfasinda kullanabilirsin":
-                inputState=="student"? "öğrenci olduğunu okul kartı belgesi veya üniversite e posta adresin ile kanıtlayabilir misin?":
-                "Üye ol %20 VIP indiriminden ve ek %15 öğrenci indiriminden yararlan gelişmelerden haberdar ol"}
-              </div>
-              { inputState=="code"?null: inputState=="student"?
-                <div style={{ width: '100%', display:'flex', justifyContent:'center', fontSize:"2rem" }}>
-                  <div className={styles.countdownWrap} style={{ fontSize: '1.5rem', width:"100%", display:'flex', justifyContent:"center", gap:"1rem" }}>
-                    <button onClick={() => {setIsStudent(true);setInputState('code');localStorage.setItem("code", 'VIP720');}} > EVET </button>
-                    <button onClick={() => {setIsStudent(false);setInputState('code');localStorage.setItem("code", 'VIP620');}} > HAYIR </button>
-                  </div>
-                </div>
-                :
-                <div style={{ width: '100%', display:'flex', justifyContent:'center', fontSize:"2rem" }}>
-                  <div className={styles.countdownWrap}>
-                    <TextEnter key={inputState} examples={inputState=="email"? ["e posta", "isimsoyisim@gmail.com"]:["telefon numarasi", "0 5XX XXX XX XX"]} border onChange={onChange} />
-                    <button onClick={() => handleClick()} className={styles.countdownButton}>→</button>
-                  </div>
-                </div>
-                
-              }
+        <div style={{ width: "100%", maxWidth: "700px", textAlign:"center", display: 'flex', justifyContent:'center', flexDirection:"column", color: '#fff', fontWeight: 400, fontSize:"1.1rem" }}>
               
-            </motion.div>
-            
-        </motion.div>
+          <div className={styles.stopwatch}>
+            {inputState=="code"||inputState=="email"?<Text text={ inputState=="code"? (isStudent?"VIP720":"VIP620"): "00:"+(Math.floor(counter/60)+"").padStart(2, '0')+":"+(counter%60+"").padStart(2, '0') }/>:null}
+          </div>
+
+          <div style={{ background: "radial-gradient(#000, #0000 80%)", width: "100%", padding:'2rem' }}>
+            <div>
+                {inputState=="email"||inputState=="phone"? "TÜM PAKETLERDE GEÇERLİ":  null}
+            </div>
+                  
+            <div className={styles.countdownPromotion} >  
+              {inputState=="email"||inputState=="phone"? "%35 İNDİRİM":null}
+            </div>
+
+            <div>
+              {inputState=="code"? "24 saat geçerli indirim kodunu sana uygun paketi seçtikten hemen sonra taksitlendirme sayfasinda kullanabilirsin":
+              inputState=="student"? "öğrenci olduğunu okul kartı belgesi veya üniversite e posta adresin ile kanıtlayabilir misin?":
+              "%20 VIP %15 EK ÖĞRENCİ İNDİRİMİ"}
+            </div>
+          </div>
+
+        </div>
+
+        <div style={{ width:"100%" }}>
+
+        { inputState=="code"?null: inputState=="student"?
+          <div style={{ width: '100%',  display:'flex', justifyContent:'center', fontSize:"2rem" }}>
+            <div className={styles.countdownWrap} style={{ fontSize: '1.5rem', width:"100%", display:'flex', justifyContent:"center", gap:"1rem" }}>
+              <button key="yes" onClick={() => {setIsStudent(true);setInputState('code');localStorage.setItem("code", 'VIP720');}} > EVET </button>
+              <button key="no" onClick={() => {setIsStudent(false);setInputState('code');localStorage.setItem("code", 'VIP620');}} > HAYIR </button>
+            </div>
+          </div>
+                :
+          <div style={{ width: '100%', display:'flex', justifyContent:'center', fontSize:"2rem" }}>
+            <div className={styles.countdownWrap}>
+              <TextEnter key={inputState} focus={focus} examples={inputState=="email"? ["e posta", "isimsoyisim@gmail.com"]:["telefon numarasi", "0 5XX XXX XX XX"]} border onChange={onChange} />
+              <button key="next" onClick={() => handleClick()} className={styles.countdownButton}>→</button>
+            </div>
+          </div>
+                
+        }
+        </div>
+              
       </div>
     
     </div>

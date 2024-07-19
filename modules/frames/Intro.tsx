@@ -5,6 +5,8 @@ import Arrow from '../icons/Arrow';
 import { motion } from 'framer-motion';
 import Text from '../components/Text';
 import ArrowUp from '../icons/ArrowUp';
+import Countdown from './Countdown';
+import { useState } from 'react';
 
 const container = {
   hidden: { 
@@ -31,7 +33,12 @@ const item = {
 }
 
 export default function IntroFrame() {
+  const [close, setClose] = useState(false);
+
   return (
+    <>
+    {close? null: <Countdown close={() => setClose(true)}/> }
+
     <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100vh", paddingTop: "20vh" }}>
         
         <motion.div viewport={{amount:'some'}} initial={{opacity:0}} whileInView={{opacity:1}} transition={{duration:2}} exit={{opacity:0, transition:{duration:3}}} className={styles.picture}>
@@ -58,6 +65,7 @@ export default function IntroFrame() {
             
         </motion.div>
     </div>
+    </>
   );
 }
 

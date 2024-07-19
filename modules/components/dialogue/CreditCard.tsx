@@ -47,6 +47,9 @@ export default function CreditCard({name=''}:{name?:string}) {
 
     const [isFlipped, setIsFlipped] = useState(false);
 
+    const [focus, setFocus] = useState(0);
+
+
     const nameInput = useRef<HTMLInputElement>(null);
     const numberInput = useRef<HTMLInputElement>(null);
     const expireInput = useRef<HTMLInputElement>(null);
@@ -61,6 +64,13 @@ export default function CreditCard({name=''}:{name?:string}) {
         diners: /^3(?:0[0-5]|[68])/,
         jcb: /^(?:2131|1800|35)/,
     };
+
+
+    useEffect( () => {
+        focusToNextInvalid();
+      }, []);
+
+
 
 
     const detectCardType = (number: string) => {
@@ -206,6 +216,8 @@ export default function CreditCard({name=''}:{name?:string}) {
         }
     
     }
+
+
 
     
     return (

@@ -15,7 +15,7 @@ export default function Light({}) {
     );
     const lighy = useTransform(scrollYProgress, 
         [0, 0.16, 0.24, 0.4, 0.5, 0.95], 
-        [-60, -20, -50, 0, 200, -50]
+        [50, -20, -50, 0, 200, -50]
     );
     const lighr = useTransform(scrollYProgress, 
         [0, 0.45, 0.5, 0.7, 1], 

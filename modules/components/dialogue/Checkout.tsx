@@ -60,14 +60,14 @@ export default function Checkout({ data, setObject}:{ data:checkoutType, setObje
 
             <div style={{ marginBottom: "2rem", width:"100%", lineHeight:"1.5rem", position:'relative', fontWeight: 300 }}>
 
-                <div style={{  width: "100%", color: "#fff3", padding:'0.9rem', paddingBottom: '1.8rem', fontSize: "1.9rem", fontWeight: 100, lineHeight:"2.3rem"}}>
+                <div style={{  width: "100%", color: "#fff8", padding:'0.9rem', paddingBottom: '1.8rem', fontSize: "1.9rem", fontWeight: 100, lineHeight:"2.3rem"}}>
                     {date}<br/>
-                    <div style={{ color: "#fff3", fontSize: "2rem", fontWeight: 100 }}>{data.code??''}</div>
+                    <div style={{ color: "#fff8", fontSize: "2rem", fontWeight: 100 }}>{data.code??''}</div>
                 </div>
 
-                <div style={{ opacity: 1, width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
+                <div style={{ color:"#fffa", width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
                     <div className="text noSelect">{data.option.duration} aylık {data.option.plan} Plan </div>
-                    <div style={{ minWidth: '6rem', textAlign: "right" }} className="text noSelect">{data.option.price} ₺</div>
+                    <div style={{ color:"#fff", minWidth: '6rem', textAlign: "right" }} className="text noSelect">{data.option.price} ₺</div>
                 </div>
                 
                 {data.promotions.map((promo,i) => 
@@ -75,23 +75,23 @@ export default function Checkout({ data, setObject}:{ data:checkoutType, setObje
                         const lastamount = Math.round(data.promotions.slice(0, i).reduce((a,b)=>a*(100-b.rate)/100, data.option.price));
                         const amount = Math.round(data.promotions.slice(0, i+1).reduce((a,b)=>a*(100-b.rate)/100, data.option.price));
                         return(
-                    <div style={{ opacity: 0.5, width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
+                    <div style={{ color:"#fffa", width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
                         <div className="text noSelect">{`%${promo.rate} ${promo.name}`} </div>
-                        <div style={{ minWidth: '6rem', textAlign: "right" }} className="text noSelect">- {lastamount - amount} ₺</div>
+                        <div style={{ color:'#B7FE04', minWidth: '6rem', textAlign: "right" }} className="text noSelect">- {lastamount - amount} ₺</div>
                     </div>
                     )}
                 )
                 }
 
                 { data.installment>1?
-                    <div style={{ opacity: 0.5, width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
+                    <div style={{ color:'#fffa', width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
                         <div className="text noSelect"> vade farkı </div>
-                        <div style={{ minWidth: '6rem', textAlign: "right" }} className="text noSelect">+ {monthlyPayment*data.installment - Math.round(data.promotions.reduce((a,b)=>a*(100-b.rate)/100, data.option.price))} ₺</div>
+                        <div style={{ color:'#FEBB04', minWidth: '6rem', textAlign: "right" }} className="text noSelect">+ {monthlyPayment*data.installment - Math.round(data.promotions.reduce((a,b)=>a*(100-b.rate)/100, data.option.price))} ₺</div>
                     </div> : null
                 }
                 
-                <div style={{ opacity: 0.5, width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem', marginTop:'1rem', paddingTop: '2.7rem', borderTop:"#666 solid 1px"  }}>
-                        <div className="text noSelect">{data.installment} ay taksitle </div>
+                <div style={{ color:'#fffa', width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem', marginTop:'1rem', paddingTop: '2.7rem', borderTop:"#666 solid 1px"  }}>
+                        <div className="text noSelect">{data.installment} taksitle </div>
                         <div style={{ minWidth: '6rem', textAlign: "right" }} className="text noSelect">aylik {monthlyPayment} ₺</div>
                     </div>
                 <div style={{ width: "100%", fontSize:"2rem", fontWeight:300 ,display: "flex", justifyContent:'space-between', padding: '0.9rem', paddingTop: "1.6rem" }} className="text"> 

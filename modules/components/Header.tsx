@@ -37,7 +37,6 @@ export default function Header({}) {
     const { scrollYProgress } = useScroll();
     const menuScale = useTransform(scrollYProgress, [0, 0.1], [1, 0.87]);
     const menuOpaacity = useTransform(scrollYProgress, [0, 0.1], [1, 0.66]);
-    const menuy = useTransform(scrollYProgress, [0, 0.1], [20, 0]);
 
     const scrolltoFrame = (frameId:string) => {
       const element = document.getElementById(frameId);
@@ -45,11 +44,19 @@ export default function Header({}) {
     }
     
     return (
-        <>
-        <motion.div style={{ scale:menuScale, opacity:menuOpaacity, y:menuy }} whileHover={{opacity:1}} variants={container} initial="hidden" animate="visible" className="headerLandscape noSelect">
+      <>
+        <motion.div 
+          style={{ scale:menuScale, opacity:menuOpaacity,zIndex:1000}} 
+          variants={container} 
+          whileHover={{ opacity:1 }}
+          initial="hidden" 
+          animate="visible"
+        >
+          <div className="headerLandscape noSelect">
             <motion.div onClick={()=> scrolltoFrame("pakagesId")} variants={item} className='sectionbutton' >Paketler</motion.div>
             <motion.div onClick={()=> scrolltoFrame("transitionsId")} variants={item} className='sectionbutton' >Garanti</motion.div>
-            <motion.div onClick={()=> scrolltoFrame("processId")} variants={item} className='sectionbutton'>İşleyiş</motion.div>
+            <motion.div onClick={()=> scrolltoFrame("processId")} variants={item} className='sectionbutton' >İşleyiş</motion.div>
+          </div>
         </motion.div>
         <div className="headerVertical noSelect">
             <div onClick={() => setExpended(true)}>
@@ -69,7 +76,7 @@ export default function Header({}) {
             </div>:null}
             </AnimatePresence>
         </div>
-        </>
+      </>
     );
   }
   

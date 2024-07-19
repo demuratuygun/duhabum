@@ -42,12 +42,13 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
     
     const [discounts, setDiscounts] = useState<discount[]>([]);
     const [code, setCode] = useState("");
-    const [installment, setInstallment] = useState<number>(12);
+    const [installment, setInstallment] = useState<number>(6);
     const [selected, setSelected] = useState(0);
     const [options, setOptions] = useState([
         {duration: 3, plan:'Essential', price: 2799},
         {duration: 6, plan:'Essential', price: 3840}
     ]);
+    const [focus, setFocus] = useState(false);
 
     const checoutRef = useRef({
         code: code,
@@ -60,22 +61,32 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
 
     
     
-    const turnPage = ( direction: number ) => {
-        console.log(checoutRef.current)
-        setObject( {checkout: checoutRef.current}, direction);
+    const turnPage = ( select:number ) => {
+        let c = {
+            code: code,
+            promotions:discounts,
+            plan: plan,
+
+            option: options[select],
+            
+            installment: select==0 && installment>6? 6 : installment,
+            installmentRate: installmentRates[(select==0 && installment>6? 6 : installment)-1]
+        }
+        console.log(c)
+        setObject( {checkout: c}, 1);
     }
 
     useEffect( () => {
         let c = {
-                code: code,
-                promotions:discounts,
-                plan: plan,
+            code: code,
+            promotions:discounts,
+            plan: plan,
 
-                option: options[selected],
-                
-                installment: selected==0 && installment>6? 6 : installment,
-                installmentRate: installmentRates[(selected==0 && installment>6? 6 : installment)-1]
-            }
+            option: options[selected],
+            
+            installment: selected==0 && installment>6? 6 : installment,
+            installmentRate: installmentRates[(selected==0 && installment>6? 6 : installment)-1]
+        }
         checoutRef.current = c;
         console.log(c);
 
@@ -113,22 +124,37 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
         setOptions(plans);
 
       }, [plan, months]);
+
+      useEffect( () => {
+        
+        const handleKeydownWrapper = (e: KeyboardEvent) => setFocus(true);
+        const handleClickWrapper = () => setFocus(false);
+        window.addEventListener('keydown', handleKeydownWrapper);
+        window.addEventListener('click', handleClickWrapper);
+
+        return () => {
+          window.removeEventListener('keydown', handleKeydownWrapper);
+          window.removeEventListener('click', handleClickWrapper);
+        };
+    
+      }, []);
     
       return (
         <>
-          <div className={styles.container} style={{gap: "1.5rem", }}>
+          <div className={styles.container} style={{gap: "1.5rem", maxWidth:'20rem'}}>
 
             <motion.div animate={{opacity:1}} initial={{opacity:0}} transition={{duration:1}} style={{ width:"100%", textAlign:"center" }}>
                 {discounts?.length>0?
 
                     discounts?.map( (promo, index) => 
                         <div key={`discountRow-${index}`} className={styles.CalculatorText} style={{ fontSize: "1.3rem", width:"%100" }}>
-                            <Text text={`%${promo.rate} ${promo.name}`+(index==discounts.length-1?" ile":'')} />
+                            <Text text={`%${promo.rate} ${promo.name}`+(index==discounts.length-1?"yle":'')} />
                         </div>
                     )
                     :
                     <TextEnter caret={true}
                         Value={code}
+                        focus={focus}
                         examples={['promosyon kodu', 'ogrenci promosyonu: OGR15']} 
                         onChange={onChange}
                     />
@@ -143,13 +169,13 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
                 const amount = Math.floor((discounts.reduce((a,b)=>a*(100-b.rate)/100, option.price)*installmentRates[divide-1])/divide);
         
                 return (
-                <motion.div key={'offerBox-'+index} animate={{opacity:1}} initial={{opacity:0}} transition={{duration:1}} className='box noSelect' onClick={()=>setSelected(index)}
-                    style={{width:'100%', padding: '2rem', fontSize: "1.3rem", backgroundColor:selected==index?'#aaaaaa24':'#0000', position:"relative", marginBottom: '0.5rem', border: index>0?"#fff4 solid 1px":'' }}
+                <motion.div key={'offerBox-'+index} animate={{opacity:1}} initial={{opacity:0}} transition={{duration:1}} className='box noSelect' onClick={()=>turnPage(index)}
+                    style={{ width:'100%', padding: '2rem', fontSize: "1.3rem", backgroundColor:'#aaaaaa24', position:"relative", marginBottom: '0.5rem', border: index>0?"#B7FE04aa solid 1px":'' }}
                 >
                     { 
                         index==0? null:
                         <div style={{ position: "absolute", top: '-0.8rem', width: "calc(100% - 4rem)", display:'flex', justifyContent:'center' }}>
-                            <div style={{ width:'fit-content', backgroundColor: "#ccc", color: "#222", padding: '0.1rem 1rem', borderRadius: "0.5rem", fontSize: "1rem", fontWeight: 600 }}>
+                            <div style={{ width:'fit-content', backgroundColor: "#B7FE04", color: "#222", padding: '0.1rem 1rem', borderRadius: "0.5rem", fontSize: "1rem", fontWeight: 600 }}>
                                 özel teklif
                             </div>
                         </div>
@@ -160,7 +186,7 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
                     <div style={{fontFamily: "'Sarpanch', sans-serif", fontWeight: 800, fontSize: "1.8rem" }}>{option.plan} Plan</div>
                     
                     <div style={{fontSize: "1.1rem", marginTop:"1rem", color: '#fff6'}}>
-                        {divide} ay taksitle aylik {amount}<br />
+                        {divide} taksitle aylik {amount}<br />
                         toplam {discounts.length>0? Math.floor(option.price*installmentRates[divide-1]/divide)*divide+' yerine ':''} 
                         ₺{amount*divide}
                     </div>
@@ -180,8 +206,6 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
               />
           
           </div>
-    
-          <Control turnPage={ (direction: number) => turnPage(direction) } />
      
         </>
       );

@@ -1,11 +1,9 @@
 'use client'
 
-import { motion, useScroll } from "framer-motion";
-import packages from '../../../../content/package.json';
-import { useRouter } from "next/navigation";
-
 import { useEffect, useState } from "react";
-import CreditCard from "@/modules/components/dialogue/CreditCard";
+import { useRouter } from "next/navigation";
+import { motion, useScroll } from "framer-motion";
+
 import Calculator from "@/modules/components/dialogue/Calculator";
 import Control from "@/modules/components/dialogue/Control";
 import Text from '@/modules/components/Text';
@@ -14,7 +12,31 @@ import AskText from "@/modules/components/dialogue/AskText";
 import MakeOffer from "@/modules/components/dialogue/MakeOffer";
 import Checkout from "@/modules/components/dialogue/Checkout";
 import Payment from "@/modules/components/Payment";
+import packages from '../../../../content/package.json';
 
+
+interface LoginProps { datum:any, setObject: (param: any, direction: number) => void; }
+const Login:React.FC<LoginProps> = ({ datum, setObject }) => {
+  
+  const [obj, setObj] = useState({});
+
+  useEffect(() => {
+    //if (session) rediret to records
+  }, [])
+
+  return(
+    <>
+      <AskText setObject={( theList, direction) => {setObj(theList);setObject( theList, direction)}}
+            question="iletişim bilgileri"
+            entries={[
+              { value: datum["name"]??"", key:"name", example:[ 'isim soyisim', 'duha duman'], verify:"^[a-zA-Z ]{3,}$" },
+              { value: datum["phone"]??"", key:"phone", example:[ 'telefon girin', '0 555 555 55 55'], verify:'^\\d{10,}$' }
+            ]} key="name"
+      />
+      <Control turnPage={(dir) => setObject(obj, dir)}/>
+    </>
+  )
+}
 
 
 
@@ -115,8 +137,44 @@ export default function Form({params}:{params:{packageId:number, month:string}})
   } 
 
   useEffect(() => {
+
     if( page<0 ) router.back();
-      else if( page>= questions.length ) router.push("/"); 
+      else if( page>= questions.length ) router.push("/");
+
+    const createDocument = async () => {
+
+        try {
+          const response = await fetch('/api/record', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+    
+          let resdata;
+          console.log(response)
+
+          try {
+            resdata = await response.json();
+          } catch (error) {
+            console.error('Failed to parse JSON response:', error);
+            resdata = { error: 'Failed to parse JSON response' };
+          }
+    
+          if (response.ok) {
+            console.log(`Document created successfully! Document ID: ${resdata.documentId}`);
+          } else {
+            console.log(`Error creating document: ${resdata.error}`);
+          }
+        } catch (error) {
+          console.error('Network error:', error);
+          console.log('Network error occurred. Please try again.');
+        }
+    }
+    
+    if ( page==0)//questions.length-1 
+      createDocument();
+
   }, [page]);
   
   const calculateBMR = (values:number[]) => {
@@ -128,13 +186,8 @@ export default function Form({params}:{params:{packageId:number, month:string}})
   const questions = [
           <MakeOffer plan={packages.tr[params.packageId]} months={parseInt(params.month)} setObject={( theList, direction) => setObject( theList, direction)}/>,
           <Checkout setObject={( theList, direction) => setObject( theList, direction)} data={data.checkout??{}}/>,
-          <AskText setObject={( theList, direction) => setObject( theList, direction)}//Basal Metabolizma Hizi: vücudun dinlenme halindeyken kullandığı minimum enerji
-            question="iletişim bilgileri"
-            entries={[
-              { value: data["name"]??"", key:"name", example:[ 'isim soyisim', 'duha duman'], verify:"^[a-zA-Z ]{3,}$" },
-              { value: data["phone"]??"", key:"phone", example:[ 'telefon girin', '0 555 555 55 55'], verify:'^\\d{10,}$' }
-            ]} key="name"
-          />,
+          <Login datum={data} setObject={( theList, direction) => setObject( theList, direction)}/>,
+
           <Payment data={data.checkout} setObject={turnPage} name={data["name"]??""} />,
           <Info text="Soracagimiz sorulara gore antreman plani olusturulacaktir lutfen dikkatli cevap verin" turnPage={turnPage} />,
           <AskText key="goal" setObject={( theList, direction) => setObject( theList, direction)}
@@ -219,6 +272,7 @@ export default function Form({params}:{params:{packageId:number, month:string}})
           />,
           <Info text="tesekkür ederiz size en kısa sürede whatsapp üzerinden dönüş sağlayacağız " turnPage={turnPage} />
   ];
+
 
   //<Start title="Basal Metabolizma Hizi" text="vücudun dinlenme halindeyken kullandığı minimum enerji" turnPage={turnPage} />:
   return (
