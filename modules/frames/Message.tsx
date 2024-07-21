@@ -51,7 +51,7 @@ export default function MessageFrame() {
               Sorularını anında yanıtlıyor, planlamadan uygulamaya her adımı birlikte atıyoruz
               <a href="/article/Isleyis" className={styles.goto}>
                 <div> INCELE </div>
-                <ArrowUp color={"#fff"}/>
+                <ArrowUp color={"#B7FE04"}/>
               </a>
             </motion.div>
         

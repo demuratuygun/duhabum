@@ -1,7 +1,6 @@
 'use client'
 import Image from 'next/image';
 import styles from './frames.module.css';
-import Arrow from '../icons/Arrow';
 import { motion } from 'framer-motion';
 import Text from '../components/Text';
 import ArrowUp from '../icons/ArrowUp';
@@ -56,9 +55,9 @@ export default function IntroFrame() {
             <motion.div className={styles.description} variants={item}>
               3 ay boyunca programlarımızı en az %80'ine sadık kalarak uygulayın, değişim görmezseniz paranız iade!
        
-              <a href="/article/IadePolitikamiz" className={styles.goto}>
+              <a href="/article/Isleyis" className={styles.goto}>
                 <div> INCELE </div>
-                <ArrowUp color={"#fff"}/>
+                <ArrowUp color={"#B7FE04"}/>
               </a>
             </motion.div>
             

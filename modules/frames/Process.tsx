@@ -37,16 +37,6 @@ const item = {
 
 export default function Process() {
 
-  const [width, setWidth] = useState(2000);
-  
-  const { scrollYProgress } = useScroll();
-  const x = useTransform(scrollYProgress, [0.7, 0.9], [280, -280]);
-  const opacity = useTransform(scrollYProgress, [0.66, 0.78, 0.87], [0, 1, 0]);
-
-
-  useEffect(() => {
-    setWidth(0);
-  })
 
   return (
     <div id="processId" 
@@ -73,13 +63,6 @@ export default function Process() {
             <div style={{ padding: '0.1em 0.4em' }}><ArrowUp /></div> 
           </a>
         </motion.div>
-
-        <motion.div variants={container} initial="hidden" whileInView="visible" className={styles.social}>
-            <SocialMedia />
-        </motion.div>
-
-        
-        
         
     </div>
   );

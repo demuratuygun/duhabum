@@ -84,8 +84,6 @@
     font-weight: 300;
     vertical-align: baseline;
     transition: 1.5s ease;
-
-
 }
 
 .pickSign:hover {
@@ -116,7 +114,7 @@ input.pickNumber:hover {
 
 
 .container {
-    width: 20rem;
+    width: 21rem;
     font-family: 'Saira', sans-serif;
     position: relative;
     display: flex;
@@ -212,7 +210,7 @@ input.pickNumber:hover {
 
     .container {
         width: 100vw;
-        height: 100vh;
+        min-height: 100vh;
         gap: 0rem;
         padding: 0rem 1rem 5rem 1rem;
 

@@ -59,7 +59,7 @@ export default function Transition() {
   const x = useTransform(
     scrollY,
     [elementTop - clientHeight, elementTop + clientHeight],
-    [-width, width]
+    [-width*2, width*2]
   );
 
   return (
@@ -85,27 +85,25 @@ export default function Transition() {
         alt="duha bum in dark"
       />
       
-      <motion.div drag="x" dragConstraints={{ left: -300, right: 300 }} style={{ zIndex:900}}>
-      <div style={{ display: 'flex', flexDirection: 'row', margin: '4%', zIndex: 500 }}>
-        {[1, 2, 1].map((i) => (
-          <motion.div
-            key={i}
-            style={{ x, display: 'flex', flexDirection: 'row', margin: '8px', width: 'max-content' }}
+      <motion.div drag="x" dragConstraints={{ left: -670, right: 650 }} style={{ zIndex:900}}>
+      <div style={{ display: 'flex', flexDirection: 'row', margin: 0, zIndex: 500 }}>
+        {[1, 2, 3].map((i) => (
+          <motion.div key={i} style={{ x, display: 'flex', flexDirection: 'row', margin: '0px 8px 20px 8px', width: 'max-content' }}
           >
             <Image
               draggable="false"
-              style={{ margin: '7px' }}
-              src={`/transitions/${i}after.png`}
-              height={7}
-              width={110}
+              style={{ margin: '7px', borderRadius:'1rem', filter:'grayscale(100%)' }}
+              src={`/transitions/${i}before.jpeg`}
+              height={325}
+              width={250}
               alt="duha bum in dark"
             />
             <Image
               draggable="false"
-              style={{ margin: '7px' }}
-              src={`/transitions/${i}before.png`}
-              height={7}
-              width={110}
+              style={{ margin: '7px', borderRadius:'1rem' }}
+              src={`/transitions/${i}after.jpeg`}
+              height={325}
+              width={250}
               alt="duha bum in dark"
             />
           </motion.div>

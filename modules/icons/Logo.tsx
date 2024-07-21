@@ -15,32 +15,32 @@ export default function Logo({type}: {type: string}) {
         <path d="M216.687 34.1306H233.342L225.053 8.84292L216.687 34.1306ZM237.913 48.2482L234.814 38.7072H215.215L212.039 48.2482H197.631L215.913 0H234.272L252.631 48.2482H237.913Z" fill="url(#paint6_radial_196_998)"/>
         <defs>
         <radialGradient id="paint0_radial_196_998" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(111.161 13.3333) rotate(80.8312) scale(140.191 234.563)">
-        <stop stop-color="white"/>
-        <stop offset="1" stop-color="white" stop-opacity="0.1"/>
+        <stop stopColor="white"/>
+        <stop offset="1" stopColor="white" stopOpacity="0.1"/>
         </radialGradient>
         <radialGradient id="paint1_radial_196_998" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(111.161 13.3333) rotate(80.8312) scale(140.191 234.563)">
-        <stop stop-color="white"/>
-        <stop offset="1" stop-color="white" stop-opacity="0.1"/>
+        <stop stopColor="white"/>
+        <stop offset="1" stopColor="white" stopOpacity="0.1"/>
         </radialGradient>
         <radialGradient id="paint2_radial_196_998" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(111.161 13.3333) rotate(80.8312) scale(140.191 234.563)">
-        <stop stop-color="white"/>
-        <stop offset="1" stop-color="white" stop-opacity="0.1"/>
+        <stop stopColor="white"/>
+        <stop offset="1" stopColor="white" stopOpacity="0.1"/>
         </radialGradient>
         <radialGradient id="paint3_radial_196_998" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(111.161 13.3333) rotate(80.8312) scale(140.191 234.563)">
-        <stop stop-color="white"/>
-        <stop offset="1" stop-color="white" stop-opacity="0.1"/>
+        <stop stopColor="white"/>
+        <stop offset="1" stopColor="white" stopOpacity="0.1"/>
         </radialGradient>
         <radialGradient id="paint4_radial_196_998" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(111.161 13.3333) rotate(80.8312) scale(140.191 234.563)">
-        <stop stop-color="white"/>
-        <stop offset="1" stop-color="white" stop-opacity="0.1"/>
+        <stop stopColor="white"/>
+        <stop offset="1" stopColor="white" stopOpacity="0.1"/>
         </radialGradient>
         <radialGradient id="paint5_radial_196_998" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(111.161 13.3333) rotate(80.8312) scale(140.191 234.563)">
-        <stop stop-color="white"/>
-        <stop offset="1" stop-color="white" stop-opacity="0.1"/>
+        <stop stopColor="white"/>
+        <stop offset="1" stopColor="white" stopOpacity="0.1"/>
         </radialGradient>
         <radialGradient id="paint6_radial_196_998" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(111.161 13.3333) rotate(80.8312) scale(140.191 234.563)">
-        <stop stop-color="white"/>
-        <stop offset="1" stop-color="white" stop-opacity="0.1"/>
+        <stop stopColor="white"/>
+        <stop offset="1" stopColor="white" stopOpacity="0.1"/>
         </radialGradient>
         </defs>
         </svg>

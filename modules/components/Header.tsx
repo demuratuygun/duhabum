@@ -46,15 +46,15 @@ export default function Header({}) {
     return (
       <>
         <motion.div 
-          style={{ scale:menuScale, opacity:menuOpaacity,zIndex:1000}} 
+          style={{ scale:menuScale, opacity:menuOpaacity, zIndex:1000}} 
           variants={container} 
           whileHover={{ opacity:1 }}
           initial="hidden" 
           animate="visible"
         >
           <div className="headerLandscape noSelect">
-            <motion.div onClick={()=> scrolltoFrame("pakagesId")} variants={item} className='sectionbutton' >Paketler</motion.div>
             <motion.div onClick={()=> scrolltoFrame("transitionsId")} variants={item} className='sectionbutton' >Garanti</motion.div>
+            <motion.div onClick={()=> scrolltoFrame("pakagesId")} variants={item} className='sectionbutton' >Paketler</motion.div>
             <motion.div onClick={()=> scrolltoFrame("processId")} variants={item} className='sectionbutton' >İşleyiş</motion.div>
           </div>
         </motion.div>
@@ -69,8 +69,8 @@ export default function Header({}) {
                 <div style={{ position: "absolute", top: '1.5vh', left: '1.5vh', opacity: 0.9 }}  onClick={() => setExpended(false)}>
                     <Cancel/>
                 </div>
-                <motion.div onClick={()=> scrolltoFrame("pakagesId")} variants={item}>Paketler</motion.div>
                 <motion.div onClick={()=> scrolltoFrame("transitionsId")} variants={item}>Garanti</motion.div>
+                <motion.div onClick={()=> scrolltoFrame("pakagesId")} variants={item}>Paketler</motion.div>
                 <motion.div onClick={()=> scrolltoFrame("processId")} variants={item}>İşleyiş</motion.div>
             </motion.div>
             </div>:null}
