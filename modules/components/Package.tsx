@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import styles from './component.module.css';
 import PickNumber from './dialogue/PickNumber';
-import Text from './Text'; 
+import Text from './Text';
+import Promotions from './../../content/promotions.json';
 
 type PackageType = {
   plan: string;
@@ -20,13 +21,13 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
   const [showtitle, setShowtitle] = useState(0);
 
   useEffect( () => {
+    //Promotions.discounts
     setSubtitles([`toplam ${padNumber(pack.prices[pack.duration.indexOf(duration)]+'')}`]);
     showSubtitle(0);
   }, []);
 
   const showSubtitle = (set:number) => {
     setShowtitle(set);
-    console.log((set+1)%subtitles.length, subtitles[set].length*200+3000);
     setTimeout( () => showSubtitle((set+1)%subtitles.length), subtitles[set].length*200+3000 );
   }
 
@@ -65,7 +66,7 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
 
       {duration == 1 ? null :
         <div style={{ zIndex:100, position: "absolute", top: '-0.8rem', width: "calc(100% - 6rem)", display:'flex', justifyContent:'center' }}>
-          <div style={{ width:'fit-content', backgroundColor:pack.plan=="Premium"? '#B7FE04':'#FEB704dd', color: "#222", padding: '0.1rem 1rem', borderRadius: "0.5rem", fontSize: "1rem", fontWeight: 500 }}>
+          <div style={{ width:'fit-content', backgroundColor:pack.plan=="Premium"? '#B7FE04':'#FEB704', color: "#222", padding: '0.1rem 1rem', borderRadius: "0.5rem", fontSize: "1rem", fontWeight: 500 }}>
             {pack.plan=="Premium"? 'En Kapsamlı Plan' : 'En Popüler Plan'}
           </div>
         </div>
@@ -97,7 +98,7 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
           item != '100% gelişim garantisi' || duration > 2 ?
             <li key={i} 
               className={ pack.plan=="Premium" && ( i<=2)? styles.gradientText:''} 
-              style={{ paddingBottom:'0.9rem', paddingLeft: "3px", color: pack.plan=="Essential"&& item=="100% gelişim garantisi"? '#fff':"" }}>
+              style={{ paddingBottom:'0.9rem', paddingLeft: "3px", color: pack.plan=="Essential"&& item=="100% gelişim garantisi"? '#FEB704':"" }}>
                 {item}
             </li>
             : null

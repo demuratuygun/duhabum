@@ -67,10 +67,10 @@ export default function Checkout({ data, setObject}:{ data:checkoutType, setObje
         change = change.toUpperCase();
         for (const [key, value] of Object.entries(Promotioins.codes)) {
             if(change == key) {
-                setDiscounts([...Promotioins.discounts, ...value]);
                 //localStorage.setItem("code", key);
                 setExplode(true);
                 setTimeout(() => setExplode(false), 2000);
+                setTimeout(() => setDiscounts([...Promotioins.discounts, ...value]), 1500);
                 break;
             }
         }

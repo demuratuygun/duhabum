@@ -39,7 +39,7 @@
     font-size: 1.4rem;
     line-height: 1.7rem;
     font-weight: 400;
-    color: #fff9;
+    color: #fffa;
     letter-spacing: 0.04;
 }
 
@@ -181,6 +181,11 @@
         opacity: 0.9;
         bottom: 15%;
     }
+
+    .description {
+        width: 80%;
+    }
+
     .packages {
         flex-direction: column;
 

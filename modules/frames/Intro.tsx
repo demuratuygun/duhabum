@@ -56,7 +56,7 @@ export default function IntroFrame() {
               3 ay boyunca programlarımızı en az %80'ine sadık kalarak uygulayın, değişim görmezseniz paranız iade!
        
               <a href="/article/Isleyis" className={styles.goto}>
-                <div> INCELE </div>
+                <div> INCELE</div>
                 <ArrowUp color={"#B7FE04"}/>
               </a>
             </motion.div>

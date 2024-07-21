@@ -59,7 +59,7 @@ export default function Transition() {
   const x = useTransform(
     scrollY,
     [elementTop - clientHeight, elementTop + clientHeight],
-    [-width*2, width*2]
+    [width*2, -width*2]
   );
 
   return (
@@ -125,7 +125,7 @@ export default function Transition() {
             justifyContent: 'start',
           }}
         >
-          <div style={{ fontSize: '1em', fontWeight: 400, lineHeight: '2em', color: '#727272' }}>
+          <div style={{ fontSize: '1em', fontWeight: 400, color: '#727272' }}>
             IADE POLITIKAMIZ
           </div>
           <div style={{ padding: '0.5em 0.4em' }}>

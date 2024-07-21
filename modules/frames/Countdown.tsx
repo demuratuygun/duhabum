@@ -115,7 +115,7 @@ export default function Countdown({close}: {close: Function}) {
       <div className={styles.emailFrame} onClick={() => setFocus(false)}>
         
         <div style={{ position:"absolute", background: "#000 url('emailPromo.jpg') no-repeat 100%/100%", top:0, left:0, width: '100%', height:'100%', zIndex:10, opacity:0.7, filter:"blur(2px)", backgroundPosition:'center',  }}></div>
-        <div style={{ position: "absolute", top:'2rem', right: '2rem', zIndex:998 }} onClick={() => close()}>
+        <div style={{ position: "absolute", top:'1rem', right: '1rem', zIndex:998 }} onClick={() => close()}>
           <Cancel/>
         </div>
       
