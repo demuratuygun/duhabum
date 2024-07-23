@@ -56,7 +56,7 @@ export default function TextEnter({ verify, Value, examples, long=false, caret=t
   
   useEffect( () => {
     giveExample(0);
-  }, [])
+  }, []);
 
   useEffect( () => {
     let ref = long? textareaRef: inputRef;

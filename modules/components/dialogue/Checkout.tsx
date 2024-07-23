@@ -37,6 +37,7 @@ export default function Checkout({ data, setObject}:{ data:checkoutType, setObje
     const [code, setCode] = useState("");
     const [focus, setFocus] = useState(false);
     const [explode, setExplode] = useState(false);
+    const [discounted, setDiscounted] = useState(false);
 
 
     const turnPage = (direction: number) => {
@@ -67,10 +68,11 @@ export default function Checkout({ data, setObject}:{ data:checkoutType, setObje
         change = change.toUpperCase();
         for (const [key, value] of Object.entries(Promotioins.codes)) {
             if(change == key) {
+                setDiscounted(true);
                 //localStorage.setItem("code", key);
                 setExplode(true);
                 setTimeout(() => setExplode(false), 2000);
-                setTimeout(() => setDiscounts([...Promotioins.discounts, ...value]), 1500);
+                setTimeout(() => setDiscounts([...Promotioins.discounts, ...value]), 500);
                 break;
             }
         }
@@ -82,7 +84,7 @@ export default function Checkout({ data, setObject}:{ data:checkoutType, setObje
     return (
         <>
 
-            {explode?<div style={{ position:"absolute", top: 0, background: "url('/dust.gif') no-repeat center fixed", backgroundSize:"cover", width: "100%", height: "100%" }}></div>:null}
+            { explode? <div style={{ zIndex:1000, position:"absolute", top: 0, background: "url('/dust.gif') no-repeat center fixed", backgroundSize:"cover", width: "100%", height: "100%" }}></div>:null}
 
             <div style={{ marginBottom: "2rem", width:"100%", lineHeight:"1.5rem", position:'relative', fontWeight: 300 }}>
 
@@ -125,6 +127,7 @@ export default function Checkout({ data, setObject}:{ data:checkoutType, setObje
                     <div>{monthlyPayment*data.installment}<span style={{fontWeight:300, paddingLeft:7}}>₺</span></div>
                 </div>
                 
+                {discounted? null:
                 <motion.div animate={{opacity:1}} initial={{opacity:0}} transition={{duration:1}} 
                     style={{ width:"100%", textAlign:"center", padding:'3rem 0rem 0rem 0rem' }}>
                     <TextEnter caret={true}
@@ -135,6 +138,7 @@ export default function Checkout({ data, setObject}:{ data:checkoutType, setObje
                         border
                     />
                 </motion.div>
+                }
                 
             </div>
 

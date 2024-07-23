@@ -60,7 +60,7 @@ export default function Process() {
             <div style={{ fontSize: "1em", fontWeight: 400, color: '#727272' }}> 
               DAHA FAZLA BILGI
             </div>
-            <div style={{ padding: '0.1em 0.4em' }}><ArrowUp /></div> 
+            <div style={{ padding: '0.1em 0rem' }}><ArrowUp /></div> 
           </a>
         </motion.div>
         

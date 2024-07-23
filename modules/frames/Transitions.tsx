@@ -59,7 +59,7 @@ export default function Transition() {
   const x = useTransform(
     scrollY,
     [elementTop - clientHeight, elementTop + clientHeight],
-    [width*2, -width*2]
+    [width*4, -width*4]
   );
 
   return (
@@ -85,7 +85,7 @@ export default function Transition() {
         alt="duha bum in dark"
       />
       
-      <motion.div drag="x" dragConstraints={{ left: -670, right: 650 }} style={{ zIndex:900}}>
+      <motion.div drag="x" initial={{ x: 100 }} dragConstraints={{ left: -500, right: 500 }} style={{ zIndex:900, paddingBottom:"1.2rem" }}>
       <div style={{ display: 'flex', flexDirection: 'row', margin: 0, zIndex: 500 }}>
         {[1, 2, 3].map((i) => (
           <motion.div key={i} style={{ x, display: 'flex', flexDirection: 'row', margin: '0px 8px 20px 8px', width: 'max-content' }}
@@ -94,16 +94,16 @@ export default function Transition() {
               draggable="false"
               style={{ margin: '7px', borderRadius:'1rem', filter:'grayscale(100%)' }}
               src={`/transitions/${i}before.jpeg`}
-              height={325}
-              width={250}
+              height={265}
+              width={200}
               alt="duha bum in dark"
             />
             <Image
               draggable="false"
               style={{ margin: '7px', borderRadius:'1rem' }}
               src={`/transitions/${i}after.jpeg`}
-              height={325}
-              width={250}
+              height={265}
+              width={200}
               alt="duha bum in dark"
             />
           </motion.div>
@@ -128,7 +128,7 @@ export default function Transition() {
           <div style={{ fontSize: '1em', fontWeight: 400, color: '#727272' }}>
             IADE POLITIKAMIZ
           </div>
-          <div style={{ padding: '0.5em 0.4em' }}>
+          <div style={{ padding: '0.1em 0rem' }}>
             <ArrowUp />
           </div>
         </a>

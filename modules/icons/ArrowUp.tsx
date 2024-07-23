@@ -2,14 +2,14 @@
 
 
 
-export default function ArrowUp({color="#FFF8"}:{color?: string}) {
+export default function ArrowUp({color="#727272"}:{color?: string}) {
     
     return (
-      <svg style={{ width: "0.8em", height:"0.8em", margin:'0.2em 0.6em', padding:0, }} 
-        viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg"
+      <svg style={{ width: "0.75em", height:"0.75em", margin:'0.2em 0.6em', padding:0, }} 
+        viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"
       >
         <g filter="url(#filter0_d_192_573)">
-          <path d="M1.5 2L25.5 2M25.5 2V26M25.5 2L1.5 26"  stroke={color} strokeWidth="4" strokeLinecap="round"/>
+          <path d="M1.5 2L25.5 2M25.5 2V26M25.5 2L1.5 26"  stroke={color} strokeWidth="3.5" strokeLinecap="round"/>
         </g>
         <defs>
         <filter id="filter0_d_192_573" x="0" y="0" width="102" height="102" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">

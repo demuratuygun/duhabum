@@ -33,7 +33,7 @@ export default function Control({ turnPage }:CTRProps) {
         <Next color={dir==-1?"#DFDFDF": "#DFDFDF88"}/>
       </span>
       <span onClick={() => turnPage(1)}>
-        <Next color={dir==1?"#3DE581": "#DFDFDF"}/>
+        <Next color={dir==1?"#B7FE04": "#DFDFDF"}/>
         </span>
     </div>
   )

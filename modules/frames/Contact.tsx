@@ -56,15 +56,15 @@ export default function ContactFrame() {
 
         <motion.div drag="x" initial={{ x: 300 }}  dragConstraints={{ left: -600, right: 600 }} style={{ zIndex:900}}>
           <motion.div className={'flex flex-row m-2 pb-8 z-50 h-max noSelect'} >  
-            {[{rate: 5, comment:'bizzat duha benle ilgilendi ve birkac kez telefondan bile konustuk.'},
-            {rate: 5, comment:'ben ne kadar programin ustine gidersem ayni sekilde benle ilgilendi. 3 ay daha uzatacagim programimi'},
-            {rate: 4, comment:'programimi ve beslenme planim gercek ise yaradi. mesajlasmalar biraz daha hizli olursa cok daha iyi olabilir.'},
-            {rate: 5, comment:'cogu yer iade yapmazken duha direk iademi gerceklestirdi tesekkur ederim!'},
-            {rate: 5, comment:'daha once uzaktan egitim almistim ama aldigim infuluncer yerine onun calisanlari ile konsuyordum ama burda bizzat duhanin benle ilgilenmesi beni cok mutlu etti'},
+            {[{name: "Efe Ö.", rate: 5, comment:'Bizzat Duha benimle ilgilendi ve birkaç kez telefondan bile konuştuk.'},
+            {name: "Baran K.", rate: 5, comment:'Eğer programa gerçekten sadık kalırsanız değişmeme ihtimali yok. Ben 2 ayda 5 kg verdim.'},
+            {name: "Emirhan Ö.", rate: 4, comment:'Programım ve beslenme planım gerçekten işe yaradı. Mesajlaşmalar biraz daha hızlı olursa çok daha iyi olabilir'},
+            {name: "Deniz B.", rate: 5, comment:"Daha önce uzaktan eğitim almıştım ama aldığım influencer yerine onun çalışanları ile konuşuyordum. Ama burada bizzat Duha'nın benimle ilgilenmesi beni çok mutlu etti."},
+            {name: "Mert B.", rate: 5, comment:'Çoğu yer iade yapmazken Duha direkt iademi gerçekleştirdi, teşekkür ederim!'},
           ].map( (comment, i) => 
             <motion.div variants={item} style={{ display: "flex", flexDirection: "column", justifyContent:'center', margin: "1rem", minWidth: "250px", padding: "2.2rem 2rem" }} className='box'>                
                 <div style={{ fontSize:'1rem', fontWeight: 300,color: '#B7FE04',letterSpacing:"0.1rem" }}>üyemiz</div> 
-                <div className='text' style={{ fontSize: "1.5rem", fontWeight: 500, position:'relative', top:-4 }}> mehmet ozgor </div>
+                <div className='text' style={{ fontSize: "1.5rem", fontWeight: 500, position:'relative', top:-4 }}> {comment.name} </div>
                 
                 <div className='text' style={{ fontSize: "1rem", opacity: 0.7 }}> {comment.comment} </div>
                 <div style={{margin:"0.4rem 0rem", letterSpacing: '1px'}}>{Array.from(Array(comment.rate).keys()).map(()=>"★")}<span style={{opacity:0.4}}>{Array.from(Array(5-comment.rate).keys()).map(()=>"★")}</span></div>
