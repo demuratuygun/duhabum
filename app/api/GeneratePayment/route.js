@@ -22,7 +22,7 @@ export async function POST(req) {
 
     const amount = Math.floor((data.checkout.discounts??[]).reduce((a,b)=>a*(100-b.rate)/100, data.checkout.option.price))+".00";
     const basket = JSON.stringify([
-      [`Duhabum ${data.checkout.duration} aylık ${data.checkout.option.plan} Plan`, amount, 1], // Product 1 (Name - Unit Price - Quantity)
+      [`Duhabum ${data.checkout.option.duration} aylık ${data.checkout.option.plan} Plan`, amount, 1], // Product 1 (Name - Unit Price - Quantity)
     ]);
 
     // Payment details
@@ -83,6 +83,7 @@ export async function POST(req) {
             phone: data.phone,
             ...data.checkout,
             merchant_oid,
+            code: data.code==''? undefined:data.code,
             hashString: hashSTR,
             createdAt: new Date()
           },

@@ -60,7 +60,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
     const checkout: checkoutType = data.checkout;
     const [card, setCard] = useState<any>({});
     const [focusCard, setFocusCard] = useState(false);
-    const [paymentDetails, setPaymentDetails] = useState<PaymentDetailsType>();
+    const [paymentRequest, setPaymentRequest] = useState<PaymentDetailsType>();
 
 
     useEffect(() => {
@@ -72,7 +72,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                 body: JSON.stringify(data)
             });
             let generatePaymentRespond = await response.json();
-            setPaymentDetails(generatePaymentRespond)
+            setPaymentRequest(generatePaymentRespond)
         
         }
 
@@ -85,12 +85,14 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
         
         async function makePayment() {
 
-            if(paymentDetails) {
+            if(paymentRequest) {
+
+                let paymentDetails = {...paymentRequest};
                 
                 paymentDetails.cc_owner = card.cc_owner;
-                paymentDetails.card_number = card.card_number;
-                paymentDetails.expiry_month = card.expiry_date;
-                paymentDetails.expiry_year = card.expiry_date;
+                paymentDetails.card_number = card.card_number.replace(/\s+/g, '');;
+                paymentDetails.expiry_month = card.expiry_date.split('/')[0];
+                paymentDetails.expiry_year = card.expiry_date.split('/')[1];
                 paymentDetails.cvv = card.cvv;
 
                 console.log(paymentDetails)
