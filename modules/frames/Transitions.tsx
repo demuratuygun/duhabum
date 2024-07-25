@@ -125,7 +125,7 @@ export default function Transition() {
             justifyContent: 'start',
           }}
         >
-          <div style={{ fontSize: '1em', fontWeight: 400, color: '#727272' }}>
+          <div style={{ fontSize: '1em', fontWeight: 400, color: '#B7FE04aa' }}>
             IADE POLITIKAMIZ
           </div>
           <div style={{ padding: '0.1em 0rem' }}>

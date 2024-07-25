@@ -61,21 +61,10 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
         <>
           <div className={styles.container} style={{gap: "1.5rem", maxWidth:'21rem'}}>
 
-            <motion.div animate={{opacity:1}} initial={{opacity:0}} transition={{duration:1}} style={{ width:"100%", textAlign:"center", padding:'3rem 0rem 1rem 0rem' }}>
-                {
-                    Promotioins.discounts?.map( (promo, index) => 
-                    <div key={`discountRow-${index}`} className={styles.CalculatorText} style={{ fontSize: "1.3rem", width:"%100", padding:0 }}>
-                        <Text text={`%${promo.rate} ${promo.name}`+(index==Promotioins.discounts.length-1?"yle":'')} />
-                    </div>
-                    )
-                }
-            </motion.div>
-
-
             { options.map( (option, index) => {
 
                 const divide = option.duration<3? Math.min(3,installment): option.duration<5? Math.min(6, installment) : installment;
-                const amount = Math.floor((Promotioins.discounts.reduce((a,b)=>a*(100-b.rate)/100, option.price)*Promotioins.installmentRates[divide-1])/divide);
+                const amount = Math.floor( option.price*Promotioins.installmentRates[divide-1]  /divide);
         
                 return (
                 <motion.div key={'offerBox-'+index} animate={{opacity:1}} initial={{opacity:0}} transition={{duration:1}} className='box noSelect' onClick={()=>turnPage(index)}
@@ -102,8 +91,7 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
                         {installment==1? null: 
                         <><span style={{color:"#fff9"}}>₺{amount}</span> x {divide} taksitle<br /></>
                         } 
-                        toplam {Promotioins.discounts.length>0? <><span style={{color:'#fff9', fontWeight:500}}>{Math.floor(option.price*Promotioins.installmentRates[divide-1]/divide)*divide}</span> yerine </> :''} 
-                        <span style={{color:'#B7FE04', fontWeight:500}}>₺{amount*divide}</span>
+                        toplam <span style={{color:'#B7FE04', fontWeight:500}}>₺{amount*divide}</span>
                     </div>
                 
                 </motion.div>

@@ -38,7 +38,6 @@ export default function AskText({ question, entries, long=false, setObject }: Ca
     setValue( prevValue => {
       let val:{[key:string]: string} = {};
       entries.map( e => val[e.key] = e.value??"" )
-      console.log(val)
       return val;
     } )
   }, [entries]);
@@ -104,7 +103,7 @@ export default function AskText({ question, entries, long=false, setObject }: Ca
 
         <motion.div animate={{opacity:1}} initial={{opacity:0}} transition={{duration:1, delay: description.length/30}} className={styles.container}>
           {entries.map( (entry, i) => 
-            <TextEnter focus={focus==i} 
+            <TextEnter focus={focus==i} key={'ask-'+i}
               Value={entry.value??""}
               verify={entry.verify} 
               examples={entry.example} 

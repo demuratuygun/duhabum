@@ -38,10 +38,10 @@ export async function POST(req) {
       },
     });
 
-    return NextResponse.json({ message: 'Document created and updated successfully', documentId });
+    return NextResponse.json({ message: 'Document generate and updated successfully', documentId });
   } catch (error) {
     console.error('Server Error:', error);
-    return NextResponse.json({ error: 'Failed to create and fill the document' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to generate and fill the document' }, { status: 500 });
   }
 }
 

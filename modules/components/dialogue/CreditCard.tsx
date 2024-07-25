@@ -33,7 +33,7 @@ const container = {
 
 
 
-export default function CreditCard({name=''}:{name?:string}) {
+export default function CreditCard({name='', allValid, focusTo}:{name?:string, allValid:(valid:any)=>void, focusTo:boolean}) {
 
     const [cardName, setCardName] = useState(name??"");
     const [cardNumber, setCardNumber] = useState('');
@@ -68,9 +68,7 @@ export default function CreditCard({name=''}:{name?:string}) {
 
     useEffect( () => {
         focusToNextInvalid();
-      }, []);
-
-
+      }, [focusTo]);
 
 
     const detectCardType = (number: string) => {
@@ -83,6 +81,7 @@ export default function CreditCard({name=''}:{name?:string}) {
     };
 
     const focusToNextInvalid = useCallback(() => {
+        allValid({});
         if( cardName.length<3 ) {
             if(isFlipped) setIsFlipped(false);
             nameInput.current?.focus();
@@ -95,10 +94,16 @@ export default function CreditCard({name=''}:{name?:string}) {
             if(!isFlipped) setIsFlipped(true);
             expireInput.current?.focus();
         }
-        else if ( cvvCode.length<cvvCodeLen ) {
+        else if ( cvvCode.length>=3 ) {
             if(!isFlipped) setIsFlipped(true);
             cvvInput.current?.focus();
         }
+        else allValid({
+            cc_owner: cardName,
+            card_number: cardNumber,
+            expiry_date: expireDate,
+            cvv: cvvCode
+        });
     }, [isFlipped, setIsFlipped, cardName, cardNumber, expireDate, expireDateValid, cvvCode,cvvCodeLen, nameInput, numberInput, expireInput, cvvInput]);
 
     const handleClick = () => {
@@ -108,31 +113,45 @@ export default function CreditCard({name=''}:{name?:string}) {
     const handleBlur = () => {
 
         if(isFlipped) {
-            if(cvvCode.length==cvvCodeLen && expireDateValid) {
+            if(cvvCode.length>=3 && expireDateValid) {
                 setTimeout( () => {
                     setIsFlipped(false);
                     if(cardName.length<4 ) {
                         nameInput.current?.focus();
                     } else if( cardNumber.length<22 )  {
                         numberInput.current?.focus();
-                    }
+                    } else allValid({            
+                        cc_owner: cardName,
+                        card_number: cardNumber,
+                        expiry_date: expireDate,
+                        cvv: cvvCode
+                    });;
                 }, 1000);
             }
         } else {// on front face
-            if(cardName.length>3 && cardNumber.length>=22) {
-                if(cvvCode.length<cvvCodeLen || expireDate.length<5 || !expireDateValid ) 
+            if( cardName.length>3 && cardNumber.length>=22 ) {
+                if( cvvCode.length<cvvCodeLen || expireDate.length<5 || !expireDateValid ) 
                     setTimeout(() => setIsFlipped(true), 600);
+                else allValid({ 
+                    cc_owner: cardName,
+                    card_number: cardNumber,
+                    expiry_date: expireDate,
+                    cvv: cvvCode
+                });;
             }
         }
     };
 
     const handleCardNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        allValid({});
         const value = event.target.value.replace(/[^A-Z ]/gi, '');
         const formattedValue = value.replace(/ +/g, ' ')
         setCardName(formattedValue);
     }
 
     const handleCardNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        allValid({});
+
         const value = event.target.value.replace(/\s+/g, '').replace(/[^0-9]/g, '');
         
         let numPattern = detectCardType(value);
@@ -155,6 +174,7 @@ export default function CreditCard({name=''}:{name?:string}) {
     };
 
     const handleExpireDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        allValid({});
 
         let padding = false;
         if(event.target.value[1]==" " || event.target.value[1]=="/") // 9/ -> 09/
@@ -197,11 +217,13 @@ export default function CreditCard({name=''}:{name?:string}) {
     };
 
     const handleCVVChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        allValid({});
+
         if( cvvCode.length==0 && event.target.value.length==0 ) 
             expireInput.current?.focus();
         const value = event.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
         setCvvCode(value);
-        if( value.length == cvvCodeLen ) {
+        if( value.length >= 3 ) {
             if( expireDate.length==5 && expireDateValid) {
                 if( cardName.length<3 ) {
                     setIsFlipped(false);
@@ -216,11 +238,9 @@ export default function CreditCard({name=''}:{name?:string}) {
         }
     
     }
-
-
-
     
     return (
+
         <div className={`${styles.cardContainer} noSelect ${isFlipped ? styles.flipped : ''}`}>
         <div className={styles.card}>
 
@@ -272,6 +292,7 @@ export default function CreditCard({name=''}:{name?:string}) {
         </div>
         
       </div>
+
     );
   }
   

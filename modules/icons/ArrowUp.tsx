@@ -2,7 +2,7 @@
 
 
 
-export default function ArrowUp({color="#727272"}:{color?: string}) {
+export default function ArrowUp({color="#B7FE04aa"}:{color?: string}) {
     
     return (
       <svg style={{ width: "0.75em", height:"0.75em", margin:'0.2em 0.6em', padding:0, }} 

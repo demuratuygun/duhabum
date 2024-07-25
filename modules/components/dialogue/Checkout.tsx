@@ -33,7 +33,7 @@ interface checkoutType {
 
 export default function Checkout({ data, setObject}:{ data:checkoutType, setObject:(param: any, direction: number) => void }) {
     
-    const [discounts, setDiscounts] = useState<discount[]>(Promotioins.discounts);
+    const [discounts, setDiscounts] = useState<discount[]>([]);
     const [code, setCode] = useState("");
     const [focus, setFocus] = useState(false);
     const [explode, setExplode] = useState(false);
@@ -42,7 +42,7 @@ export default function Checkout({ data, setObject}:{ data:checkoutType, setObje
 
     const turnPage = (direction: number) => {
 
-        setObject( {}, direction);
+        setObject( {code: code , discounts:discounts}, direction);
 
     };
 
@@ -72,7 +72,7 @@ export default function Checkout({ data, setObject}:{ data:checkoutType, setObje
                 //localStorage.setItem("code", key);
                 setExplode(true);
                 setTimeout(() => setExplode(false), 2000);
-                setTimeout(() => setDiscounts([...Promotioins.discounts, ...value]), 500);
+                setTimeout(() => setDiscounts(value), 800);
                 break;
             }
         }
@@ -98,7 +98,7 @@ export default function Checkout({ data, setObject}:{ data:checkoutType, setObje
                         const lastamount = Math.round(discounts.slice(0, i).reduce((a,b)=>a*(100-b.rate)/100, data.option.price));
                         const amount = Math.round(discounts.slice(0, i+1).reduce((a,b)=>a*(100-b.rate)/100, data.option.price));
                         return(
-                    <div style={{ color:"#fffa", width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
+                    <div key={"promo"+i} style={{ color:"#fffa", width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
                         <div className="text noSelect">{`%${promo.rate} ${promo.name}`} </div>
                         <div style={{ color:'#B7FE04', minWidth: '6rem', textAlign: "right" }} className="text noSelect">- {lastamount - amount} ₺</div>
                     </div>

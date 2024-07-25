@@ -18,24 +18,7 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
   
   const [duration, setDuration] = useState(pack.default);
   const [label, setLabel] = useState('süre');
-  const [subtitles, setSubtitles] = useState<string[]>([' ']);
-  const [showtitle, setShowtitle] = useState(0);
 
-  useEffect( () => {
-    //Promotions.discounts
-    if( Promotions.discounts.length > 0 ) {
-      setSubtitles([`toplam ${padNumber(Math.floor((Promotions.discounts.reduce((a,b)=>a*(100-b.rate)/100, pack.prices[pack.duration.indexOf(duration)])))+'')}`]);
-    } else {
-      setSubtitles([`toplam ${padNumber(pack.prices[pack.duration.indexOf(duration)]+'')}`]);
-    }
-
-    showSubtitle(0);
-  }, []);
-
-  const showSubtitle = (set:number) => {
-    setShowtitle(set);
-    setTimeout( () => showSubtitle((set+1)%subtitles.length), subtitles[set].length*200+3000 );
-  }
 
   const padNumber = (val: string) => {
     return val.replace(/(\d)(?=(\d{3})+$)/g, '$1.');
@@ -48,13 +31,17 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
   }
 
   const mothlyFullPrice = pack.prices[0]/pack.duration[0];
-  const mothlyPrice = Math.floor((Promotions.discounts.reduce((a,b)=>a*(100-b.rate)/100, pack.prices[pack.duration.indexOf(duration)])) / duration);//Math.floor(pack.prices[pack.duration.indexOf(duration)] / duration);
+  const mothlyPrice = Math.floor(pack.prices[pack.duration.indexOf(duration)] / duration);
   
 
   return (
     <div style={{position:"relative"}}>
 
-    {pack.plan=="Premium"?
+
+
+    { // Premium background ---
+    
+    pack.plan=="Premium"?
       <div style={{ width:"calc(100% - 2rem)", height:'calc(50% - 2rem)', position:"absolute", top:'1rem', left:'1rem', backgroundColor:"#0000", borderRadius:"12px 12px 0px 0px", overflow:"hidden", border: "#0009 solid 1px" }}>
         <div style={{ width:'100%', height:'130%', position:'absolute', top:'-10rem', backgroundImage: 'radial-gradient(#C9C9C988, #C9C9C911 80%)' }}></div>
       </div>
@@ -65,40 +52,39 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
     :null}
 
 
+
+
+
     <div className={click == null ? "noSelect" : 'box noSelect'}
       style={{ margin: '1rem', width: "20rem", padding: "3.2rem 3rem 2.4rem 3rem", position: 'relative', zIndex:100 }}>
       
-      {duration == 1 ? null :
+      { duration == 1 ? null :
         <div style={{ zIndex:100, position: "absolute", top: '-0.8rem', width: "calc(100% - 6rem)", display:'flex', justifyContent:'center' }}>
           <div style={{ width:'fit-content', textAlign:"center", backgroundColor: '#B7FE04', color: "#222", padding: '0.3rem 1rem', borderRadius: "0.5rem", fontSize: "1rem", fontWeight: 500, lineHeight:'1rem' }}>
-            <span style={{ fontSize:"0.9rem", opacity:0.8 }}>{label}</span><br/> {pack.plan=="Premium"? "En Kapsamlı Plan": "En Popüler Plan"}
+            { pack.plan=="Premium"? "En Kapsamlı Plan": "En Popüler Plan" }
           </div>
         </div>
       }
 
-      <div className="text" style={{ fontSize:'1.4rem', textAlign: "center", zIndex:100 }}>{pack.plan}</div>  
+      <div className="text" style={{ fontSize:'1.4rem', textAlign: "center", zIndex:100 }}>{pack.plan}</div>
 
 
       <div className="text" style={{ position:'relative', zIndex:100, fontSize: "2.7rem", fontFamily: "1rem", textAlign: "center", fontWeight: 500, padding: 0 }}>
         <span> ₺ {padNumber(mothlyPrice + "")} </span>
-        {pack.duration.length > 1 ? 
+        { duration > 1 ? 
         <span style={{ fontWeight: 300, fontSize: "1.4rem", color: "#DFDFDF80" }}>
           {' / ' + pack.unit}
-          <div style={{position:"absolute", top:'0.16rem', right:'1.2rem', fontSize:'1.2rem', fontWeight:350, textDecoration:'line-through', color:"#B7FE0466" }}> 
-            ₺{padNumber(Math.floor(pack.prices[pack.duration.indexOf(duration)] / duration) + "")} 
+          <div style={{position:"absolute", top:'0.16rem', left:'9.7rem', fontSize:'1.2rem', fontWeight:350, textDecoration:'line-through', color:"#B7FE0466" }}> 
+            ₺{padNumber(Math.floor(pack.prices[0] / (pack.duration[0])) + "")} 
           </div>
         </span> : null
         }
       </div>
 
 
-      {[`toplam ${padNumber(Math.floor((Promotions.discounts.reduce((a,b)=>a*(100-b.rate)/100, pack.prices[pack.duration.indexOf(duration)])))+'')}`].map( 
-        (title, i) => i==showtitle?
-            <div key={'subtitle-'+i} className="text" style={{ zIndex:100, textAlign: "center", position: "relative", top: -8, fontWeight: 300, fontSize:"1.2rem", color: "#DFDFDF80" }}>
-              {title}
-            </div>
-        :"tok"
-      )}
+      <div key={'subtitle-'} className="text" style={{ zIndex:100, textAlign: "center", position: "relative", top: -8, fontWeight: 300, fontSize:"1.2rem", color: "#DFDFDF80" }}>
+        {`toplam ${padNumber(pack.prices[pack.duration.indexOf(duration)]+'')}`}
+      </div>
 
       
       { pack.duration.length==1? null:

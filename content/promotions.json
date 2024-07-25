@@ -1,8 +1,4 @@
 {
-    "discounts":[
-        {"rate": 15, "name": "sezon indirimi"}
-    ],
-
     "codes" : {
         "OGR15": [{"rate": 15, "name": "öğrenci indirimi"}],
         "VIP620": [{"rate": 20, "name": "vip indirimi"}],

@@ -57,7 +57,7 @@ export default function Process() {
           <a href='/article/Isleyis'
             className='noSelect icons' 
             style={{ width: "100%", paddingTop: '4%', display:"flex", flexDirection:"row", justifyContent:"start" }}>
-            <div style={{ fontSize: "1em", fontWeight: 400, color: '#727272' }}> 
+            <div style={{ fontSize: "1em", fontWeight: 400, color: '#B7FE04aa' }}> 
               DAHA FAZLA BILGI
             </div>
             <div style={{ padding: '0.1em 0rem' }}><ArrowUp /></div> 

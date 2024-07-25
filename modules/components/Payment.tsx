@@ -19,32 +19,112 @@ interface packagetype {
 
 interface checkoutType {
     code: string,
-    promotions:discount[],
+    discounts:discount[],
     plan: packagetype,
     option: {duration:number, price:number, plan: string},
     installment: number,
     installmentRate: number
 }
 
-export default function Payment({ data, name, setObject}:{ data:checkoutType, name:string, setObject:(param: any, direction: number) => void }) {
+interface PaymentDetailsType {
+    merchant_id: string;
+    user_ip: string;
+    merchant_oid: string;
+    email: string;
+    payment_amount: string;
+    currency: string;
+    test_mode: string;
+    user_name: string;
+    user_address: string;
+    user_phone: string;
+    merchant_ok_url: string;
+    merchant_fail_url: string;
+    debug_on: number;
+    client_lang: string;
+    payment_type: string;
+    non_3d: string;
+    card_type: string;
+    installment_count: string;
+    non3d_test_failed: string;
+    user_basket: string;
+    token: string;
+    cc_owner?: string,
+    card_number?: string,
+    expiry_month?: string,
+    expiry_year?: string,
+    cvv?: string
+}
+
+export default function Payment({ data, name, setObject}:{ data:any, name:string, setObject:(param: any, direction: number) => void }) {
+
+    const checkout: checkoutType = data.checkout;
+    const [card, setCard] = useState<any>({});
+    const [focusCard, setFocusCard] = useState(false);
+    const [paymentDetails, setPaymentDetails] = useState<PaymentDetailsType>();
+
+
+    useEffect(() => {
+        async function generatePayment() {
+
+            const response = await fetch('/api/GeneratePayment', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            let generatePaymentRespond = await response.json();
+            setPaymentDetails(generatePaymentRespond)
+        
+        }
+
+        generatePayment();
+    }, [])
+
 
 
     const turnPage = (direction: number) => {
-        setObject( {checkout: {}}, direction);
+        
+        async function makePayment() {
 
+            if(paymentDetails) {
+                
+                paymentDetails.cc_owner = card.cc_owner;
+                paymentDetails.card_number = card.card_number;
+                paymentDetails.expiry_month = card.expiry_date;
+                paymentDetails.expiry_year = card.expiry_date;
+                paymentDetails.cvv = card.cvv;
+
+                console.log(paymentDetails)
+
+                const response = await fetch('https://www.paytr.com/odeme', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(paymentDetails)
+                });
+                const resdata = await response.json();
+                console.log(resdata)
+
+            }
+
+            //setObject( {}, direction)
+        }
+
+        
+        if( card.cvv ) makePayment();
+        else if( direction > 0) setFocusCard(prevFocusCard => !prevFocusCard);
+        else setObject( {}, -1)
     };
 
-    const monthlyPayment = Math.round(data.promotions.reduce((a,b)=>a*(100-b.rate)/100, data.option.price)*data.installmentRate/data.installment)
+    const monthlyPayment = Math.floor((checkout.discounts??[]).reduce((a,b)=>a*(100-b.rate)/100, checkout.option.price)*checkout.installmentRate/checkout.installment)
 
     return (
         <>
 
         <div style={{ maxWidth: "100vw", padding: "4%", display: 'flex', flexDirection: "column", gap: 15, paddingBottom:'7rem' }}>
             <div style={{ width: "100%", fontSize:"3rem", fontWeight:300 ,display: "flex", justifyContent:'space-between', alignItems:"baseline", padding: "1rem" }} className="text"> 
-                <div style={{ opacity:0.5 }} className="text noSelect">{monthlyPayment} ₺ x {data.installment} ay</div>
-                <div>{monthlyPayment*data.installment}<span style={{fontWeight:300, paddingLeft:7}}>₺</span></div>
+                <div style={{ opacity:0.5 }} className="text noSelect">{monthlyPayment} ₺ x {checkout.installment} ay</div>
+                <div>{monthlyPayment*checkout.installment}<span style={{fontWeight:300, paddingLeft:7}}>₺</span></div>
             </div>
-            <CreditCard name={name??""}/>
+            <CreditCard name={name??""} allValid={(card)=> setCard(card)} focusTo={focusCard}/>
         </div>
     
         <Control turnPage={(dir) => turnPage(dir)} />
