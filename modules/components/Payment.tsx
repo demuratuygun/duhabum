@@ -100,8 +100,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                 const response = await fetch('https://www.paytr.com/odeme', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(paymentDetails),
-                    mode: 'no-cors'
+                    body: JSON.stringify(paymentDetails)
                 });
                 const resdata = await response.json();
                 console.log(resdata)
