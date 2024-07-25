@@ -14,6 +14,10 @@ const generateUniqueTimestamp = () => {
 
 export async function POST(req) {
   try {
+
+    if (!process.env.MERCHANT_KEY) {
+        throw new Error('Missing environment variable: MERCHANT_KEY');
+    }
     const request = new NextRequest(req);
     const data = await request.json();
     console.log(data);
@@ -58,7 +62,37 @@ export async function POST(req) {
     paymentDetails.token = token;
 
     // save the user to database
+    const client = await clientPromise;
+    const db = client.db('duhabum');
+    const users = db.collection('users');
+    const basketcollection = db.collection('basket');
 
+    await users.updateOne(
+        { _id: data.phone },
+        {
+          $set: {
+            phone: data.phone,
+            name: data.name,
+            email: data.email,
+            code: data.code ?? undefined,
+            createdAt: new Date()
+          }
+        },
+        { upsert: true }
+    );
+
+    await basketcollection.updateOne(
+        { _id: merchant_oid },
+        { $set: {
+            phone: data.phone,
+            ...data.checkout,
+            merchant_oid,
+            code: data.code==''? undefined:data.code,
+            hashString: hashSTR,
+            createdAt: new Date()
+          },
+        }
+    )
 
     return NextResponse.json(paymentDetails);
   } catch (error) {
