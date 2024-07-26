@@ -113,7 +113,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                 }
 
                 document.body.appendChild(form);
-                //form.submit();
+                form.submit();
 
             }
 
