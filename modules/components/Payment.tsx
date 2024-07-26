@@ -64,6 +64,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
 
 
     useEffect(() => {
+        
         async function generatePayment() {
 
             const response = await fetch('/api/GeneratePayment', {
@@ -72,11 +73,13 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                 body: JSON.stringify(data)
             });
             let generatePaymentRespond = await response.json();
-            setPaymentRequest(generatePaymentRespond)
+            setPaymentRequest(generatePaymentRespond);
+            console.log(generatePaymentRespond)
         
         }
 
         generatePayment();
+
     }, [])
 
 
@@ -87,7 +90,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
 
             if(paymentRequest) {
 
-                let paymentDetails = {...paymentRequest};
+                let paymentDetails:PaymentDetailsType = {...paymentRequest};
                 
                 paymentDetails.cc_owner = card.cc_owner;
                 paymentDetails.card_number = card.card_number.replace(/\s+/g, '');;
@@ -97,13 +100,20 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
 
                 console.log(paymentDetails)
 
-                const response = await fetch('https://www.paytr.com/odeme', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(paymentDetails)
-                });
-                const resdata = await response.json();
-                console.log(resdata)
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = 'https://www.paytr.com/odeme';
+
+                for (const [key, value] of Object.entries(paymentDetails)) {
+                    const hiddenField = document.createElement('input');
+                    hiddenField.type = 'hidden';
+                    hiddenField.name = key;
+                    hiddenField.value = value;
+                    form.appendChild(hiddenField);
+                }
+
+                document.body.appendChild(form);
+                //form.submit();
 
             }
 

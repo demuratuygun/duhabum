@@ -129,7 +129,7 @@ export default function Countdown({close}: {close: Function}) {
 
             <div style={{ background: "radial-gradient(#000, #0000 80%)", width: "100%", padding:'2rem' }}>
               <div>
-                  {inputState=="email"||inputState=="phone"? "TÜM PAKETLERDE GEÇERLİ": inputState=="code"? "kodun kopyalandı!" :null}
+                  {inputState=="email"||inputState=="phone"? "İLK 20 ÜYEMİZE TÜM PAKETLERDE GEÇERLİ": inputState=="code"? "kodun kopyalandı!" :null}
               </div>
                     
               <div className={styles.countdownPromotion} >  

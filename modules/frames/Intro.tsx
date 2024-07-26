@@ -50,7 +50,7 @@ export default function IntroFrame() {
           whileInView="visible" 
           className={styles.title}
         > 
-            <Text text='%100 Değişim Garantisi'/>
+            <Text text='%100 Gelişim Garantisi'/>
 
             <motion.div className={styles.description} variants={item}>
               3 ay boyunca programlarımızı en az %80'ine sadık kalarak uygulayın, değişim görmezseniz paranız iade!

@@ -133,7 +133,7 @@ export default function Checkout({ data, setObject}:{ data:checkoutType, setObje
                     <TextEnter caret={true}
                         Value={code}
                         focus={focus}
-                        examples={['promosyon kodu', 'ogrenci promosyonu: OGR15']} 
+                        examples={['promosyon kodu']}
                         onChange={onChange}
                         border
                     />
