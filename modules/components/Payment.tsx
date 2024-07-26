@@ -78,6 +78,8 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
         
         }
 
+        generatePayment();
+
         /*
         async function testPayment() {
 
@@ -95,8 +97,6 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
         */
 
         //generatePayment();
-
-        generatePayment()
 
     }, [])
 
@@ -149,7 +149,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
     return (
         <>
 
-        <div style={{ maxWidth: "100vw", padding: "4%", display: 'flex', flexDirection: "column", gap: 15, paddingBottom:'7rem' }}>
+        <div style={{ maxWidth: "100vw", padding: "4%", display: 'flex', flexDirection: "column", gap: 15, paddingBottom:'6rem' }}>
             <div style={{ width: "100%", fontSize:"3rem", fontWeight:300 ,display: "flex", justifyContent:'space-between', alignItems:"baseline", padding: "1rem" }} className="text"> 
                 <div style={{ opacity:0.5 }} className="text noSelect">{monthlyPayment} ₺ x {checkout.installment} ay</div>
                 <div>{monthlyPayment*checkout.installment}<span style={{fontWeight:300, paddingLeft:7}}>₺</span></div>

@@ -66,6 +66,7 @@ export async function POST(req) {
     const db = client.db('duhabum');
     const users = db.collection('users');
     const basketcollection = db.collection('basket');
+    console.log( basketcollection );
 
     await users.updateOne(
         { _id: data.phone },
@@ -90,8 +91,9 @@ export async function POST(req) {
             code: data.code==''? undefined:data.code,
             hashString: hashSTR,
             createdAt: new Date()
-          },
-        }
+          }
+        },
+        { upsert: true }
     )
 
     return NextResponse.json(paymentDetails);
