@@ -78,7 +78,25 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
         
         }
 
-        generatePayment();
+        /*
+        async function testPayment() {
+
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            let generatePaymentRespond = await response.json();
+            console.log(generatePaymentRespond)
+        
+        }
+
+        testPayment()
+        */
+
+        //generatePayment();
+
+        generatePayment()
 
     }, [])
 

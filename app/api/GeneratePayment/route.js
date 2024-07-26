@@ -59,7 +59,7 @@ export async function POST(req) {
     const token = createHmac('sha256', merchant_key).update(paytr_token).digest('base64');
 
     // Include the token in the payment details
-    paymentDetails.token = token;
+    paymentDetails.paytr_token = token;
 
     // save the user to database
     const client = await clientPromise;
