@@ -44,7 +44,6 @@ export async function POST(req) {
             return NextResponse.text('Invalid hash', { status: 400 });
         }
 
-
         const purchaseItem = {
             ...basketItem.value,
             payment_type, currency, total_amount, failed_reason_code, failed_reason_msg,
