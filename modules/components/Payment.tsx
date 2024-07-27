@@ -113,6 +113,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                 paymentDetails.expiry_month = card.expiry_date.split('/')[0];
                 paymentDetails.expiry_year = card.expiry_date.split('/')[1];
                 paymentDetails.cvv = card.cvv;
+                paymentDetails.debug_on = 1;
 
                 console.log(paymentDetails)
 
