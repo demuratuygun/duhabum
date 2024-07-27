@@ -60,6 +60,7 @@ export async function POST(req) {
 
     // Include the token in the payment details
     paymentDetails.paytr_token = token;
+    paymentDetails.token = paytr_token;
 
     // save the user to database
     const client = await clientPromise;
