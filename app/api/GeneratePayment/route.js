@@ -9,7 +9,7 @@ const merchant_salt = process.env.MERCHANT_SALT;
 const generateUniqueTimestamp = () => {
   const now = Date.now();
   const randomComponent = Math.floor(Math.random() * 1000000);
-  return 'someuniqueordernumber';//`IN${now}${randomComponent}`;
+  return `IN${now}${randomComponent}`;
 };
 
 export async function POST(req) {

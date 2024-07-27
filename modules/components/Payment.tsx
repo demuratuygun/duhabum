@@ -107,6 +107,8 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
             if(paymentRequest) {
 
                 let paymentDetails:PaymentDetailsType = {...paymentRequest};
+
+                alert(paymentRequest)
                 
                 paymentDetails.cc_owner = card.cc_owner;
                 paymentDetails.card_number = card.card_number.replace(/\s+/g, '');;
