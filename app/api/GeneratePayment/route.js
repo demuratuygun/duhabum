@@ -9,7 +9,7 @@ const merchant_salt = process.env.MERCHANT_SALT;
 const generateUniqueTimestamp = () => {
   const now = Date.now();
   const randomComponent = Math.floor(Math.random() * 1000000);
-  return `IN${now}${randomComponent}`;
+  return 'IN1722233661514545899';//`IN${now}${randomComponent}`;
 };
 
 export async function POST(req) {
@@ -24,11 +24,12 @@ export async function POST(req) {
     // Generate a unique merchant order ID
     const merchant_oid = generateUniqueTimestamp(); // Unique order number
 
-    const amount = Math.floor((data.checkout.discounts??[]).reduce((a,b)=>a*(100-b.rate)/100, data.checkout.option.price))+".00";
+    const amount = '5999.00'//Math.floor((data.checkout.discounts??[]).reduce((a,b)=>a*(100-b.rate)/100, data.checkout.option.price))+".00";
     const basket = JSON.stringify([
       [`Duhabum ${data.checkout.option.duration} aylık ${data.checkout.option.plan} Plan`, amount, 1], // Product 1 (Name - Unit Price - Quantity)
     ]);
 
+    /*
     // Payment details
     const paymentDetails = {
       merchant_id,
@@ -51,16 +52,44 @@ export async function POST(req) {
       card_type: '',
       non3d_test_failed: '0',
       user_basket: basket
-    };
+    };*/
+
+    const paymentDetails = {
+        merchant_id,
+        user_ip: request.ip || request.headers.get('X-Forwarded-For'),
+        merchant_oid,
+        currency: 'TL',
+        test_mode: '0',
+        payment_amount: amount,
+        email: 'hi@muratuygun.me',//data.email,
+        user_name: 'PAYTR TEST',//data.name,
+        user_address: 'test test test',
+        user_phone: data.phone,
+        installment_count: '0',
+        merchant_ok_url: 'https://www.duhabum.com/paymentSuccess',
+        merchant_fail_url: 'https://www.duhabum.com/paymentFailed',
+        debug_on: 1,
+        client_lang: 'tr',
+        payment_type: 'card',
+        non_3d: '0',
+        card_type: '',
+        non3d_test_failed: '0',
+        user_basket: basket
+      };
+
+    //[Report Only] Refused to load the script 'https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015' because it violates the following Content Security Policy directive: "script-src 'none'". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
 
     // Generate hash string
-    const hashSTR = `${merchant_id}${paymentDetails.user_ip}${merchant_oid}${paymentDetails.email}${paymentDetails.payment_amount}${paymentDetails.payment_type}${paymentDetails.installment_count}${paymentDetails.currency}${paymentDetails.test_mode}${paymentDetails.non_3d}`;
+   const hashSTR = `${merchant_id}${paymentDetails.user_ip}${merchant_oid}${paymentDetails.email}${paymentDetails.payment_amount}${paymentDetails.payment_type}${paymentDetails.installment_count}${paymentDetails.currency}${paymentDetails.test_mode}${paymentDetails.non_3d}`;
+   //const hashSTR = `477159176.240.224.70IN1722233661514545899hi@muratuygun.me5999.00card0TL00`;
+
+   "JCqR1tQltEZNFkehHL+4LaskLayea4Ay7V9RsOGYEYY="
     const paytr_token = hashSTR + merchant_salt;
     const token = createHmac('sha256', merchant_key).update(paytr_token).digest('base64');
 
     // Include the token in the payment details
     paymentDetails.paytr_token = token;
-    paymentDetails.token = paytr_token;
+    paymentDetails.token = hashSTR;
 
     // save the user to database
     const client = await clientPromise;

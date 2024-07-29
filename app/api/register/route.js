@@ -6,14 +6,10 @@ const merchant_id = process.env.MERCHANT_ID;
 const merchant_key = process.env.MERCHANT_KEY;
 const merchant_salt = process.env.MERCHANT_SALT;
 
-const generateUniqueTimestamp = () => {
-  const now = Date.now();
-  const randomComponent = Math.floor(Math.random() * 1000000);
-  return `IN${now}${randomComponent}`;
-};
 
 export async function POST(req) {
   try {
+
     const request = new NextRequest(req);
     const data = await request.json();
     const { merchant_oid, total_amount, status, hash, failed_reason_code, failed_reason_msg, payment_type, currency, payment_amount } = data; 
@@ -36,25 +32,27 @@ export async function POST(req) {
         // Generate the hash to compare with the received hash
         const hashString = basketItem.value.hashString;
         console.log(hashString)
-        const calculatedHash = createHmac('sha256', merchant_key).update(hashString + merchant_salt).digest('base64');
+        let token = merchant_oid + merchant_salt + status + total_amount;
+        const calculatedHash = createHmac('sha256', merchant_key).update(token).digest('base64');
     
         // Validate the hash
-        if (data.hashString !== calculatedHash) {
-            console.error('Hash mismatch', data.hashString, calculatedHash);
-            return NextResponse.text('Invalid hash', { status: 400 });
-        }
+        if (hash != calculatedHash) {
+            console.error("PAYTR notification failed: bad hash", hash, calculatedHash);
+            throw new Error("PAYTR notification failed: bad hash "+ hash+" / "+ calculatedHash);
+        } else if( callback.status == 'success' ) {
+             const purchaseItem = {
+                ...basketItem.value,
+                payment_type, currency, total_amount, failed_reason_code, failed_reason_msg,
+                purchaseDate: new Date(), // Add additional fields here
+                status: status, // Example additional fiel
+            };
+            await purchase.insertOne(purchaseItem);
+            return new NextResponse('OK');
+        } else return new NextResponse('not ok');
 
-        const purchaseItem = {
-            ...basketItem.value,
-            payment_type, currency, total_amount, failed_reason_code, failed_reason_msg,
-            purchaseDate: new Date(), // Add additional fields here
-            status: status, // Example additional fiel
-        };
-        await purchase.insertOne(purchaseItem);
-        return new NextResponse('OK');
-
+       
     } else {
-        return new NextResponse('Basket item not found', { status: 404 });
+        return new NextResponse('Basket item with merchant_oid not found', { status: 404 });
     }
 
   } catch (error) {

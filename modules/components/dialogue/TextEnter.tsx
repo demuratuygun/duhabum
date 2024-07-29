@@ -50,7 +50,7 @@ export default function TextEnter({ verify, Value, examples, long=false, caret=t
   };
 
   const giveExample = (set:number) => {
-      setExample(set)
+      setExample(set);
       setTimeout( () => giveExample((set+1)%examples.length), examples[set].length*200+3000 );
   }
   

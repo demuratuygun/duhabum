@@ -68,7 +68,7 @@ export default function Calculator({ display, Description, Values, calculate, se
   const handleChange = (index: number, newValue: number) => {
     setValues(prevValues => {
       const newValues = [...prevValues];
-      newValues[index].val = newValue;
+      newValues[index] = { ...newValues[index], val: newValue };
       return newValues;
     });
   };
@@ -96,7 +96,7 @@ export default function Calculator({ display, Description, Values, calculate, se
                 unit={obj.unit}
                 range={obj.range}
                 step={obj.step??1}
-                onChange={(val: number) => handleChange(i, val)}
+                onChange={(val: number) => {handleChange(i, val)}}
               />
             </motion.div>
           ))}

@@ -62,7 +62,6 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
     const [focusCard, setFocusCard] = useState(false);
     const [paymentRequest, setPaymentRequest] = useState<PaymentDetailsType>();
 
-
     useEffect(() => {
         
         async function generatePayment() {
@@ -114,8 +113,9 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                 paymentDetails.expiry_year = card.expiry_date.split('/')[1];
                 paymentDetails.cvv = card.cvv;
                 paymentDetails.debug_on = 1;
+                paymentDetails.user_ip = '176.240.224.70';
 
-                console.log(paymentDetails)
+                console.log(paymentDetails);
 
                 const form = document.createElement('form');
                 form.method = 'POST';
@@ -129,6 +129,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                     form.appendChild(hiddenField);
                 }
 
+                console.log(form)
                 document.body.appendChild(form);
                 form.submit();
 

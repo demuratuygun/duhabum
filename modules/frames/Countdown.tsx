@@ -33,7 +33,7 @@ const item = {
 
 interface datatype {
   email?:string,
-  phone?:string
+  isStudent?:boolean
 }
 
 export default function Countdown({close}: {close: Function}) {
@@ -72,27 +72,37 @@ export default function Countdown({close}: {close: Function}) {
     setData(prevData => {
       let d:datatype = {...prevData};
       if(inputState=="email") d["email"] = value;
-      else if(inputState=="phone") d["phone"] = value;
       return d;
     })
   }
+
+
+  async function saveEmail() {
+
+    const response = await fetch('/api/saveEmail', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    });
+
+}
 
   const handleClick = () => {
     if (inputState=="email") {
       let regex = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
       if( regex.test( data["email"]??"" ) ) 
-      setInputState("phone");
-    }
-    else if (inputState=="phone") {
-      let regex = new RegExp('^\\d{10,}$');
-      if( regex.test( data["phone"]??"" ) ) 
-        setInputState("student");
+      setInputState("student");
     }
     else {
-      setInputState("code")
+      setInputState("code");
+      saveEmail();
+
     }
 
   }
+
+
+
 
 
   const CopyText = (TextToCopy: string) => {
@@ -124,16 +134,16 @@ export default function Countdown({close}: {close: Function}) {
           <div style={{ width: "100%", maxWidth: "700px", textAlign:"center", display: 'flex', justifyContent:'center', flexDirection:"column", color: '#fff', fontWeight: 400, fontSize:"1.1rem" }}>
                 
             <div className={styles.stopwatch}>
-              {inputState=="code"||inputState=="email"?<Text text={ inputState=="code"? (isStudent?"VIP720":"VIP620"): "00:"+(Math.floor(counter/60)+"").padStart(2, '0')+":"+(counter%60+"").padStart(2, '0') }/>:null}
+              {inputState=="code"||inputState=="email"?<Text text={ inputState=="code"? (data.isStudent?"VIP720":"VIP620"): "00:"+(Math.floor(counter/60)+"").padStart(2, '0')+":"+(counter%60+"").padStart(2, '0') }/>:null}
             </div>
 
             <div style={{ background: "radial-gradient(#000, #0000 80%)", width: "100%", padding:'2rem' }}>
               <div>
-                  {inputState=="email"||inputState=="phone"? "İLK 20 ÜYEMİZE TÜM PAKETLERDE GEÇERLİ": inputState=="code"? "kodun kopyalandı!" :null}
+                  {inputState=="email"? "İLK 20 ÜYEMİZE TÜM PAKETLERDE GEÇERLİ": inputState=="code"? "kodun kopyalandı!" :null}
               </div>
                     
               <div className={styles.countdownPromotion} >  
-                {inputState=="email"||inputState=="phone"? "%35 İNDİRİM":null}
+                {inputState=="email"? "%35 İNDİRİM":null}
               </div>
 
               <div style={{ fontSize: inputState=="code"? "1.5rem" : '' }}>
@@ -150,8 +160,8 @@ export default function Countdown({close}: {close: Function}) {
           { inputState=="code"?null: inputState=="student"?
             <div style={{ width: '100%',  display:'flex', justifyContent:'center', fontSize:"2rem" }}>
               <div className={styles.countdownWrap} style={{ fontSize: '1.5rem', width:"100%", display:'flex', justifyContent:"center", alignItems:"center", gap:"1rem" }}>
-                <button key="yes" onClick={() => {setIsStudent(true);setInputState('code');localStorage.setItem("code", 'VIP720');CopyText('VIP720');}} > EVET </button>
-                <button key="no" onClick={() => {setIsStudent(false);setInputState('code');localStorage.setItem("code", 'VIP620');CopyText('VIP620');}} > HAYIR </button>
+                <button key="yes" onClick={() => {setData((prevData:datatype) => {let d={...prevData}; d.isStudent= true;return d});setInputState('code');localStorage.setItem("code", 'VIP720');CopyText('VIP720');}} > EVET </button>
+                <button key="no" onClick={() => {setData((prevData:datatype) => {let d={...prevData}; d.isStudent= false;return d});setInputState('code');localStorage.setItem("code", 'VIP620');CopyText('VIP620');}} > HAYIR </button>
               </div>
             </div>
                   :
