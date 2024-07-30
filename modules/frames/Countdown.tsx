@@ -149,7 +149,7 @@ export default function Countdown({close}: {close: Function}) {
               <div style={{ fontSize: inputState=="code"? "1.5rem" : '' }}>
                 {inputState=="code"? "24 saat geçerli indirim kodunu ödeme sayfasından önce kullanabilirsin":
                 inputState=="student"? "öğrenci olduğunu okul kartı belgesi veya üniversite e posta adresin ile kanıtlayabilir misin?":
-                "%20 VIP %15 EK ÖĞRENCİ İNDİRİMİ"}
+                "%20 VIP (+) %15 EK ÖĞRENCİ İNDİRİMİ"}
               </div>
             </div>
 
