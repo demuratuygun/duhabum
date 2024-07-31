@@ -77,27 +77,35 @@ export default function Countdown({close}: {close: Function}) {
   }
 
 
-  async function saveEmail() {
+  async function saveEmail(send:any) {
 
     const response = await fetch('/api/saveEmail', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
+        body: JSON.stringify(send)
     });
+    console.log(response);
 
-}
+  }
 
-  const handleClick = () => {
-    if (inputState=="email") {
-      let regex = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
-      if( regex.test( data["email"]??"" ) ) 
-      setInputState("student");
-    }
-    else {
-      setInputState("code");
-      saveEmail();
+  const handleEmailClick = () => {
 
-    }
+    let regex = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
+    if( regex.test( data["email"]??"" ) ) 
+    setInputState("student");
+
+  }
+
+  const handleSaveClick = (isStudent:boolean) => {
+
+    setInputState("code");
+    alert('save')
+    saveEmail({...data, isStudent: isStudent});
+    
+    let code = isStudent? 'VIP720': 'VIP620';
+    localStorage.setItem("code", code);
+    CopyText(code);
+
 
   }
 
@@ -160,15 +168,15 @@ export default function Countdown({close}: {close: Function}) {
           { inputState=="code"?null: inputState=="student"?
             <div style={{ width: '100%',  display:'flex', justifyContent:'center', fontSize:"2rem" }}>
               <div className={styles.countdownWrap} style={{ fontSize: '1.5rem', width:"100%", display:'flex', justifyContent:"center", alignItems:"center", gap:"1rem" }}>
-                <button key="yes" onClick={() => {setData((prevData:datatype) => {let d={...prevData}; d.isStudent= true;return d});setInputState('code');localStorage.setItem("code", 'VIP720');CopyText('VIP720');}} > EVET </button>
-                <button key="no" onClick={() => {setData((prevData:datatype) => {let d={...prevData}; d.isStudent= false;return d});setInputState('code');localStorage.setItem("code", 'VIP620');CopyText('VIP620');}} > HAYIR </button>
+                <button key="yes" onClick={() => handleSaveClick(true)} > EVET </button>
+                <button key="no" onClick={() => handleSaveClick(false)} > HAYIR </button>
               </div>
             </div>
                   :
             <div style={{ width: '100%', display:'flex', justifyContent:'center', fontSize:"2rem" }}>
               <div className={styles.countdownWrap}>
                 <TextEnter key={inputState} focus={focus} examples={inputState=="email"? ["e posta", "isimsoyisim@gmail.com"]:["telefon numarasi", "0 5XX XXX XX XX"]} border onChange={onChange} />
-                <button key="next" onClick={() => handleClick()} className={styles.countdownButton}>→</button>
+                <button key="next" onClick={() => handleEmailClick()} className={styles.countdownButton}>→</button>
               </div>
             </div>
                   

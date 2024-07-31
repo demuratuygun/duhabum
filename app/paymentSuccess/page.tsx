@@ -80,7 +80,7 @@ export default function Success({ params }: { params: { title: string } }) {
       weight: 78,
       years: 19
     });
-    const [page, setPage] = useState(18);
+    const [page, setPage] = useState(0);
   
   
   

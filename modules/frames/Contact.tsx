@@ -5,6 +5,8 @@ import { adsense_v1_4 } from 'googleapis';
 import SocialMedia from '../components/Social';
 import { useEffect, useState } from 'react';
 import styles from './frames.module.css';
+import Arrow from '../icons/Arrow';
+import ArrowUp from '../icons/ArrowUp';
 
 
 const container = {
@@ -34,16 +36,8 @@ const item = {
 
 export default function ContactFrame() {
 
-  const [width, setWidth] = useState(2000);
-  
-  const { scrollYProgress } = useScroll();
-  const x = useTransform(scrollYProgress, [0.7, 0.9], [280, -280]);
-  const opacity = useTransform(scrollYProgress, [0.66, 0.78, 0.87], [0, 1, 0]);
-
-
-  useEffect(() => {
-    setWidth(0);
-  })
+  const [x, setX] = useState(300);
+  const [dragged, setDragged] = useState(false);
 
   
   return (
@@ -54,7 +48,7 @@ export default function ContactFrame() {
         <div className='hideingRound' style={{right: '0rem', filter: "blur(5px)"}}></div>
         <div className='hideingRound' style={{left: '0rem', background: 'radial-gradient(circle at 0%, #000, #0000 50%)', filter: "blur(5px)"}}></div>
 
-        <motion.div drag="x" initial={{ x: 300 }}  dragConstraints={{ left: -600, right: 600 }} style={{ zIndex:900}}>
+        <motion.div drag="x" initial={{ x }} onDrag={()=> setDragged(true)} dragConstraints={{ left: -600, right: 600 }} style={{ zIndex:900, x, transition: dragged?'':'1s ease' }}>
           <motion.div className={'flex flex-row m-2 pb-8 z-50 h-max noSelect'} >  
             {[{name: "Efe Ö.", rate: 5, comment:'Bizzat Duha benimle ilgilendi ve birkaç kez telefondan bile konuştuk.'},
             {name: "Baran K.", rate: 5, comment:'Eğer programa gerçekten sadık kalırsanız değişmeme ihtimali yok. Ben 2 ayda 5 kg verdim.'},
@@ -73,6 +67,8 @@ export default function ContactFrame() {
             )}
             </motion.div>
         </motion.div>
+
+        {dragged?null:<div className={styles.nextComment} onClick={() => setX(prevX => prevX - 250)}><ArrowUp color='#222'/></div>}
 
         <motion.div variants={container} initial="hidden" whileInView="visible" className={styles.social}>
             <SocialMedia />

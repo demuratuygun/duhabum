@@ -18,7 +18,6 @@ export async function POST(req) {
 
     await emails.insertOne({...data});
     return new NextResponse('OK');
-    
 
 
   } catch (error) {

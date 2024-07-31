@@ -6,58 +6,62 @@ const merchant_id = process.env.MERCHANT_ID;
 const merchant_key = process.env.MERCHANT_KEY;
 const merchant_salt = process.env.MERCHANT_SALT;
 
-
 export async function POST(req) {
   try {
-
     const request = new NextRequest(req);
     const data = await request.json();
-    const { merchant_oid, total_amount, status, hash, failed_reason_code, failed_reason_msg, payment_type, currency, payment_amount } = data; 
-    console.log(data);
 
-    // save the user to database
-    const client = await clientPromise;
-    const db = client.db('duhabum');
-    const basket = db.collection('basket');
-    const purchase = db.collection('purchase');
+    const {
+      merchant_oid,
+      status,
+      total_amount,
+      hash,
+      failed_reason_code,
+      failed_reason_msg,
+    } = data;
 
-    const basketItem = await basket.findOneAndDelete({ _id: merchant_oid });
-    console.log("basketItem.value test")
+    // Generate hash string
+    const hashSTR = `${merchant_oid}${merchant_salt}${status}${total_amount}`;
+    const token = createHmac('sha256', merchant_key).update(hashSTR).digest('base64');
 
-
-    if ( basketItem && basketItem.value) {
-
-        console.log("basketItem.value exists")
-        
-        // Generate the hash to compare with the received hash
-        const hashString = basketItem.value.hashString;
-        console.log(hashString)
-        let token = merchant_oid + merchant_salt + status + total_amount;
-        const calculatedHash = createHmac('sha256', merchant_key).update(token).digest('base64');
-    
-        // Validate the hash
-        if (hash != calculatedHash) {
-            console.error("PAYTR notification failed: bad hash", hash, calculatedHash);
-            throw new Error("PAYTR notification failed: bad hash "+ hash+" / "+ calculatedHash);
-        } else if( callback.status == 'success' ) {
-             const purchaseItem = {
-                ...basketItem.value,
-                payment_type, currency, total_amount, failed_reason_code, failed_reason_msg,
-                purchaseDate: new Date(), // Add additional fields here
-                status: status, // Example additional fiel
-            };
-            await purchase.insertOne(purchaseItem);
-            return new NextResponse('OK');
-        } else return new NextResponse('not ok');
-
-       
-    } else {
-        return new NextResponse('Basket item with merchant_oid not found', { status: 404 });
+    // Verify the hash
+    if (token !== hash) {
+      throw new Error('Invalid hash');
     }
 
+    const client = await clientPromise;
+    const db = client.db('duhabum');
+    const basketCollection = db.collection('basket');
+    const purchaseCollection = db.collection('purchase');
+
+    // Check if the order exists in the basket
+    const order = await basketCollection.findOne({ _id: merchant_oid });
+
+    if (!order) {
+      throw new Error('Order not found');
+    }
+
+    if (status === 'success') {
+      // Delete the order from the basket collection
+      await basketCollection.deleteOne({ _id: merchant_oid });
+
+      // Add the order to the purchase collection
+      await purchaseCollection.insertOne({
+        ...order,
+        status,
+        total_amount,
+        payment_date: new Date(),
+      });
+
+      // Respond with "OK" to acknowledge the successful payment
+      return new Response('OK');
+    } else {
+      // If payment failed, keep the order in the basket and log the failure reason
+      console.error(`Payment failed: ${failed_reason_code} - ${failed_reason_msg}`);
+      return new Response('OK');
+    }
   } catch (error) {
     console.error('Server Error:', error);
-    return new NextResponse( 'Failed to generate a payment', { status: 500 });
+    return new Response('Failed to process payment notification', { status: 500 });
   }
 }
-

@@ -33,7 +33,7 @@ const container = {
 
 
 
-export default function CreditCard({name='', allValid, focusTo}:{name?:string, allValid:(valid:any)=>void, focusTo:boolean}) {
+export default function CreditCard({name='', allValid, focusTo, getBIN}:{name?:string, allValid:(valid:any)=>void, focusTo:boolean, getBIN:Function}) {
 
     const [cardName, setCardName] = useState(name??"");
     const [cardNumber, setCardNumber] = useState('');
@@ -160,6 +160,8 @@ export default function CreditCard({name='', allValid, focusTo}:{name?:string, a
         
         const formattedValue = value.replace(/(.{4})/g, '$1  ').trim();
         setCardNumber(formattedValue);
+
+        if(formattedValue.length==10) getBIN(formattedValue.replace(/\s+/g, ''));
         
         if(formattedValue.length>=22) {
             if ( expireDate.length<5 || !expireDateValid ) {

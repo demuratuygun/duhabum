@@ -6,6 +6,7 @@ const merchant_id = process.env.MERCHANT_ID;
 const merchant_key = process.env.MERCHANT_KEY;
 const merchant_salt = process.env.MERCHANT_SALT;
 
+
 const generateUniqueTimestamp = () => {
   const now = Date.now();
   const randomComponent = Math.floor(Math.random() * 1000000);
@@ -20,7 +21,6 @@ export async function POST(req) {
     }
     const request = new NextRequest(req);
     const data = await request.json();
-    console.log(data);
     
     // Generate a unique merchant order ID
     const merchant_oid = generateUniqueTimestamp(); // Unique order number
@@ -68,7 +68,6 @@ export async function POST(req) {
     const db = client.db('duhabum');
     const users = db.collection('users');
     const basketcollection = db.collection('basket');
-    console.log( basketcollection );
 
     await users.updateOne(
         { _id: data.phone },

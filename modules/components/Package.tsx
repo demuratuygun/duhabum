@@ -68,14 +68,13 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
 
       <div className="text" style={{ fontSize:'1.4rem', textAlign: "center", zIndex:100 }}>{pack.plan}</div>
 
-
       <div className="text" style={{ position:'relative', zIndex:100, fontSize: "2.7rem", fontFamily: "1rem", textAlign: "center", fontWeight: 500, padding: 0 }}>
         <span> ₺ {padNumber(mothlyPrice + "")} </span>
         { duration > 1 ? 
         <span style={{ fontWeight: 300, fontSize: "1.4rem", color: "#DFDFDF80" }}>
           {' / ' + pack.unit}
           <div style={{position:"absolute", top:'0.16rem', left:'9.7rem', fontSize:'1.2rem', fontWeight:350, textDecoration:'line-through', color:"#B7FE0466" }}> 
-            ₺{padNumber(Math.floor(pack.prices[0] / (pack.duration[0])) + "")} 
+            {/*"₺"+padNumber(Math.floor(pack.prices[0] / (pack.duration[0])) + "")*/} 
           </div>
         </span> : null
         }
@@ -83,7 +82,9 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
 
 
       <div key={'subtitle-'} className="text" style={{ zIndex:100, textAlign: "center", position: "relative", top: -8, fontWeight: 300, fontSize:"1.2rem", color: "#DFDFDF80" }}>
-        {`toplam ${padNumber(pack.prices[pack.duration.indexOf(duration)]+'')}`}
+        {duration==1?'toplam ': <span style={{textDecoration:'line-through',opacity:0.6}}>{padNumber(pack.prices[0]*duration+"")}</span>} 
+        {duration==1?'': <span style={{opacity:0.6}}> yerine ₺ </span> }
+        {padNumber(pack.prices[pack.duration.indexOf(duration)]+'')}
       </div>
 
       

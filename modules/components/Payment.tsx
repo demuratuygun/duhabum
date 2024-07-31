@@ -79,23 +79,38 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
 
         generatePayment();
 
-        /*
-        async function testPayment() {
 
-            const response = await fetch('/api/register', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
-            });
-            let generatePaymentRespond = await response.json();
-            console.log(generatePaymentRespond)
+    }, []);
+
+
+    const  getBIN = async (binNumber:string) => {
+
+        const response = await fetch('/api/getBIN', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({bin_number: binNumber})
+        });
+
+        let binResponse = await response.json();
+        console.log(binResponse)
         
-        }
+    }
 
-        testPayment()
-        */
 
-    }, [])
+    const  notify = async () => {
+
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                merchant_oid:'IN1722012418528217648'
+            })
+        });
+
+        let Response = await response.json();
+        console.log(Response)
+        
+    }
 
 
 
@@ -113,7 +128,6 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                 paymentDetails.expiry_year = card.expiry_date.split('/')[1];
                 paymentDetails.cvv = card.cvv;
                 paymentDetails.debug_on = 1;
-                paymentDetails.user_ip = '176.240.224.70';
 
                 console.log(paymentDetails);
 
@@ -154,7 +168,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                 <div style={{ opacity:0.5 }} className="text noSelect">{monthlyPayment} ₺ x {checkout.installment} ay</div>
                 <div>{monthlyPayment*checkout.installment}<span style={{fontWeight:300, paddingLeft:7}}>₺</span></div>
             </div>
-            <CreditCard name={name??""} allValid={(card)=> setCard(card)} focusTo={focusCard}/>
+            <CreditCard name={name??""} allValid={(card)=> setCard(card)} focusTo={focusCard} getBIN={getBIN}/>
         </div>
     
         <Control turnPage={(dir) => turnPage(dir)} />
