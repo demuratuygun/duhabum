@@ -24,6 +24,8 @@ export async function POST(req) {
     const hashSTR = `${merchant_oid}${merchant_salt}${status}${total_amount}`;
     const token = createHmac('sha256', merchant_key).update(hashSTR).digest('base64');
 
+    console.log(JSON.stringify(data));
+
     // Verify the hash
     if (token !== hash) {
       throw new Error('Invalid hash');
