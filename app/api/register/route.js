@@ -67,3 +67,10 @@ export async function POST(req) {
     return new Response('Failed to process payment notification', { status: 500 });
   }
 }
+
+
+export async function GET(req) {
+
+  console.log("get")
+  return new Response('OK');
+}
