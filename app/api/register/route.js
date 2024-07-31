@@ -37,11 +37,9 @@ export async function POST(req) {
     const purchaseCollection = db.collection('purchase');
 
     // Check if the order exists in the basket
-    const order = await basketCollection.findOne({ _id: merchant_oid });
+    //const order = await basketCollection.findOne({ _id: merchant_oid });
 
-    if (!order) {
-      throw new Error('Order not found');
-    }
+    //if (!order) throw new Error('Order not found');
 
     if (status === 'success') {
       // Delete the order from the basket collection
