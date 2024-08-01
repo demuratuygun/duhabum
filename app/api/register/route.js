@@ -18,6 +18,11 @@ export async function POST(req) {
       hash
     } = req.body;
 
+    if (!merchant_oid || !status || !total_amount) {
+      res.status(400).send({ message: 'Missing required fields' });
+      return;
+    }
+
     // Generate hash string
     const hashSTR = `${merchant_oid}${merchant_salt}${status}${total_amount}`;
     const token = createHmac('sha256', merchant_key).update(hashSTR).digest('base64');
