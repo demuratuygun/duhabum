@@ -16,8 +16,8 @@ export async function POST(req) {
       status,
       total_amount,
       hash
-    } = req.body;
-
+    } = await req.json();
+    
     if (!merchant_oid || !status || !total_amount) {
       res.status(400).send({ message: 'Missing required fields' });
       return;
