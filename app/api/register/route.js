@@ -1,3 +1,4 @@
+
 import { createHmac } from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import clientPromise from '../../../lib/mongodb';
@@ -9,7 +10,7 @@ const merchant_salt = process.env.MERCHANT_SALT;
 export async function POST(req) {
 
   try {
-    const data = req.body;
+    const data = req;
 
     const {
       merchant_oid,
@@ -27,7 +28,6 @@ export async function POST(req) {
     // Verify the hash
     //if (token !== hash) 
     //  return new Response('Invalid hash: '+token +" "+ hash);
-    
 
     const client = await clientPromise;
     const db = client.db('duhabum');
