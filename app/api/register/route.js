@@ -67,7 +67,7 @@ export async function POST(req) {
 
   } catch (error) {
     console.error('Server Error:', error);
-    return new Response('Failed to process payment notification');
+    return new Response('Failed to process payment notification: '+req.body);
   }
 }
 
