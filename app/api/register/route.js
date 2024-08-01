@@ -16,9 +16,7 @@ export async function POST(req) {
       merchant_oid,
       status,
       total_amount,
-      hash,
-      failed_reason_code,
-      failed_reason_msg,
+      hash
     } = data;
 
     // Generate hash string
@@ -64,13 +62,13 @@ export async function POST(req) {
       return new Response('OK');
     } else {
       // If payment failed, keep the order in the basket and log the failure reason
-      console.error(`Payment failed: ${failed_reason_code} - ${failed_reason_msg}`);
+      console.error(`Payment failed`);
       return new Response('NOT success');
     }
 
   } catch (error) {
     console.error('Server Error:', error);
-    return new Response('Failed to process payment notification', failed_reason_code, failed_reason_msg);
+    return new Response('Failed to process payment notification');
   }
 }
 
