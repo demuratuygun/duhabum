@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Control from './dialogue/Control';
 import CreditCard from './dialogue/CreditCard';
+import PickNumber from './dialogue/PickNumber';
 
 
 interface discount {
@@ -21,9 +22,7 @@ interface checkoutType {
     code: string,
     discounts:discount[],
     plan: packagetype,
-    option: {duration:number, price:number, plan: string},
-    installment: number,
-    installmentRate: number
+    option: {duration:number, price:number, plan: string}
 }
 
 interface PaymentDetailsType {
@@ -55,12 +54,19 @@ interface PaymentDetailsType {
     cvv?: string
 }
 
+const padNumber = (val: number|string) => {
+    return (val+'').replace(/(\d)(?=(\d{3})+$)/g, '$1.');
+  }
+
+
 export default function Payment({ data, name, setObject}:{ data:any, name:string, setObject:(param: any, direction: number) => void }) {
 
     const checkout: checkoutType = data.checkout;
     const [card, setCard] = useState<any>({});
+    const [amount, setAmount] = useState(0);
     const [focusCard, setFocusCard] = useState(false);
     const [paymentRequest, setPaymentRequest] = useState<PaymentDetailsType>();
+    const [installment, setInstallment] = useState<number>(1);
 
     useEffect(() => {
         
@@ -77,8 +83,12 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
         
         }
 
-        generatePayment();
+        const amount = Math.floor((data.discounts??[]).reduce((a:number,b:discount)=>a*(100-b.rate)/100, checkout.option.price));
+        data.total = amount;
+        setAmount(amount);
 
+        generatePayment();
+        //notify();
 
     }, []);
 
@@ -103,11 +113,13 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                merchant_oid:'IN1722012418528217648'
+                merchant_oid:'IN1722502773926429012',
+                status: 'success',
+                hash: ''
             })
         });
 
-        let Response = await response.json();
+        let Response = await response.text();
         console.log(Response)
         
     }
@@ -155,24 +167,34 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
         
         if( card.cvv ) makePayment();
         else if( direction > 0) setFocusCard(prevFocusCard => !prevFocusCard);
-        else setObject( {}, -1)
+        else setObject( {}, -1);
+
     };
-
-    const monthlyPayment = Math.floor((checkout.discounts??[]).reduce((a,b)=>a*(100-b.rate)/100, checkout.option.price)*checkout.installmentRate/checkout.installment)
-
+    
     return (
         <>
 
         <div style={{ maxWidth: "100vw", padding: "4%", display: 'flex', flexDirection: "column", gap: 15, paddingBottom:'6rem' }}>
-            <div style={{ width: "100%", fontSize:"3rem", fontWeight:300 ,display: "flex", justifyContent:'space-between', alignItems:"baseline", padding: "1rem" }} className="text"> 
-                <div style={{ opacity:0.5 }} className="text noSelect">{monthlyPayment} ₺ x {checkout.installment} ay</div>
-                <div>{monthlyPayment*checkout.installment}<span style={{fontWeight:300, paddingLeft:7}}>₺</span></div>
+            
+            <div style={{ width: "100%", fontSize:"3rem", fontWeight:300 ,display: "flex", justifyContent:'space-between', alignItems:"baseline", padding: "1rem" }} className="text">
+                <div style={{ opacity:0.5 }} className="text noSelect">{padNumber(Math.floor(amount/checkout.option.duration))} ₺ x {checkout.option.duration} ay</div>
+                <div>{padNumber(paymentRequest?.payment_amount.slice(0,-3)??amount)}<span style={{fontWeight:300, paddingLeft:7}}>₺</span></div>
             </div>
+
             <CreditCard name={name??""} allValid={(card)=> setCard(card)} focusTo={focusCard} getBIN={getBIN}/>
+            
+            <PickNumber key={"pickInstallments"}
+                value={installment}
+                label='taksit'
+                unit='ay'
+                range={[1,12]}
+                onChange={(val:number) => setInstallment(val)}
+            />
+
         </div>
     
         <Control turnPage={(dir) => turnPage(dir)} />
-     
+    
         </>
       );
     }

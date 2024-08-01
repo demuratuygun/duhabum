@@ -56,7 +56,7 @@ export default function ContactFrame() {
             {name: "Deniz B.", rate: 5, comment:"Daha önce uzaktan eğitim almıştım ama aldığım influencer yerine onun çalışanları ile konuşuyordum. Ama burada bizzat Duha'nın benimle ilgilenmesi beni çok mutlu etti."},
             {name: "Mert B.", rate: 5, comment:'Çoğu yer iade yapmazken Duha direkt iademi gerçekleştirdi, teşekkür ederim!'},
           ].map( (comment, i) => 
-            <motion.div variants={item} style={{ display: "flex", flexDirection: "column", justifyContent:'center', margin: "1rem", minWidth: "250px", padding: "2.2rem 2rem" }} className='box'>                
+            <motion.div key={'comment='+i} variants={item} style={{ display: "flex", flexDirection: "column", justifyContent:'center', margin: "1rem", minWidth: "250px", padding: "2.2rem 2rem" }} className='box'>                
                 <div style={{ fontSize:'1rem', fontWeight: 300,color: '#B7FE04',letterSpacing:"0.1rem" }}>üyemiz</div> 
                 <div className='text' style={{ fontSize: "1.5rem", fontWeight: 500, position:'relative', top:-4 }}> {comment.name} </div>
                 

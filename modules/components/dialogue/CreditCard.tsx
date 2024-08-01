@@ -290,10 +290,8 @@ export default function CreditCard({name='', allValid, focusTo, getBIN}:{name?:s
                 </div>
                 
             </div>
-            
         </div>
-        
-      </div>
+        </div>
 
     );
   }

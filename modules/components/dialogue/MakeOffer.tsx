@@ -23,10 +23,12 @@ interface optionType {
     price: number
 }
 
+const padNumber = (val: number) => {
+    return (val+'').replace(/(\d)(?=(\d{3})+$)/g, '$1.');
+  }
 
 export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, months:number, setObject:(param: any, direction: number) => void }) {
 
-    const [installment, setInstallment] = useState<number>(1);
     const [selected, setSelected] = useState(0);
     const [options, setOptions] = useState<optionType[]>([]);
     
@@ -48,11 +50,8 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
     }, [plan, months]);
 
     const turnPage = ( select:number ) => {
-        let limitInstalment = select==0 && installment>6? 6 : installment;
         let c = {
-            option: options[select],
-            installment: limitInstalment,
-            installmentRate: Promotioins.installmentRates[limitInstalment-1]
+            option: options[select]
         }
         setObject( {checkout: c}, 1);
     }
@@ -63,8 +62,7 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
 
             { options.map( (option, index) => {
 
-                const divide = option.duration<3? Math.min(3,installment): option.duration<5? Math.min(6, installment) : installment;
-                const amount = Math.floor( option.price*Promotioins.installmentRates[divide-1]  /divide);
+                const amount = option.price;
         
                 return (
                 <motion.div key={'offerBox-'+index} animate={{opacity:1}} initial={{opacity:0}} transition={{duration:1}} className='box noSelect' onClick={()=>turnPage(index)}
@@ -84,29 +82,18 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
                         {option.plan} Plan
                     </div>
                     <div style={{ position:"relative", bottom:9, fontWeight: 600, fontSize: "1.4rem", padding:0, margin:0 }}>
-                        ₺{Math.floor(amount*divide/option.duration)} / ay
+                        ₺{padNumber(Math.floor(amount/option.duration))} / ay
                     </div>
 
                     <div style={{ fontSize: "1.1rem", marginTop:"1rem", color: '#fff6'}}>
-                        {installment==1? null: 
-                        <><span style={{color:"#fff9"}}>₺{amount}</span> x {divide} taksitle<br /></>
-                        } 
-                        toplam <span style={{color:'#B7FE04', fontWeight:500}}>₺{amount*divide}</span>
+                        toplam <span style={{color:'#B7FE04', fontWeight:500}}>₺{padNumber(amount)}</span>
                     </div>
                 
                 </motion.div>
                 );
                 })
             }
-            
-
-            <PickNumber key={"pickInstallments"}
-                value={installment}
-                label='taksit'
-                unit='ay'
-                range={[1,12]}
-                onChange={(val:number) => setInstallment(val)}
-              />
+        
           
           </div>
      

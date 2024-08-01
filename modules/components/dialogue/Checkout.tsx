@@ -25,10 +25,13 @@ interface checkoutType {
     code: string,
     promotions:discount[],
     plan: packagetype,
-    option: {duration:number, price:number, plan: string},
-    installment: number,
-    installmentRate: number
+    option: {duration:number, price:number, plan: string}
 }
+
+const padNumber = (val: number) => {
+    return (val+'').replace(/(\d)(?=(\d{3})+$)/g, '$1.');
+  }
+
 
 
 export default function Checkout({ data, setObject}:{ data:checkoutType, setObject:(param: any, direction: number) => void }) {
@@ -79,52 +82,53 @@ export default function Checkout({ data, setObject}:{ data:checkoutType, setObje
         setCode( change )
     }
 
-    const monthlyPayment = Math.round(discounts.reduce((a,b)=>a*(100-b.rate)/100, data.option.price)*data.installmentRate/data.installment)
+    const amount = Math.floor(discounts.reduce((a,b)=>a*(100-b.rate)/100, data.option.price))
 
     return (
         <>
 
-            { explode? <div style={{ zIndex:1000, position:"absolute", top: 0, background: "url('/dust.gif') no-repeat center fixed", backgroundSize:"cover", width: "100%", height: "100%" }}></div>:null}
+            { // explode effect 
+                explode? <div style={{ zIndex:1000, position:"absolute", top: 0, background: "url('/dust.gif') no-repeat center fixed", backgroundSize:"cover", width: "100%", height: "100%" }}></div>
+            :null}
+
+
+
 
             <div style={{ marginBottom: "2rem", width:"100%", lineHeight:"1.5rem", position:'relative', fontWeight: 300 }}>
 
                 <div style={{ color:"#fffa", width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
                     <div className="text noSelect">{data.option.duration} aylık {data.option.plan} Plan </div>
-                    <div style={{ color:"#fff", minWidth: '6rem', textAlign: "right" }} className="text noSelect">{data.option.price} ₺</div>
+                    <div style={{ color:"#fff", minWidth: '6rem', textAlign: "right" }} className="text noSelect">{padNumber(data.option.price)} ₺</div>
                 </div>
                 
                 {discounts.map((promo,i) => 
                     {
-                        const lastamount = Math.round(discounts.slice(0, i).reduce((a,b)=>a*(100-b.rate)/100, data.option.price));
-                        const amount = Math.round(discounts.slice(0, i+1).reduce((a,b)=>a*(100-b.rate)/100, data.option.price));
+                        const lastamount = Math.floor(discounts.slice(0, i).reduce((a,b)=>a*(100-b.rate)/100, data.option.price));
+                        const amount = Math.floor(discounts.slice(0, i+1).reduce((a,b)=>a*(100-b.rate)/100, data.option.price));
                         return(
                     <div key={"promo"+i} style={{ color:"#fffa", width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
                         <div className="text noSelect">{`%${promo.rate} ${promo.name}`} </div>
-                        <div style={{ color:'#B7FE04', minWidth: '6rem', textAlign: "right" }} className="text noSelect">- {lastamount - amount} ₺</div>
+                        <div style={{ color:'#B7FE04', minWidth: '6rem', textAlign: "right" }} className="text noSelect">- {padNumber(lastamount - amount)} ₺</div>
                     </div>
                     )}
                 )
                 }
 
-                { data.installment>1?
-                    <div style={{ color:'#fffa', width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
-                        <div className="text noSelect"> vade farkı </div>
-                        <div style={{ color:'#fffa', minWidth: '6rem', textAlign: "right" }} className="text noSelect">+ {monthlyPayment*data.installment - Math.round(discounts.reduce((a,b)=>a*(100-b.rate)/100, data.option.price))} ₺</div>
-                    </div> : null
-                }
+
                 
-                <div style={{ width: "100%", padding: 0, marginTop:'1rem', marginBottom: data.installment==1?'1rem':'2.4rem', borderTop:"#666 solid 1px" }}></div>
+                <div style={{ width: "100%", padding: 0, marginTop:'1rem', marginBottom: '1rem', borderTop:"#666 solid 1px" }}></div>
             
-                { data.installment==1? null:
-                    <div style={{ color:'#fffa', width: "100%", display: "flex", justifyContent:'space-between', padding: '0 0.9rem', marginBottom:'0.4rem'  }}>
-                        <div className="text noSelect">{data.installment} taksitle </div>
-                        <div style={{ minWidth: '6rem', textAlign: "right" }} className="text noSelect">aylik {monthlyPayment} ₺</div>
-                    </div>
-                }
+
+
+                <div style={{ color:'#666', width: "100%", display: "flex", justifyContent:'space-between', padding: '0 0.9rem', marginBottom:'0.4rem'  }}>
+                    <div className="text noSelect">{data.option.duration} ay </div>
+                    <div style={{ minWidth: '6rem', textAlign: "right" }} className="text noSelect">₺{padNumber(Math.floor(amount/data.option.duration))} / ay</div>
+                </div>
+            
             
                 <div style={{ width: "100%", fontSize:"2rem", color:'#B7FE04', fontWeight:300 ,display: "flex", justifyContent:'space-between', padding: '0.9rem', paddingTop: "1.6rem" }} className="text"> 
                     <div style={{ color: "#fff5", fontSize: "2rem", fontWeight: 100 }}></div>
-                    <div>{monthlyPayment*data.installment}<span style={{fontWeight:300, paddingLeft:7}}>₺</span></div>
+                    <div>{padNumber(amount)}<span style={{fontWeight:300, paddingLeft:7}}>₺</span></div>
                 </div>
                 
                 {discounted? null:

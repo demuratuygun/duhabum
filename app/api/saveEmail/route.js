@@ -8,7 +8,6 @@ export async function POST(req) {
 
     const request = new NextRequest(req);
     const data = await request.json();
-    const { email, isStudent } = data; 
     console.log(data);
 
     // save the user to database
@@ -16,7 +15,7 @@ export async function POST(req) {
     const db = client.db('duhabum');
     const emails = db.collection('emails');
 
-    await emails.insertOne({...data});
+    await emails.insertOne({...data, createdAt:new Date()});
     return new NextResponse('OK');
 
 
