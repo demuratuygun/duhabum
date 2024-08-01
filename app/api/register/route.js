@@ -22,14 +22,13 @@ export async function POST(req) {
     } = data;
     
     if (!merchant_oid || !status || !total_amount) {
-      return new Response('Missing required fields: '+merchant_oid+status+total_amount+hash);
+      return new Response('Missing required fields: '+JSON.stringify(data));
     }
 
     // Generate hash string
     const hashSTR = `${merchant_oid}${merchant_salt}${status}${total_amount}`;
     const token = createHmac('sha256', merchant_key).update(hashSTR).digest('base64');
 
-    console.log(JSON.stringify(data));
 
     // Verify the hash
     if (token !== hash) 
@@ -52,7 +51,7 @@ export async function POST(req) {
           $set: {
             ...order,
             status,
-            total_amount,
+            total_amount: total_amount.slice(-2),
             payment_date: new Date()
           },
         },
