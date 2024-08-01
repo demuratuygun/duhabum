@@ -9,8 +9,7 @@ const merchant_salt = process.env.MERCHANT_SALT;
 export async function POST(req) {
 
   try {
-    const request = new NextRequest(req);
-    const data = await request.json();
+    const data = req.body();
 
     const {
       merchant_oid,
