@@ -11,12 +11,15 @@ export async function POST(req) {
 
   try {
 
+    const text = await req.text();
+    const data = Object.fromEntries(new URLSearchParams(text));
+
     const {
       merchant_oid,
       status,
       total_amount,
       hash
-    } = await req.json();
+    } = data;
     
     if (!merchant_oid || !status || !total_amount) {
       return new Response('Missing required fields: '+merchant_oid+status+total_amount+hash);
