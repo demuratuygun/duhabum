@@ -32,8 +32,8 @@ export async function POST(req) {
     console.log(JSON.stringify(data));
 
     // Verify the hash
-    //if (token !== hash) 
-    //  return new Response('Invalid hash: '+token +" "+ hash);
+    if (token !== hash) 
+      return new Response('Invalid hash: '+text +" "+ hash);
 
     const client = await clientPromise;
     const db = client.db('duhabum');
