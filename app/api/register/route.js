@@ -10,14 +10,13 @@ const merchant_salt = process.env.MERCHANT_SALT;
 export async function POST(req) {
 
   try {
-    const data = req;
 
     const {
       merchant_oid,
       status,
       total_amount,
       hash
-    } = data;
+    } = req.body;
 
     // Generate hash string
     const hashSTR = `${merchant_oid}${merchant_salt}${status}${total_amount}`;
