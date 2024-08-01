@@ -196,5 +196,6 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
         <Control turnPage={(dir) => turnPage(dir)} />
     
         </>
-      );
-    }
+    );
+}
+
