@@ -33,7 +33,7 @@ const container = {
 
 
 
-export default function CreditCard({name='', allValid, focusTo, getBIN}:{name?:string, allValid:(valid:any)=>void, focusTo:boolean, getBIN:Function}) {
+export default function CreditCard({name='', brand='', allValid, focusTo, getBIN}:{name?:string, brand:string, allValid:(valid:any)=>void, focusTo:boolean, getBIN:Function}) {
 
     const [cardName, setCardName] = useState(name??"");
     const [cardNumber, setCardNumber] = useState('');
@@ -161,7 +161,7 @@ export default function CreditCard({name='', allValid, focusTo, getBIN}:{name?:s
         const formattedValue = value.replace(/(.{4})/g, '$1  ').trim();
         setCardNumber(formattedValue);
 
-        if(formattedValue.length==10) getBIN(formattedValue.replace(/\s+/g, ''));
+        if(formattedValue.length==10) getBIN(formattedValue.replace(/\s+/g, '').slice(0,8));
         
         if(formattedValue.length>=22) {
             if ( expireDate.length<5 || !expireDateValid ) {
@@ -279,6 +279,8 @@ export default function CreditCard({name='', allValid, focusTo, getBIN}:{name?:s
 
                 <div style={{ zIndex: 10, width:"100%", height:"100%", backgroundColor:"#4440", borderRadius:10, position:"absolute", top:0}} onClick={handleClick}></div>
                 
+                <div style={{position:'absolute', top:'30%', left:'2rem'}}>{brand}</div>
+
                 <Image  onClick={handleClick} style={{ visibility: "visible", margin: "2rem", filter: 'grayscale(120%)', transition: 'transform 1s' }} draggable="false" src="/chip.png" height={38} width={50} alt="chip" />
                 {pattern=='mastercard'||pattern=='visa'?
                     <Image  onClick={handleClick} style={{ visibility: "visible", position:"absolute", right: pattern=='visa'?"2.6rem":"2rem", top:pattern=='visa'?"2.4rem":"1.25rem", filter:pattern=='visa'?'contrast(50%) brightness(160%)':'' }} src={"/"+pattern+".png"} height={38} width={pattern=='visa'?64:60} alt="duha bum in dark" />

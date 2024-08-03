@@ -64,7 +64,7 @@
 .pickNumber {
     color: #DFDFDF;
     font-size: 1.8em;
-    font-weight: 500;
+    font-weight: 400;
     vertical-align: baseline;
 
 }
@@ -94,7 +94,7 @@
 input.pickNumber {
     color: #DFDFDF;
     font-size: 1.8em;
-    font-weight: 600;
+    font-weight: 400;
     vertical-align: baseline;
     max-width: 120px;
     text-align: center;

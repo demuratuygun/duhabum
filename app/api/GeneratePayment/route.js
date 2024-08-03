@@ -25,14 +25,19 @@ export async function POST(req) {
     }
     const request = new NextRequest(req);
     const data = await request.json();
-    
 
+    console.log( data );
+    
     // Generate a unique merchant order ID
     const merchant_oid = generateUniqueTimestamp(); // Unique order number
 
+    // asssigning discounts according to code parameter
     let discounts = [];
-    Object.entries(Promotioins.codes).forEach( (key,value) => { if(key==data.code) discounts=value } );
+    Object.entries(Promotioins.codes).forEach( (key,value) => { 
+      if(key==data.code) discounts=value 
+    } );
 
+    // verify and assign the plan
     let plan;
     Object.values(Promotioins.offers).forEach( pack => {
         if( pack.plan==data.checkout.option.plan && pack.duration==data.checkout.option.duration )
@@ -46,11 +51,25 @@ export async function POST(req) {
         }
     })
 
-    console.log(data.checkout.option )
+    // evaluate and verify amount
+    var amount = Math.floor(discounts.reduce((a,b)=>a*(100-b.rate)/100, plan.price));
+    
+    // verify installment ratios
+    if( data.installment_count>1 ) {
+      const itoken = createHmac('sha256', merchant_key).update(merchant_id + JSON.stringify(data.ratios) + merchant_salt).digest('base64');
+      if( itoken != data.itoken )
+        return NextResponse.json({error:'taksit oranlari degistirilmis'});
+      else {
+        let ratio = data.ratios[data.installment_count-2];
+        amount = Math.floor( (1+ratio/100) * amount );
+      }
+    }
+    amount = amount+".00";
 
-    const amount = Math.floor(discounts.reduce((a,b)=>a*(100-b.rate)/100, plan.price))+".00";
+
+    // generate basket
     const basket = JSON.stringify([
-      [`Duhabum ${data.checkout.option.duration} aylık ${data.checkout.option.plan} Plan`, amount, 1] // Product 1 (Name - Unit Price - Quantity)
+      [`Duhabum ${data.checkout.option.duration} aylık ${data.checkout.option.plan} Plan`, amount, 1] // Product (Name - Unit Price - Quantity)
     ]);
 
     // Payment details
@@ -65,14 +84,14 @@ export async function POST(req) {
       user_name: data.name,
       user_address: 'test test test',
       user_phone: data.phone,
-      installment_count: '0',
+      installment_count: data.installment_count,
       merchant_ok_url: 'https://www.duhabum.com/paymentSuccess',
       merchant_fail_url: 'https://www.duhabum.com/paymentFailed',
       debug_on: 1,
       client_lang: 'tr',
       payment_type: 'card',
       non_3d: '0',
-      card_type: '',
+      card_type: data.card_type??"",
       non3d_test_failed: '0',
       user_basket: basket
     };

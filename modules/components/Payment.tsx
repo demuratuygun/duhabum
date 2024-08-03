@@ -43,7 +43,7 @@ interface PaymentDetailsType {
     payment_type: string;
     non_3d: string;
     card_type: string;
-    installment_count: string;
+    installment_count: number;
     non3d_test_failed: string;
     user_basket: string;
     token: string;
@@ -63,6 +63,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
 
     const checkout: checkoutType = data.checkout;
     const [card, setCard] = useState<any>({});
+    const [bin, setBin] = useState<any>(null);
     const [amount, setAmount] = useState(0);
     const [focusCard, setFocusCard] = useState(false);
     const [paymentRequest, setPaymentRequest] = useState<PaymentDetailsType>();
@@ -70,25 +71,9 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
 
     useEffect(() => {
         
-        async function generatePayment() {
-
-            const response = await fetch('/api/GeneratePayment', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
-            });
-            let generatePaymentRespond = await response.json();
-            setPaymentRequest(generatePaymentRespond);
-            console.log(generatePaymentRespond)
-        
-        }
-
         const amount = Math.floor((data.discounts??[]).reduce((a:number,b:discount)=>a*(100-b.rate)/100, checkout.option.price));
         data.total = amount;
         setAmount(amount);
-
-        generatePayment();
-        //notify();
 
     }, []);
 
@@ -102,31 +87,32 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
         });
 
         let binResponse = await response.json();
-        console.log(binResponse)
+        console.log(binResponse);
+        setBin(binResponse);
         
     }
+    
+    const generatePayment = async () => {
 
-
-    const  notify = async () => {
-
-        const response = await fetch('/api/register', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                merchant_oid:'IN1722502773926429012',
-                status: 'success',
-                hash: ''
-            })
-        });
-
-        let Response = await response.text();
-        console.log(Response)
+            const response = await fetch('/api/GeneratePayment', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({...data, 
+                    installment_count: installment==1?0:installment, 
+                    card_type:bin.brand, 
+                    ratios:bin.ratios, 
+                    ratioToken:bin.itoken 
+                })
+            });
+            let generatePaymentRespond = await response.json();
+            await setPaymentRequest(generatePaymentRespond);
+            console.log(generatePaymentRespond);
         
-    }
+        }
 
 
 
-    const turnPage = (direction: number) => {
+    const turnPage = async (direction: number) => {
         
         async function makePayment() {
 
@@ -161,12 +147,14 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
 
             }
 
-            //setObject( {}, direction)
+            //setObject( {}, direction);
         }
 
-        
-        if( card.cvv ) makePayment();
-        else if( direction > 0) setFocusCard(prevFocusCard => !prevFocusCard);
+        if( card.cvv ) {
+            await generatePayment();
+            makePayment();
+        }
+        else if( direction > 0) setFocusCard(prevFocusCard => !prevFocusCard); 
         else setObject( {}, -1);
 
     };
@@ -181,15 +169,30 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                 <div>{padNumber(paymentRequest?.payment_amount.slice(0,-3)??amount)}<span style={{fontWeight:300, paddingLeft:7}}>₺</span></div>
             </div>
 
-            <CreditCard name={name??""} allValid={(card)=> setCard(card)} focusTo={focusCard} getBIN={getBIN}/>
-            
-            <PickNumber key={"pickInstallments"}
-                value={installment}
-                label='taksit'
-                unit='ay'
-                range={[1,12]}
-                onChange={(val:number) => setInstallment(val)}
-            />
+            <CreditCard name={name??""} allValid={(card)=> setCard(card)} focusTo={focusCard} getBIN={getBIN} brand={bin?.brand??""}/>
+
+            { bin && Object.keys(bin.ratios??{}).length>1?  
+            <div style={{ padding:'1rem 0rem' }}>
+                <PickNumber key={"pickInstallments"}
+                    value={installment}
+                    label='taksit'
+                    unit='ay'
+                    range={[1,Object.keys(bin.ratios).length+1]}
+                    onChange={(val:number) => {
+                        // update amout
+                        var amount = Math.floor((data.discounts??[]).reduce((a:number,b:discount)=>a*(100-b.rate)/100, checkout.option.price));
+                        if( installment>1 ) {
+                            let ratio = bin.ratios[installment-2];
+                            amount = Math.floor( (1+ratio/100) * amount );
+                        }
+                        data.total = amount;
+                        setAmount(amount);
+                        setInstallment(val)}
+                    }
+                />
+            </div>
+            :null
+            }
 
         </div>
     

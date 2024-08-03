@@ -113,7 +113,7 @@ export default function PickNumber({value, onChange, label, unit, range, step=1}
 
             <div>
                 <span className={styles.pickLabel}>{label}</span>
-                <input className={styles.pickNumber} value={number} onChange={handleChange} onBlur={handleBlur} style={{width: `calc(${(""+number).length * 0.7}em + 5px )`, color: numberValid ? "#DFDFDF" : "#f88" }}/>
+                <input className={styles.pickNumber} value={number} onChange={handleChange} onBlur={handleBlur} style={{ width: `calc(${(""+number).length * 0.7}em + 5px )`, color: numberValid ? "#DFDFDF" : "#f88" }}/>
                 <span className={styles.pickUnit}>{unit}</span>
             </div>
               
