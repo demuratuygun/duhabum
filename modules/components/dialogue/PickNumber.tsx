@@ -99,7 +99,7 @@ export default function PickNumber({value, onChange, label, unit, range, step=1}
 
     return (
         <div className={styles.pickContainer}>
-            <span style={{color: (!range || (Array.isArray(range) && range[0] < number) || (range && !Array.isArray(range) && range.values[0] < number)) ? '#ffffff99' : '#ffffff28'}}
+            <span style={{color: (!range || (Array.isArray(range) && range[0] < number) || (range && !Array.isArray(range) && range.values[0] < number)) ? '#ffffff' : '#ffffff44'}}
                 className={styles.pickSign} 
                 onClick={() => sum(-1)}
                 onTouchStart={() => onDown(-1)}
@@ -117,7 +117,7 @@ export default function PickNumber({value, onChange, label, unit, range, step=1}
                 <span className={styles.pickUnit}>{unit}</span>
             </div>
               
-            <span style={{color: (!range || (Array.isArray(range) && number < range[1]) || (range && !Array.isArray(range) && number < range.values[range.values.length - 1])) ? '#ffffff99' : '#ffffff28'}}
+            <span style={{color: (!range || (Array.isArray(range) && number < range[1]) || (range && !Array.isArray(range) && number < range.values[range.values.length - 1])) ? '#ffffff' : '#ffffff44'}}
                 className={styles.pickSign} 
                 onClick={() => sum(1)}
                 onTouchStart={() => onDown(1)} 
