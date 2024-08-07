@@ -157,7 +157,6 @@
     position: absolute;
     border-radius: 2rem;
     background-color: #000;
-    overflow: hidden;
 }
 
 .stopwatch {
@@ -257,6 +256,7 @@
     .emailFrame {
         width: 90%;
         left: 5%;
+        
     }
 
     .stopwatch {

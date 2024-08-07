@@ -285,6 +285,7 @@ input::-ms-input-placeholder { /* Edge 12 -18 */
   }
 
   .headerMenu {
+    -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     background-color: #0008;
     position: fixed;

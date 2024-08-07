@@ -132,7 +132,7 @@ export default function Countdown({close}: {close: Function}) {
 
       <div className={styles.emailFrame} onClick={() => setFocus(false)}>
         
-        <div style={{ position: "absolute", top:'1rem', right: '1rem', zIndex:998 }} onClick={() => close()}>
+        <div style={{ position: "absolute", top:'30px', right: '30px', zIndex:998 }} onClick={() => close()}>
           <Cancel/>
         </div>
 
