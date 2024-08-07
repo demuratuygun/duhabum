@@ -118,7 +118,7 @@ export default function Article({ params }: { params: { title: string } }) {
                 </div>
             ))}
 
-        <div className={styles.block} style={{ width: '100%', margin:0, paddingTop:"8rem",  fontSize:'1rem', opacity:0.5}}>
+        <div className={styles.block} style={{ width: '100%', margin:0, paddingTop:"8rem",  fontSize:'1rem', opacity:0.6}}>
             <div className={styles.wrap}>
                 +90 545 470 82 86<br/>
                 Merkez Mah. Hacı Alı Sk. NO:22 KAPI NO:5 
