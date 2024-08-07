@@ -53,10 +53,10 @@ export default function ContactFrame() {
             {[{name: "Efe Ö.", rate: 5, comment:'Bizzat Duha benimle ilgilendi ve birkaç kez telefondan bile konuştuk.'},
             {name: "Baran K.", rate: 5, comment:'Eğer programa gerçekten sadık kalırsanız değişmeme ihtimali yok. Ben 2 ayda 5 kg verdim.'},
             {name: "Emirhan Ö.", rate: 4, comment:'Programım ve beslenme planım gerçekten işe yaradı. Mesajlaşmalar biraz daha hızlı olursa çok daha iyi olabilir'},
-            {name: "Deniz B.", rate: 5, comment:"Daha önce uzaktan eğitim almıştım ama aldığım influencer yerine onun çalışanları ile konuşuyordum. Ama burada bizzat Duha'nın benimle ilgilenmesi beni çok mutlu etti."},
+            {name: "Deniz B.", rate: 5, comment:"Daha önce aldığım eğitimlerde influencer yerine onun çalışanları ile konuşuyordum. Burada bizzat Duha'nın benimle ilgilenmesi beni çok mutlu etti."},
             {name: "Mert B.", rate: 5, comment:'Çoğu yer iade yapmazken Duha direkt iademi gerçekleştirdi, teşekkür ederim!'},
           ].map( (comment, i) => 
-            <motion.div key={'comment='+i} variants={item} style={{ display: "flex", flexDirection: "column", justifyContent:'center', margin: "1rem", minWidth: "250px", padding: "2.2rem 2rem" }} className='box'>                
+            <motion.div key={'comment='+i} variants={item} style={{ display: "flex", flexDirection: "column", justifyContent:'center', margin: "1rem", minWidth: "18rem", padding: "2.2rem 2rem" }} className='box'>                
                 <div style={{ fontSize:'1rem', fontWeight: 300,color: '#B7FE04',letterSpacing:"0.1rem" }}>üyemiz</div> 
                 <div className='text' style={{ fontSize: "1.5rem", fontWeight: 500, position:'relative', top:-4 }}> {comment.name} </div>
                 
