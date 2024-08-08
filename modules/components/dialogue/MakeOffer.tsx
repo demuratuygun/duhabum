@@ -29,6 +29,7 @@ const padNumber = (val: number) => {
 
 export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, months:number, setObject:(param: any, direction: number) => void }) {
 
+    const [counter, setCounter] = useState(180);
     const [selected, setSelected] = useState(0);
     const [options, setOptions] = useState<optionType[]>([]);
     
@@ -46,8 +47,22 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
         }
 
         setOptions(plans);
+        countdown(counter);
 
     }, [plan, months]);
+
+
+    const countdown = (count:number) => {
+        if (count > 0) {
+        setTimeout(() => {
+            setCounter(count - 1);
+            countdown(count - 1);
+        }, 1000);
+        } else {
+        setCounter(0);
+        }
+    };
+
 
     const turnPage = ( select:number ) => {
         let c = {
@@ -59,6 +74,10 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
       return (
         <>
           <div className={styles.container} style={{gap: "1.5rem", maxWidth:'21rem'}}>
+
+            <div className={styles.stopwatch}>
+              <Text text={ "00:"+(Math.floor(counter/60)+"").padStart(2, '0')+":"+(counter%60+"").padStart(2, '0') }/>
+            </div>
 
             { options.map( (option, index) => {
 
@@ -86,7 +105,7 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
                     </div>
 
                     <div style={{ fontSize: "1.1rem", marginTop:"1rem", color: '#fff6'}}>
-                        toplam <span style={{color:'#B7FE04', fontWeight:500}}>₺{padNumber(amount)}</span>
+                        toplam {index==1? <span style={{textDecoration: 'line-through'}}>₺ {padNumber(Math.floor(options[0].price/options[0].duration * option.duration))}</span>:''} <span style={{color:'#B7FE04', fontWeight:500}}>₺{padNumber(amount)}</span>
                     </div>
                 
                 </motion.div>
