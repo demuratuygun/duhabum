@@ -58,10 +58,10 @@ export default function IntroFrame() {
             <Text text='%100 Gelişim Garantisi'/>
 
             <motion.div className={styles.description} variants={item}>
-              
+
               3 ay boyunca programlarımızı en az %80'ine sadık kalarak uygulayın, değişim görmezseniz paranız iade!
        
-              <a href="/article/Isleyis" className={styles.goto} onClick={() => scrolltoFrame('pakagesId')}>
+              <a className={styles.goto} onClick={() => scrolltoFrame('pakagesId')}>
                 <div style={{ padding:'10px 20px', borderRadius:'16px', backgroundColor:'#B7FE04', color: "#222" }}> ARAMIZA KATIL </div>
               </a>
             </motion.div>
