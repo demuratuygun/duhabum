@@ -31,6 +31,11 @@ const item = {
   visible: { opacity:1, transition:{ delay: 1.2, duration: 1 } }
 }
 
+const scrolltoFrame = (frameId:string) => {
+  const element = document.getElementById(frameId);
+  window.scrollTo({ top: element?.offsetTop??2000, behavior: "smooth" })
+}
+
 export default function IntroFrame() {
   const [close, setClose] = useState(false);
 
@@ -53,11 +58,11 @@ export default function IntroFrame() {
             <Text text='%100 Gelişim Garantisi'/>
 
             <motion.div className={styles.description} variants={item}>
+              
               3 ay boyunca programlarımızı en az %80'ine sadık kalarak uygulayın, değişim görmezseniz paranız iade!
        
-              <a href="/article/Isleyis" className={styles.goto}>
-                <div> INCELE</div>
-                <ArrowUp color={"#B7FE04"}/>
+              <a href="/article/Isleyis" className={styles.goto} onClick={() => scrolltoFrame('pakagesId')}>
+                <div style={{ padding:'10px 20px', borderRadius:'16px', backgroundColor:'#B7FE04', color: "#222" }}> ARAMIZA KATIL </div>
               </a>
             </motion.div>
             
