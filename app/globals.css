@@ -102,7 +102,23 @@ p {
   text-align: center;
 }
 
+button.calltoAction {
+  margin-top: 5px;
+  padding: 10px 20px;
+  border-radius: 16px;
+  background-color: #B7FE04dd;
+  font-weight: 400;
+  color: #222;
+}
 
+button.calltoAction:hover {
+  margin-top: 5px;
+  padding: 13px 24px;
+  border-radius: 16px;
+  background-color: #B7FE04;
+  color: #222;
+  border: #555 solid 3px;
+}
 
 button {
   background-color: #66666650;

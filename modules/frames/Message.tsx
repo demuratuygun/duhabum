@@ -37,10 +37,8 @@ export default function MessageFrame() {
   return (
     <div style={{ position: 'relative', display: "flex", justifyContent: "center", alignItems: "center",width: "100vw", height: "100vh",  padding: "0px", margin: "0px",overflow: 'clip'  }}>
 
-        
-
         <motion.div viewport={{amount:"all"}} initial={{opacity:0}} whileInView={{opacity:1}} transition={{duration:3}} exit={{opacity:0}} className={styles.picture2}>
-          <Image src="/faceindark.jpeg" layout="fill" objectFit="cover" alt="duha bum face in dark"/>
+          <Image src="/faceindark2.png" layout="fill" objectFit="cover" alt="duha bum face in dark"/>
         </motion.div>
 
         <motion.div variants={container} initial="hidden" whileInView="visible"  className={styles.title}> 

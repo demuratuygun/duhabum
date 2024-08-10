@@ -46,7 +46,7 @@ export default function IntroFrame() {
     <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100vh", paddingTop: "20vh" }}>
         
         <motion.div viewport={{amount:'some'}} initial={{opacity:0}} whileInView={{opacity:1}} transition={{duration:2}} exit={{opacity:0, transition:{duration:3}}} className={styles.picture}>
-          <Image className='noSelect' src="/duha2.png" height={800} width={610} style={{zIndex:2}} alt="duha bum in dark"/>
+          <Image className='noSelect' src="/duha2.png" height={800} width={610} style={{zIndex:2, opacity:1}} alt="duha bum in dark"/>
         </motion.div>
         
         <motion.div 
@@ -58,11 +58,9 @@ export default function IntroFrame() {
             <Text text='%100 Gelişim Garantisi'/>
 
             <motion.div className={styles.description} variants={item}>
-
               3 ay boyunca programlarımızı en az %80'ine sadık kalarak uygulayın, değişim görmezseniz paranız iade!
-       
               <a className={styles.goto} onClick={() => scrolltoFrame('pakagesId')}>
-                <div style={{ marginTop:'5px', padding:'10px 20px', borderRadius:'16px', backgroundColor:'#B7FE04', color: "#222", fontWeight:350 }}> ARAMIZA KATIL </div>
+                <button className='calltoAction' > ARAMIZA KATIL </button>
               </a>
             </motion.div>
             

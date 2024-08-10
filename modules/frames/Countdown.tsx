@@ -99,7 +99,6 @@ export default function Countdown({close}: {close: Function}) {
   const handleSaveClick = (isStudent:boolean) => {
 
     setInputState("code");
-    alert('save')
     saveEmail({...data, isStudent: isStudent});
     
     let code = isStudent? 'VIP720': 'VIP620';
@@ -126,7 +125,7 @@ export default function Countdown({close}: {close: Function}) {
   }
 
   return (
-    
+
     <div style={{ position: "fixed", top:0, left:0, width:'100vw', height:'100vh', zIndex:1000, transition: '1s ease', overflow:'clip'}}>
 
       <div style={{ backgroundColor:'#0008', position:'absolute', top:0, left:0, width:'100vw', height:'100vh', zIndex:999, borderRadius:0, border:'none' }} onClick={() => close()}></div>

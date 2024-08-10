@@ -43,7 +43,7 @@ export default function ContactFrame() {
   return (
     <div className='select-none' style={{ position: "relative", display: "flex", flexDirection: 'column', justifyContent: "center", alignItems: "center", width: "100%", height: "100vh", paddingTop: "7vh" }}>
 
-        <Image draggable="false" style={{ paddingTop: '50px' }} src="/backindark.png" layout="fill" objectFit="contain" alt="duha bum in dark"/>
+        <Image draggable="false" style={{ paddingTop: '50px' }} src="/backindark2.png" layout="fill" objectFit="contain" alt="duha bum in dark"/>
         
         <div className='hideingRound' style={{right: '0rem', filter: "blur(5px)"}}></div>
         <div className='hideingRound' style={{left: '0rem', background: 'radial-gradient(circle at 0%, #000, #0000 50%)', filter: "blur(5px)"}}></div>
@@ -59,10 +59,8 @@ export default function ContactFrame() {
             <motion.div key={'comment='+i} variants={item} style={{ display: "flex", flexDirection: "column", justifyContent:'center', margin: "1rem", minWidth: "18rem", padding: "2.2rem 2rem" }} className='box'>                
                 <div style={{ fontSize:'1rem', fontWeight: 300,color: '#B7FE04',letterSpacing:"0.1rem" }}>üyemiz</div> 
                 <div className='text' style={{ fontSize: "1.5rem", fontWeight: 500, position:'relative', top:-4 }}> {comment.name} </div>
-                
                 <div className='text' style={{ fontSize: "1rem", opacity: 0.7 }}> {comment.comment} </div>
                 <div style={{margin:"0.4rem 0rem", letterSpacing: '1px'}}>{Array.from(Array(comment.rate).keys()).map(()=>"★")}<span style={{opacity:0.4}}>{Array.from(Array(5-comment.rate).keys()).map(()=>"★")}</span></div>
-
             </motion.div>
             )}
             </motion.div>
