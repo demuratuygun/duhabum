@@ -75,8 +75,9 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
         <>
           <div className={styles.container} style={{gap: "1.5rem", maxWidth:'21rem'}}>
 
-            <div className={styles.stopwatch}>
-              <Text text={ "00:"+(Math.floor(counter/60)+"").padStart(2, '0')+":"+(counter%60+"").padStart(2, '0') }/>
+            <div className={styles.stopwatch} style={{ textAlign:'center' }}>
+              
+              son 3 kontenjan
             </div>
 
             { options.map( (option, index) => {
@@ -91,7 +92,7 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
                         index==0? null:
                         <div style={{ position: "absolute", top: '-0.8rem', width: "calc(100% - 4rem)", display:'flex', justifyContent:'center' }}>
                             <div style={{ width:'fit-content', backgroundColor: "#B7FE04", color: "#222", padding: '0.1rem 1rem', borderRadius: "0.5rem", fontSize: "1rem", fontWeight: 600 }}>
-                                özel teklif
+                                özel teklif <Text text={ (Math.floor(counter/60)+"")+":"+(counter%60+"").padStart(2, '0') }/>
                             </div>
                         </div>
                     }
