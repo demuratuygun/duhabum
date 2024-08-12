@@ -7,9 +7,10 @@
     
     "offers" : {
         "20000": {"plan":"Premium", "duration": 15, "price": 12499},
-        "7000": {"plan":"Essential", "duration": 15, "price": 7999},
+        "7000": {"plan":"Essential", "duration": 15, "price": 6999},
         "5900": {"plan":"Premium", "duration": 6, "price": 7499},
-        "4000": {"plan":"Essential", "duration": 6, "price": 4799}
+        "4000": {"plan":"Essential", "duration": 6, "price": 3999},
+        "700": {"plan":"Essential", "duration": 1, "price": 990}
         
     }
 }

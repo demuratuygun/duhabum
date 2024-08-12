@@ -29,7 +29,7 @@ const padNumber = (val: number) => {
 
 export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, months:number, setObject:(param: any, direction: number) => void }) {
 
-    const [counter, setCounter] = useState(180);
+    const [counter, setCounter] = useState(120);
     const [selected, setSelected] = useState(0);
     const [options, setOptions] = useState<optionType[]>([]);
     
@@ -75,8 +75,7 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
         <>
           <div className={styles.container} style={{gap: "1.5rem", maxWidth:'21rem'}}>
 
-            <div className={styles.stopwatch} style={{ textAlign:'center' }}>
-              
+            <div className={styles.stopwatch} style={{ textAlign:'center', textTransform:'uppercase' }}>
               son 3 kontenjan
             </div>
 
@@ -92,7 +91,7 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
                         index==0? null:
                         <div style={{ position: "absolute", top: '-0.8rem', width: "calc(100% - 4rem)", display:'flex', justifyContent:'center' }}>
                             <div style={{ width:'fit-content', backgroundColor: "#B7FE04", color: "#222", padding: '0.1rem 1rem', borderRadius: "0.5rem", fontSize: "1rem", fontWeight: 600 }}>
-                                özel teklif <Text text={ (Math.floor(counter/60)+"")+":"+(counter%60+"").padStart(2, '0') }/>
+                                <Text text={ "özel teklif "+(Math.floor(counter/60)+"")+":"+(counter%60+"").padStart(2, '0') }/>
                             </div>
                         </div>
                     }
@@ -106,7 +105,7 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
                     </div>
 
                     <div style={{ fontSize: "1.1rem", marginTop:"1rem", color: '#fff6'}}>
-                        toplam {index==1? <span style={{textDecoration: 'line-through'}}>₺ {padNumber(Math.floor(options[0].price/options[0].duration * option.duration))}</span>:''} <span style={{color:'#B7FE04', fontWeight:500}}>₺{padNumber(amount)}</span>
+                        toplam {index==1 && options[0].price/options[0].duration * option.duration>amount? <span style={{textDecoration: 'line-through'}}>₺ {padNumber(Math.floor(options[0].price/options[0].duration * option.duration))}</span>:''} <span style={{color:'#B7FE04', fontWeight:500}}>₺{padNumber(amount)}</span>
                     </div>
                 
                 </motion.div>
