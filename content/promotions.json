@@ -10,7 +10,7 @@
         "7000": {"plan":"Essential", "duration": 15, "price": 6999},
         "5900": {"plan":"Premium", "duration": 6, "price": 7499},
         "4000": {"plan":"Essential", "duration": 6, "price": 3999},
-        "700": {"plan":"Essential", "duration": 2, "price": 5}
+        "700": {"plan":"Essential", "duration": 2, "price": 1899}
         
     }
 }
