@@ -14,7 +14,9 @@ export async function POST(req) {
 
     const request = new NextRequest(req);
     const data = await request.json();
-    console.log(data)
+    console.log(data);
+    console.log("dfsdfsd");
+    
 
     const docs = google.docs({ version: 'v1', auth: oAuth2Client });
 
@@ -42,11 +44,11 @@ export async function POST(req) {
       {q: 'Kronik Hastaliginiz Var Mi?', a: !data.disease||data.disease==''?'cevaplanmadı':data.disease },
       {q: 'Daha önce yaşadığınız bir sakatlık var mı?', a: !data.injury||data.injury==''?'cevaplanmadı':data.injury },
       {q: 'Daha önce spor salonuna gittin mi gittiysen kaç ay', a: !data.GymHistory||data.GymHistory==''?'cevaplanmadı':data.GymHistory },
-      {q: 'kac aydir Aktif Olarak GYMe gidiyorsun?', a: !data.GymCurrently||data.GymCurrently==''?'cevaplanmadı':data.GymCurrently },
-      {q: 'Her kas grubu icin formunu en iyi bildiğiniz 2 egzersiz yazar mısın', a: "göğüs: "+!data.chest||data.chest==''?'cevaplanmadı':data.chest+", omuz: "+!data.shoulder||data.shoulder==''?'cevaplanmadı':data.shoulder+", sırt: "+!data.back||data.back==''?'cevaplanmadı':data.back
+      {q: 'kac aydir Aktif Olarak GYMe gidiyorsun?', a: (data.GymCurrently??0)+' aydır' },
+      {q: 'Her kas grubu icin formunu en iyi bildiğiniz 2 egzersiz yazar mısın', a: "göğüs: "+(data.chest??"belirtilmedi")+", omuz: "+(data.shoulder??'belirtilmedi')+", sırt: "+(data.back??'belirtilmedi')
           +"ön kol: "+!data.forearm||data.forearm==''?'cevaplanmadı':data.forearm+", arka kol: "+!data.reararm||data.reararm==''?'cevaplanmadı':data.reararm+", bacak: "+!data.leg||data.leg==''?'cevaplanmadı':data.leg
        },
-      {q: 'haftada kac gun kac dakika spora ayırmayı planlıyorsun', a: "haftada "+!data.GymDaysinWeek||data.GymDaysinWeek==''?'cevaplanmadı':data.GymDaysinWeek+" gün, günde "+!data.GymTimeinDay||data.GymTimeinDay==''?'cevaplanmadı':data.GymTimeinDay+ "dakika" },
+      {q: 'haftada kac gun kac dakika spora ayırmayı planlıyorsun', a: "haftada "+(data.GymDaysinWeek??'belirtilmedi')+" gün, günde "+(data.GymTimeinDay??"belirtilmedi")+ "dakika" },
 
     ];
     

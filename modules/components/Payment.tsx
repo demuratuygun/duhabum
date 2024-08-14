@@ -94,23 +94,21 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
     
     const generatePayment = async () => {
 
-            const response = await fetch('/api/GeneratePayment', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({...data, 
-                    installment_count: installment==1?0:installment, 
-                    card_type:bin.brand, 
-                    ratios:bin.ratios, 
-                    ratioToken:bin.itoken 
-                })
-            });
-            let generatePaymentRespond = await response.json();
-            await setPaymentRequest(generatePaymentRespond);
-            console.log(generatePaymentRespond);
+        const response = await fetch('/api/GeneratePayment', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({...data, 
+                installment_count: installment==1?0:installment, 
+                card_type: bin.brand, 
+                ratios: bin.ratios, 
+                ratioToken: bin.itoken 
+            })
+        });
+        let generatePaymentRespond = await response.json();
+        await setPaymentRequest(generatePaymentRespond);
+        console.log(generatePaymentRespond);
         
-        }
-
-
+    }
 
     const turnPage = async (direction: number) => {
         

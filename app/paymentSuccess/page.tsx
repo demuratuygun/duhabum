@@ -96,6 +96,8 @@ export default function Success({ params }: { params: { title: string } }) {
     }
   
     const setList = (keys:string[], theList:any[], direction:number) => {
+
+      console.log(theList)
       setData( (prevData: any) => {
         let d = {...prevData};
         keys.forEach((element, i) => {

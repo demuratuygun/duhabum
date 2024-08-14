@@ -46,6 +46,7 @@ export default function CreditCard({name='', brand='', allValid, focusTo, getBIN
     const [cvvCodeLen, setCvvCodeLen] = useState(4);
 
     const [isFlipped, setIsFlipped] = useState(false);
+    const [binPassed, setBinPassed] = useState(false);
 
     const [focus, setFocus] = useState(0);
 
@@ -161,7 +162,10 @@ export default function CreditCard({name='', brand='', allValid, focusTo, getBIN
         const formattedValue = value.replace(/(.{4})/g, '$1  ').trim();
         setCardNumber(formattedValue);
 
-        if(formattedValue.length==10) getBIN(formattedValue.replace(/\s+/g, '').slice(0,8));
+        if(formattedValue.length>=10 && !binPassed) {
+            setBinPassed(true);
+            getBIN(formattedValue.replace(/\s+/g, '').slice(0,8));
+        }
         
         if(formattedValue.length>=22) {
             if ( expireDate.length<5 || !expireDateValid ) {

@@ -25,8 +25,6 @@ export async function POST(req) {
     }
     const request = new NextRequest(req);
     const data = await request.json();
-
-    console.log( data );
     
     // Generate a unique merchant order ID
     const merchant_oid = generateUniqueTimestamp(); // Unique order number
