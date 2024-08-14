@@ -2,7 +2,7 @@
     "codes" : {
         "OGR15": [{"rate": 10, "name": "öğrenci indirimi"}],
         "VIP620": [{"rate": 15, "name": "vip indirimi"}],
-        "VIP720": [{"rate": 15, "name": "vip indirimi"},{"rate": 15, "name": "öğrenci indirimi"}]
+        "VIP720": [{"rate": 15, "name": "vip indirimi"},{"rate": 10, "name": "öğrenci indirimi"}]
     },
     
     "offers" : {

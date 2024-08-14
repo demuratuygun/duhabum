@@ -152,13 +152,13 @@ export default function Countdown({close}: {close: Function}) {
               </div>
                     
               <div className={styles.countdownPromotion} >  
-                {inputState=="email"? "%35 İNDİRİM":null}
+                {inputState=="email"? "%25 İNDİRİM":null}
               </div>
 
               <div style={{ fontSize: inputState=="code"? "1.5rem" : '' }}>
                 {inputState=="code"? "24 saat geçerli indirim kodunu ödeme sayfasından önce kullanabilirsin":
                 inputState=="student"? "öğrenci olduğunu okul kartı belgesi veya üniversite e posta adresin ile kanıtlayabilir misin?":
-                "%20 VIP + %15 EK ÖĞRENCİ İNDİRİMİ"}
+                "%15 VIP + %10 EK ÖĞRENCİ İNDİRİMİ"}
               </div>
             </div>
 
