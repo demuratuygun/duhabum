@@ -20,10 +20,6 @@ export async function POST(req) {
       total_amount,
       hash
     } = data;
-    
-    if (!merchant_oid || !status || !total_amount) {
-      return new Response('Missing required fields: '+JSON.stringify(data));
-    }
 
     // Generate hash string
     const hashSTR = `${merchant_oid}${merchant_salt}${status}${total_amount}`;
@@ -32,7 +28,7 @@ export async function POST(req) {
 
     // Verify the hash
     if (token !== hash) 
-      return new Response('Invalid hash: '+text +" "+ hash);
+      return new Response('OK');
 
     const client = await clientPromise;
     const db = client.db('duhabum');
@@ -51,7 +47,7 @@ export async function POST(req) {
           $set: {
             ...order,
             status,
-            total_amount: total_amount.slice(-2),
+            total_amount: total_amount,
             payment_date: new Date()
           },
         },
@@ -67,12 +63,12 @@ export async function POST(req) {
     } else {
       // If payment failed, keep the order in the basket and log the failure reason
       console.error(`Payment failed`);
-      return new Response('NOT success');
+      return new Response('OK');
     }
 
   } catch (error) {
     console.error('Server Error:', error);
-    return new Response('Failed to process payment with'+text+' notification: '+error);
+    return new Response('OK');
   }
 }
 

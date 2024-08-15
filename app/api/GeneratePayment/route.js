@@ -78,7 +78,7 @@ export async function POST(req) {
       user_ip: request.ip || request.headers.get('X-Forwarded-For'),
       merchant_oid,
       currency: 'TL',
-      test_mode: '0',
+      test_mode: '1',
       payment_amount: amount,
       email: data.email,
       user_name: data.name,
