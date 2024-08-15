@@ -14,6 +14,9 @@ export async function POST(req) {
     const text = await req.text();
     const data = Object.fromEntries(new URLSearchParams(text));
 
+    console.log(data);
+
+
     const {
       merchant_oid,
       status,
@@ -24,7 +27,6 @@ export async function POST(req) {
     // Generate hash string
     const hashSTR = `${merchant_oid}${merchant_salt}${status}${total_amount}`;
     const token = createHmac('sha256', merchant_key).update(hashSTR).digest('base64');
-
 
     // Verify the hash
     if (token !== hash) 
@@ -47,7 +49,7 @@ export async function POST(req) {
           $set: {
             ...order,
             status,
-            total_amount: total_amount,
+            total_amount: total_amount.slice(0,-2),
             payment_date: new Date()
           },
         },
