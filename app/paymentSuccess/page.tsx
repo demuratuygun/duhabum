@@ -119,7 +119,7 @@ export default function Success({ params }: { params: { title: string } }) {
     useEffect(() => {
   
       if( page<0 ) router.back();
-        else if( page>= questions.length ) router.push("/");
+      else if( page>= questions.length ) router.push("/");
   
       const createDocument = async () => {
   
@@ -151,7 +151,7 @@ export default function Success({ params }: { params: { title: string } }) {
           }
       }
       
-      if ( page==questions.length-1)//questions.length-1 
+      if ( page==questions.length-1 ) 
         createDocument();
   
     }, [page]);
@@ -169,7 +169,7 @@ export default function Success({ params }: { params: { title: string } }) {
 
   
     const questions = [
-            <Info text="Soracagimiz sorulara gore antreman plani olusturulacaktir lutfen dikkatli cevap verin" turnPage={turnPage} />,
+            <Info text="ödemenız başarıyla alınmıştır. Soracagimiz sorulara gore antreman plani olusturulacaktir lutfen dikkatli cevap verin" turnPage={turnPage} />,
             <AskText key="goal" setObject={( theList, direction) => setObject( theList, direction)}
               question="Duhabum Koçluk Hizmeti ile Hedefiniz Nedir?"
               entries={[ { value: data["goal"]??"", key:"goal", example:[ 'örneğin; kilo verip kas oranımı korumak', 'dengeli kilo alıp kas kütlesi eklemek'], verify:'', long:true } ]} 
@@ -249,19 +249,22 @@ export default function Success({ params }: { params: { title: string } }) {
                 {val:data["GymDaysinWeek"]??5, unit:"gün", label:"haftada", range:[1,7]}, 
                 {val:data["GymTimeinDay"]??90, unit:"dk", label:"günde", step:10, range:[0,300]} ]} 
               setObject={(theList:any[], direction:number) => setList(["GymDaysinWeek", "GymTimeinDay"], theList, direction)}
-            />,
-            data["name"]? <AskText setObject={( theList, direction) => setObject( theList, direction) }
-                key="name" question="tesekkür ederiz dönüş sağlayabilmemiz için iletişim bilgilerinizi bırakabilirsiniz"
-                entries={[
-                { value: data["name"]??"", key:"name", example:[ 'isim soyisim', 'duha duman'], verify:"^[a-zA-Z ]{3,}$" },
-                { value: data["email"]??"", key:"email", example:[ 'eposta girin', 'adsoyad@gmail.com'], verify:'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' },
-                { value: data["phone"]??"", key:"phone", example:[ 'telefon girin', '0 555 555 55 55'], verify:'^\\d{10,}$' }
-                ]} 
             />
-            :<Info text="tesekkür ederiz size en kısa sürede whatsapp üzerinden dönüş sağlayacağız " turnPage={turnPage} />,
-            <Info text="tesekkür ederiz size en kısa sürede whatsapp üzerinden dönüş sağlayacağız " turnPage={turnPage} />
-            
+
     ];
+
+    if(!data['name']) questions.push(
+      <AskText setObject={( theList, direction) => setObject( theList, direction) }
+        key="name" question="iletişim bilgileri"
+        entries={[
+        { value: data["name"]??"", key:"name", example:[ 'isim soyisim', 'duha duman'], verify:"" },
+        { value: data["email"]??"", key:"email", example:[ 'eposta girin'], verify:'' },
+        { value: data["phone"]??"", key:"phone", example:[ 'telefon girin', '0 555 555 55 55'], verify:'' }
+        ]} 
+    />);
+    questions.push(
+      <Info text="tesekkür ederiz size en kısa sürede whatsapp üzerinden dönüş sağlayacağız " turnPage={turnPage} />
+    );
 
 
     return (
