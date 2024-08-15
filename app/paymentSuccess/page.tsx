@@ -32,9 +32,9 @@ const TDEE:React.FC<TDEEProps> = ({ BMR, value, setList }) => {
   const activityLevels = [
     {level: 1, title:"Hareketsiz (Sedanter)", text: "Günün büyük kısmını oturarak geçirenler", factor:1.4, value: 10, unit:"dk'dan az"},
     {level: 2, title:"Hafif Aktif", text: "Günlük rutininiz bazı yürüyüşler içeriyorsa. Öğrenci, ofis çalışanı", factor:1.5, value: 25, unit:"dk'dan a"},
-    {level: 3, title:"Orta Düzeyde Aktif", text: "Görece hareketli veya gün içinde ayakta olmayi gerektiren bir rutinin varsa, Öğretmen, Kasiyer", factor:1.6, value: 40, unit:"dk'dan az"},
-    {level: 4, title:"Çok Aktif", text: "Fiziksel olarak efor gerektiren bir rutininiz varsa, temizlik görevlisi, perekende çalışanı", factor:1.8,  value: 60, unit:"dk'dan az"},
-    {level: 5, title:"Son Derece Aktif", text: "fiziksel olarak zorlu bir rutininiz varsa, Profesyonel sporcular, ağır fiziksel işlerde çalışanlar", factor:2, value: 90, unit:"dk'dan çok "},
+    {level: 3, title:"Orta Düzeyde Aktif", text: "Görece hareketli veya gün içinde aktif olmayi gerektiren bir rutinin varsa", factor:1.6, value: 40, unit:"dk'dan az"},
+    {level: 4, title:"Çok Aktif", text: "Fiziksel olarak efor gerektiren bir rutininiz varsa", factor:1.8,  value: 60, unit:"dk'dan az"},
+    {level: 5, title:"Son Derece Aktif", text: "fiziksel olarak zorlu bir rutininiz varsa", factor:2, value: 90, unit:"dk'dan çok "},
   ]
 
   const [TDEE, setTDEE] = useState(2423);

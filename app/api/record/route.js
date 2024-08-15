@@ -33,32 +33,43 @@ export async function POST(req) {
     let filldata = [
       
       {q: 'Duhabum Koçluk Hizmeti ile Hedefiniz Nedir?', a: !data.goal||data.goal==''?'cevaplanmadı':data.goal },
-      {q: 'Duhabum Koçluğa Nereden Ulastiniz?', a: !data.reach||data.reach==''?'cevaplanmadı':data.reach },
+      {q: 'Duhabum Koçluğa Nereden Ulastiniz?', a: (data.reach??'belirtilmedi') },
       
-      
-      {q: 'Günde ortalama Kaç öğün tüketiyorsunuz?', a: !data.meals||data.meals==''?'cevaplanmadı':data.meals },
-      {q: 'protein, yağ, karbonhidrat sebze veya yeşillik olarak sık tükettiğiniz gıdaları bütçeni dikkate alarak yazar mısın', a: 'Protein: '+!data.protein||data.protein==''?'cevaplanmadı':data.protein+', karbonhidrat: '+!data.carbohydrates||data.carbohydrates==''?'cevaplanmadı':data.carbohydrates+', sebze yeşillik: '+!data.vegetable||data.vegetable==''?'cevaplanmadı':data.vegetable+', yağlar: '+ !data.fats||data.fats==''?'cevaplanmadı':data.fats },
-      {q: 'Supplement Kullaniyor Musunuz? Kullandiklarinizi Yazar Misiniz?', a: !data.supplement||data.supplement==''?'cevaplanmadı':data.supplement },
-      {q: 'Toplam beslenme veya supplement için ayırdığın veya ayırabileceğin aylık bütçe', a: !data.budget||data.budget==''?'cevaplanmadı':data.budget },
-      {q: 'Besin Alerjiniz Var Mi?', a: !data.allergy||data.allergy==''?'cevaplanmadı':data.allergy },
-      {q: 'Kronik Hastaliginiz Var Mi?', a: !data.disease||data.disease==''?'cevaplanmadı':data.disease },
-      {q: 'Daha önce yaşadığınız bir sakatlık var mı?', a: !data.injury||data.injury==''?'cevaplanmadı':data.injury },
-      {q: 'Daha önce spor salonuna gittin mi gittiysen kaç ay', a: !data.GymHistory||data.GymHistory==''?'cevaplanmadı':data.GymHistory },
-      {q: 'kac aydir Aktif Olarak GYMe gidiyorsun?', a: (data.GymCurrently??0)+' aydır' },
-      {q: 'Her kas grubu icin formunu en iyi bildiğiniz 2 egzersiz yazar mısın', a: "göğüs: "+(data.chest??"belirtilmedi")+", omuz: "+(data.shoulder??'belirtilmedi')+", sırt: "+(data.back??'belirtilmedi')
-          +"ön kol: "+!data.forearm||data.forearm==''?'cevaplanmadı':data.forearm+", arka kol: "+!data.reararm||data.reararm==''?'cevaplanmadı':data.reararm+", bacak: "+!data.leg||data.leg==''?'cevaplanmadı':data.leg
-       },
-      {q: 'haftada kac gun kac dakika spora ayırmayı planlıyorsun', a: "haftada "+(data.GymDaysinWeek??'belirtilmedi')+" gün, günde "+(data.GymTimeinDay??"belirtilmedi")+ "dakika" },
+      {q: 'Günde ortalama Kaç öğün tüketiyorsunuz?', a: (data.meals??'belirtilmedi')},
+      {q: 'protein, yağ, karbonhidrat sebze veya yeşillik olarak sık tükettiğiniz gıdaları bütçeni dikkate alarak yazar mısın', 
+        a: ('Protein: '+ (data.protein??'belirtilmedi')
+        +', karbonhidrat: '+(data.carbohydrates??'belirtilmedi')
+        +', sebze yeşillik: '+(data.vegetable??'belirtilmedi')
+        +', yağlar: '+ (data.fats??'belirtilmedi') )
+      },
+      {q: 'Supplement Kullaniyor Musunuz? Kullandiklarinizi Yazar Misiniz?', a: !data.supplement||data.supplement==''?'belirtilmedi':data.supplement },
+      {q: 'Toplam beslenme veya supplement için ayırdığın veya ayırabileceğin aylık bütçe', a: !data.budget||data.budget==''?'belirtilmedi':data.budget },
+      {q: 'Besin Alerjiniz Var Mi?', a: !data.allergy||data.allergy==''?'belirtilmedi':data.allergy },
+      {q: 'Kronik Hastaliginiz Var Mi?', a: !data.disease||data.disease==''?'belirtilmedi':data.disease },
+      {q: 'Daha önce yaşadığınız bir sakatlık var mı?', a: !data.injury||data.injury==''?'belirtilmedi':data.injury },
+      {q: 'Daha önce spor salonuna gittin mi gittiysen kaç ay', a: (data.GymHistory??'belirtilmedi')+' ay' },
+      {q: 'kac aydir Aktif Olarak GYMe gidiyorsun?', a: (data.GymCurrently && data.GymCurrently>0? (data.GymCurrently+' aydır'):"şuan gitmiyorum" ) },
+      {q: 'Her kas grubu icin formunu en iyi bildiğiniz 2 egzersiz yazar mısın', 
+        a: ("göğüs: "+(data.chest??"belirtilmedi")
+        +", omuz: "+(data.shoulder??'belirtilmedi')
+        +", sırt: "+(data.back??'belirtilmedi')
+        +"ön kol: "+(data.forearm??'belirtilmedi')
+        +", arka kol: "+(data.reararm??'belirtilmedi')
+        +", bacak: "+(data.leg??'belirtilmedi'))
+      },
+      {q: 'haftada kac gun kac dakika spora ayırmayı planlıyorsun', 
+        a: "haftada "+(data.GymDaysinWeek??'belirtilmedi')+" gün, günde "+(data.GymTimeinDay??"belirtilmedi")+ "dakika" 
+      },
 
     ];
     
 
     const activityLevels = [
-      {level: 1, title:"Hareketsiz (Sedanter)", text: "Günün büyük kısmını oturarak geçirenler", factor:1.4, value: 10, unit:"dk'dan az"},
-      {level: 2, title:"Hafif Aktif", text: "Günlük rutininiz bazı yürüyüşler içeriyorsa. Öğrenci, ofis çalışanı", factor:1.5, value: 25, unit:"dk'dan a"},
-      {level: 3, title:"Orta Düzeyde Aktif", text: "Görece hareketli veya gün içinde ayakta olmayi gerektiren bir rutinin varsa, Öğretmen, Kasiyer", factor:1.6, value: 40, unit:"dk'dan az"},
-      {level: 4, title:"Çok Aktif", text: "Fiziksel olarak efor gerektiren bir rutininiz varsa, temizlik görevlisi, perekende çalışanı", factor:1.8,  value: 60, unit:"dk'dan az"},
-      {level: 5, title:"Son Derece Aktif", text: "fiziksel olarak zorlu bir rutininiz varsa, Profesyonel sporcular, ağır fiziksel işlerde çalışanlar", factor:2, value: 90, unit:"dk'dan çok "},
+      {level: 1, title:"Hareketsiz (Sedanter)", text: "Günün büyük kısmını oturarak geçiriyor", factor:1.4, value: 10, unit:"dk'dan az"},
+      {level: 2, title:"Hafif Aktif", text: "Günlük rutini bazı yürüyüşler içeriyor. Öğrenci, ofis çalışanı", factor:1.5, value: 25, unit:"dk'dan a"},
+      {level: 3, title:"Orta Düzeyde Aktif", text: "Görece hareketli veya gün içinde aktif olmayi gerektiren bir rutini var", factor:1.6, value: 40, unit:"dk'dan az"},
+      {level: 4, title:"Çok Aktif", text: "Fiziksel olarak efor gerektiren bir rutini var", factor:1.8,  value: 60, unit:"dk'dan az"},
+      {level: 5, title:"Son Derece Aktif", text: "fiziksel olarak zorlu bir rutini var", factor:2, value: 90, unit:"dk'dan çok "},
     ]
       
 
