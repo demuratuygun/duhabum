@@ -138,7 +138,7 @@ export default function CreditCard({name='', brand='', allValid, focusTo, getBIN
                     card_number: cardNumber,
                     expiry_date: expireDate,
                     cvv: cvvCode
-                });;
+                });
             }
         }
     };
@@ -237,7 +237,12 @@ export default function CreditCard({name='', brand='', allValid, focusTo, getBIN
                 } else if( cardNumber.length<22 ) {
                     setIsFlipped(false);
                     setTimeout(() => numberInput.current?.focus(), 1000);
-                }
+                } else allValid({ 
+                    cc_owner: cardName,
+                    card_number: cardNumber,
+                    expiry_date: expireDate,
+                    cvv: cvvCode
+                });
             } else {
                 setTimeout(() => expireInput.current?.focus(), 700);
             }

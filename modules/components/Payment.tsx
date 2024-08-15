@@ -87,14 +87,11 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
         });
 
         let binResponse = await response.json();
-        console.log(binResponse);
         setBin(binResponse);
         
     }
     
     const generatePayment = async () => {
-
-        console.log(data)
 
         const response = await fetch('/api/GeneratePayment', {
             method: 'POST',
@@ -108,7 +105,6 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
         });
         let generatePaymentRespond = await response.json();
         await setPaymentRequest(generatePaymentRespond);
-        console.log(generatePaymentRespond);
         
     }
 
@@ -127,8 +123,6 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                 paymentDetails.cvv = card.cvv;
                 paymentDetails.debug_on = 1;
 
-                console.log(paymentDetails);
-
                 const form = document.createElement('form');
                 form.method = 'POST';
                 form.action = 'https://www.paytr.com/odeme';
@@ -140,8 +134,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                     hiddenField.value = value;
                     form.appendChild(hiddenField);
                 }
-
-                console.log(form)
+                
                 document.body.appendChild(form);
                 form.submit();
 
@@ -151,13 +144,19 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
         }
 
         if( card.cvv ) {
-            await generatePayment();
             makePayment();
         }
         else if( direction > 0) setFocusCard(prevFocusCard => !prevFocusCard); 
         else setObject( {}, -1);
 
     };
+
+    const handleValid = async (thecard:any) => {
+        if( thecard.cvv && !(card.cvv==thecard.cvv && thecard.cc_owner==card.cc_owner && thecard.card_number==card.card_number && thecard.expiry_date==card.expiry_date) ) {
+            setCard(thecard);
+            await generatePayment();
+        }
+    }
     
     return (
         <>
@@ -169,7 +168,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                 <div>{padNumber(paymentRequest?.payment_amount.slice(0,-3)??amount)}<span style={{fontWeight:300, paddingLeft:7}}>₺</span></div>
             </div>
 
-            <CreditCard name={name??""} allValid={(card)=> setCard(card)} focusTo={focusCard} getBIN={getBIN} brand={bin?.brand??""}/>
+            <CreditCard name={name??""} allValid={(card)=> handleValid(card)} focusTo={focusCard} getBIN={getBIN} brand={bin?.brand??""}/>
 
             { bin && Object.keys(bin.ratios??{}).length>1?  
             <div style={{ padding:'1rem 0rem' }}>
