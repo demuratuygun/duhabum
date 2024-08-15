@@ -134,7 +134,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                     hiddenField.value = value;
                     form.appendChild(hiddenField);
                 }
-                
+
                 document.body.appendChild(form);
                 form.submit();
 
@@ -165,7 +165,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
             
             <div style={{ width: "100%", fontSize:"3rem", fontWeight:300 ,display: "flex", justifyContent:'space-between', alignItems:"baseline", padding: "1rem" }} className="text">
                 <div style={{ opacity:0.5 }} className="text noSelect">{padNumber(Math.floor(amount/checkout.option.duration))} ₺ x {checkout.option.duration} ay</div>
-                <div>{padNumber(paymentRequest?.payment_amount.slice(0,-3)??amount)}<span style={{fontWeight:300, paddingLeft:7}}>₺</span></div>
+                <div>{padNumber(paymentRequest?.payment_amount??amount)}<span style={{fontWeight:300, paddingLeft:7}}>₺</span></div>
             </div>
 
             <CreditCard name={name??""} allValid={(card)=> handleValid(card)} focusTo={focusCard} getBIN={getBIN} brand={bin?.brand??""}/>
