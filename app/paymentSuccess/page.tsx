@@ -250,15 +250,16 @@ export default function Success({ params }: { params: { title: string } }) {
                 {val:data["GymTimeinDay"]??90, unit:"dk", label:"günde", step:10, range:[0,300]} ]} 
               setObject={(theList:any[], direction:number) => setList(["GymDaysinWeek", "GymTimeinDay"], theList, direction)}
             />,
-            data["name"]? <Info text="tesekkür ederiz size en kısa sürede whatsapp üzerinden dönüş sağlayacağız " turnPage={turnPage} />:
-            <AskText setObject={( theList, direction) => setObject( theList, direction) }
+            data["name"]? <AskText setObject={( theList, direction) => setObject( theList, direction) }
                 key="name" question="tesekkür ederiz dönüş sağlayabilmemiz için iletişim bilgilerinizi bırakabilirsiniz"
                 entries={[
                 { value: data["name"]??"", key:"name", example:[ 'isim soyisim', 'duha duman'], verify:"^[a-zA-Z ]{3,}$" },
                 { value: data["email"]??"", key:"email", example:[ 'eposta girin', 'adsoyad@gmail.com'], verify:'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' },
                 { value: data["phone"]??"", key:"phone", example:[ 'telefon girin', '0 555 555 55 55'], verify:'^\\d{10,}$' }
                 ]} 
-            />,
+            />
+            :<Info text="tesekkür ederiz size en kısa sürede whatsapp üzerinden dönüş sağlayacağız " turnPage={turnPage} />,
+            <Info text="tesekkür ederiz size en kısa sürede whatsapp üzerinden dönüş sağlayacağız " turnPage={turnPage} />
             
     ];
 
