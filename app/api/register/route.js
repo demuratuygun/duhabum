@@ -14,14 +14,13 @@ export async function POST(req) {
     const text = await req.text();
     const data = Object.fromEntries(new URLSearchParams(text));
 
-    console.log(data);
-
-
     const {
       merchant_oid,
       status,
       total_amount,
-      hash
+      hash,
+      failed_reason_code,
+      failed_reason_msg
     } = data;
 
     // Generate hash string
@@ -64,7 +63,9 @@ export async function POST(req) {
       return new Response('OK');
     } else {
       // If payment failed, keep the order in the basket and log the failure reason
-      console.error(`Payment failed`);
+      console.error(failed_reason_code+` Payment failed `+failed_reason_msg);
+      console.error(JSON.stringify(data));
+
       return new Response('OK');
     }
 
