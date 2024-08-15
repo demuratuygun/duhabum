@@ -47,7 +47,7 @@ export default function Countdown({close}: {close: Function}) {
   useEffect(() => {
     let code = localStorage.getItem("code");
     if(code) close();
-    countdown(counter);
+    countdown();
 
     const handleKeydownWrapper = (e: KeyboardEvent) => setFocus(true);
     window.addEventListener('keydown', handleKeydownWrapper);
@@ -57,11 +57,18 @@ export default function Countdown({close}: {close: Function}) {
 
   }, []);
 
-  const countdown = (count:number) => {
+  const countdown = () => {
+    
+    let now = new Date();
+    let midnight = new Date(2024, 7, 16, 0, 0, 0, 0);
+    console.log(midnight)
+    let count = Math.floor( (midnight.getTime() - now.getTime()) / 1000);
+    
     if (count > 0) {
+      console.log(count)
       setTimeout(() => {
-        setCounter(count - 1);
-        countdown(count - 1);
+        setCounter(count);
+        countdown();
       }, 1000);
     } else {
       setCounter(0);
@@ -84,7 +91,6 @@ export default function Countdown({close}: {close: Function}) {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(send)
     });
-    console.log(response);
 
   }
 
@@ -100,6 +106,7 @@ export default function Countdown({close}: {close: Function}) {
 
     setInputState("code");
     saveEmail({...data, isStudent: isStudent});
+    setIsStudent(isStudent);
     
     let code = isStudent? 'VIP720': 'VIP620';
     localStorage.setItem("code", code);
@@ -107,9 +114,6 @@ export default function Countdown({close}: {close: Function}) {
 
 
   }
-
-
-
 
 
   const CopyText = (TextToCopy: string) => {
@@ -130,25 +134,24 @@ export default function Countdown({close}: {close: Function}) {
 
       <div style={{ backgroundColor:'#0008', position:'absolute', top:0, left:0, width:'100vw', height:'100vh', zIndex:999, borderRadius:0, border:'none' }} onClick={() => close()}></div>
 
-      <div className={styles.emailFrame} onClick={() => setFocus(false)}>
+      <div className={styles.emailFrame} onClick={() => setFocus(false)} style={{overflow:'scroll'}}>
         
-        <div style={{ position: "absolute", top:'30px', right: '30px', zIndex:998 }} onClick={() => close()}>
+        <div style={{ position: "absolute", top:'1rem', right: '1rem', zIndex:998 }} onClick={() => close()}>
           <Cancel/>
         </div>
 
         <div style={{ position:"absolute", background: "#000 url('emailPromo.jpg') no-repeat 100%/100%", top:0, left:0, width: '100%', height:'100%', zIndex:10, opacity:0.7, filter:"blur(2px)", backgroundPosition:'center',  }}></div>
       
-        <div style={{ position: 'absolute', display: "flex", justifyContent: "center", alignItems: "center", flexDirection:'column', width: "100%", height: "100%", zIndex:500 }}>
+        <div style={{ position: 'absolute', display: "flex", justifyContent: "center", alignItems: "center", flexDirection:'column', width: "100%", height: "100%", zIndex:500, paddingTop:"2rem" }}>
 
-          <div style={{ width: "100%", maxWidth: "700px", textAlign:"center", display: 'flex', justifyContent:'center', flexDirection:"column", color: '#fff', fontWeight: 400, fontSize:"1.1rem" }}>
-                
+          <div style={{ width: "100%", maxWidth: "700px", textAlign:"center", display: 'flex', justifyContent:'center', flexDirection:"column", color: '#fff', fontWeight: 400, fontSize:"1.1rem" }}>                
             <div className={styles.stopwatch}>
-              {inputState=="code"||inputState=="email"?<Text text={ inputState=="code"? (data.isStudent?"VIP720":"VIP620"): "00:"+(Math.floor(counter/60)+"").padStart(2, '0')+":"+(counter%60+"").padStart(2, '0') }/>:null}
+              {inputState=="code"||inputState=="email"?<Text text={ inputState=="code"? (isStudent?"VIP720":"VIP620"): (Math.floor(counter/3600)+'').padStart(2, '0')+":"+(Math.floor(counter/60)%60+"").padStart(2, '0')+":"+(counter%60+"").padStart(2, '0') }/>:null}
             </div>
 
             <div style={{ background: "radial-gradient(#000, #0000 80%)", width: "100%", padding:'2rem' }}>
               <div>
-                  {inputState=="email"? "İLK 20 ÜYEMİZE TÜM PAKETLERDE GEÇERLİ": inputState=="code"? "kodun kopyalandı!" :null}
+                  {inputState=="email"? "Tüm üyelerimize tüm paketlerde geçerli": inputState=="code"? "kodun kopyalandı!" :null}
               </div>
                     
               <div className={styles.countdownPromotion} >  

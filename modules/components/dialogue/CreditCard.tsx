@@ -283,10 +283,10 @@ export default function CreditCard({name='', brand='', allValid, focusTo, getBIN
 
                 <div style={{ zIndex: 10, width:"100%", height:"100%", backgroundColor:"#4440", borderRadius:10, position:"absolute", top:0}} onClick={handleClick}></div>
                 
-                <div style={{position:'absolute', top:'30%', left:'2rem'}}>{brand}</div>
+                <div style={{position:'absolute', top:'30%', left:'2rem', opacity:0.3, fontWeight:300}}>{brand}</div>
 
                 <Image  onClick={handleClick} style={{ visibility: "visible", margin: "2rem", filter: 'grayscale(120%)', transition: 'transform 1s' }} draggable="false" src="/chip.png" height={38} width={50} alt="chip" />
-                {pattern=='mastercard'||pattern=='visa'?
+                { pattern=='mastercard' || pattern=='visa'?
                     <Image  onClick={handleClick} style={{ visibility: "visible", position:"absolute", right: pattern=='visa'?"2.6rem":"2rem", top:pattern=='visa'?"2.4rem":"1.25rem", filter:pattern=='visa'?'contrast(50%) brightness(160%)':'' }} src={"/"+pattern+".png"} height={38} width={pattern=='visa'?64:60} alt="duha bum in dark" />
                     :null
                 }

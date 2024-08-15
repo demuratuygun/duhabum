@@ -87,12 +87,18 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
         {padNumber(pack.prices[pack.duration.indexOf(duration)]+'')}
       </div>
 
+      <div key={'subtitle-'} className="text" style={{ zIndex:100, textAlign: "center", position: "relative", top: -8, fontWeight: 300, fontSize:"0.75rem", color: "#DFDFDF80" }}>
+        *taksit seçeneklerimiz mevcuttur
+      </div>
+
       
       { pack.duration.length==1? null:
         <div className='noSelect' style={{zIndex:100, width: "100%", textAlign: "center", fontSize: "0.9rem" }}>
           <PickNumber label={"süre"} value={duration} unit={pack.unit} range={{ values: pack.duration }} onChange={handleDurationChange} />
         </div>
       }
+
+
 
       <ul style={{ margin: "1rem 0rem 1rem 1.6rem", paddingBottom: "0.8rem", listStyleImage: "url('check.svg')", color: "#DFDFDF80", fontWeight: 500 }}>
         { pack.content.map((item, i) =>
@@ -105,6 +111,8 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
             : null
         )}
       </ul>
+      
+
 
       {click == null ? null : 
         <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>

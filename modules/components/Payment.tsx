@@ -94,6 +94,8 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
     
     const generatePayment = async () => {
 
+        console.log(data)
+
         const response = await fetch('/api/GeneratePayment', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},

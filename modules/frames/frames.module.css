@@ -257,6 +257,8 @@
     .emailFrame {
         width: 90%;
         left: 5%;
+        top:5%;
+        height: 90vh;
         
     }
 

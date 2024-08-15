@@ -2,10 +2,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import styles from './dialogue.module.css';
-import Control from './Control';
 import Text from '../Text'; 
-import TextEnter from './TextEnter';
-import PickNumber from './PickNumber';
 import Promotioins from '../../../content/promotions.json';
 
 

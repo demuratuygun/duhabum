@@ -31,8 +31,8 @@ export async function POST(req) {
 
     // asssigning discounts according to code parameter
     let discounts = [];
-    Object.entries(Promotioins.codes).forEach( (key,value) => { 
-      if(key==data.code) discounts=value 
+    Object.entries(Promotioins.codes).forEach( ([key,value]) => { 
+      if(key==data.code) discounts=value;
     } );
 
     // verify and assign the plan
@@ -43,11 +43,13 @@ export async function POST(req) {
     })
     Packages.tr.forEach( pack => {
         if( pack.plan==data.checkout.option.plan) {
-            for( let i=0; i<pack.duration.length; i++ ) 
+            for( let i=0; i<pack.duration.length; i++ )
                 if( pack.duration[i] == data.checkout.option.duration )
                     plan = {pack, price: pack.prices[i]};
         }
     })
+
+
 
     // evaluate and verify amount
     var amount = Math.floor(discounts.reduce((a,b)=>a*(100-b.rate)/100, plan.price));
@@ -76,7 +78,7 @@ export async function POST(req) {
       user_ip: request.ip || request.headers.get('X-Forwarded-For'),
       merchant_oid,
       currency: 'TL',
-      test_mode: '0',
+      test_mode: '1',
       payment_amount: amount,
       email: data.email,
       user_name: data.name,
