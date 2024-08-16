@@ -41,7 +41,7 @@ export default function Countdown({close}: {close: Function}) {
   const [counter, setCounter] = useState(180);
   const [isStudent, setIsStudent] = useState(false);
   const [data, setData] = useState<datatype>({});
-  const [inputState, setInputState] = useState<string>("email");
+  const [inputState, setInputState] = useState<string>("student");//email
   const [focus, setFocus] = useState(false);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function Countdown({close}: {close: Function}) {
   const countdown = () => {
     
     let now = new Date();
-    let midnight = new Date(2024, 7, 16, 0, 0, 0, 0);
+    let midnight = new Date(2024, 7, 17, 0, 0, 0, 0);
     let count = Math.floor( (midnight.getTime() - now.getTime()) / 1000);
     
     if (count > 0) {
@@ -144,21 +144,21 @@ export default function Countdown({close}: {close: Function}) {
 
           <div style={{ width: "100%", maxWidth: "700px", textAlign:"center", display: 'flex', justifyContent:'center', flexDirection:"column", color: '#fff', fontWeight: 400, fontSize:"1.1rem" }}>                
             <div className={styles.stopwatch}>
-              {inputState=="code"||inputState=="email"?<Text text={ inputState=="code"? (isStudent?"VIP720":"VIP620"): (Math.floor(counter/3600)+'').padStart(2, '0')+":"+(Math.floor(counter/60)%60+"").padStart(2, '0')+":"+(counter%60+"").padStart(2, '0') }/>:null}
+              {inputState=="code"||inputState=="student"?<Text text={ inputState=="code"? (isStudent?"VIP720":"VIP620"): (Math.floor(counter/3600)+'').padStart(2, '0')+":"+(Math.floor(counter/60)%60+"").padStart(2, '0')+":"+(counter%60+"").padStart(2, '0') }/>:null}
             </div>
 
             <div style={{ background: "radial-gradient(#000, #0000 80%)", width: "100%", padding:'2rem' }}>
               <div>
-                  {inputState=="email"? "Tüm üyelerimize tüm paketlerde geçerli": inputState=="code"? "kodun kopyalandı!" :null}
+                  {inputState=="student"? "Tüm üyelerimize tüm paketlerde geçerli": inputState=="code"? "kodun kopyalandı!" :null}
               </div>
                     
               <div className={styles.countdownPromotion} >  
-                {inputState=="email"? "%25 İNDİRİM":null}
+                {inputState=="student"? "%25 İNDİRİM":null}
               </div>
 
               <div style={{ fontSize: inputState=="code"? "1.5rem" : '' }}>
                 {inputState=="code"? "24 saat geçerli indirim kodunu ödeme sayfasından önce kullanabilirsin":
-                inputState=="student"? "öğrenci olduğunu okul kartı belgesi veya üniversite e posta adresin ile kanıtlayabilir misin?":
+                inputState=="student"? "%15 VIP + %10 EK ÖĞRENCİ İNDİRİMİ yararlan":
                 "%15 VIP + %10 EK ÖĞRENCİ İNDİRİMİ"}
               </div>
             </div>
@@ -170,8 +170,8 @@ export default function Countdown({close}: {close: Function}) {
           { inputState=="code"?null: inputState=="student"?
             <div style={{ width: '100%',  display:'flex', justifyContent:'center', fontSize:"2rem" }}>
               <div className={styles.countdownWrap} style={{ fontSize: '1.5rem', width:"100%", display:'flex', justifyContent:"center", alignItems:"center", gap:"1rem" }}>
-                <button key="yes" onClick={() => handleSaveClick(true)} > EVET </button>
-                <button key="no" onClick={() => handleSaveClick(false)} > HAYIR </button>
+                <button key="yes" onClick={() => handleSaveClick(true)} > ÖĞRENCİYİM </button>
+                <button key="no" onClick={() => handleSaveClick(false)} > SADEEC VIP </button>
               </div>
             </div>
                   :
