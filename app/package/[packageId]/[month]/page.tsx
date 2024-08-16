@@ -82,6 +82,16 @@ export default function Form({params}:{params:{packageId:number, month:string}})
   }, [])
   
 
+  /*
+            <AskText setObject={( theList, direction) => setObject( theList, direction) }
+            key="name" question="iletişim bilgileri"
+            entries={[
+              { value: data["name"]??"", key:"name", example:[ 'isim soyisim', 'duha duman'], verify:"" },
+              { value: data["email"]??"", key:"email", example:[ 'eposta girin', 'adsoyad@gmail.com'], verify:"" },
+              { value: data["phone"]??"", key:"phone", example:[ 'telefon girin', '0 555 555 55 55'], verify:"" }
+            ]} 
+          />,
+  */
 
   const questions = [
           <MakeOffer plan={packages.tr[params.packageId]} months={parseInt(params.month)} setObject={( theList, direction) => setObject( theList, direction)}/>,
