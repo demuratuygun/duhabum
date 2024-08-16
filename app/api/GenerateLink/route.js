@@ -23,7 +23,7 @@ export async function POST(req) {
         max_count = '1',
         callback_link = '', 
         callback_id = '', 
-        debug_on = '1' 
+        debug_on = '1'
     } = data;
 
     const now = new Date();
