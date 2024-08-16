@@ -60,7 +60,7 @@ export default function Countdown({close}: {close: Function}) {
   const countdown = () => {
     
     let now = new Date();
-    let midnight = new Date(2024, 7, 19, 0, 0, 0, 0);
+    let midnight = new Date(2024, 7, 19, 17, 0, 0, 0);
     let count = Math.floor( (midnight.getTime() - now.getTime()) / 1000);
     
     if (count > 0) {
