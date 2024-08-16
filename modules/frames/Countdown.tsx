@@ -38,7 +38,7 @@ interface datatype {
 
 export default function Countdown({close}: {close: Function}) {
 
-  const [counter, setCounter] = useState(180);
+  const [counter, setCounter] = useState(0);
   const [isStudent, setIsStudent] = useState(false);
   const [data, setData] = useState<datatype>({});
   const [inputState, setInputState] = useState<string>("student");//email
@@ -158,7 +158,7 @@ export default function Countdown({close}: {close: Function}) {
 
               <div style={{ fontSize: inputState=="code"? "1.5rem" : '' }}>
                 {inputState=="code"? "24 saat geçerli indirim kodunu ödeme sayfasından önce kullanabilirsin":
-                inputState=="student"? "%15 VIP + %10 EK ÖĞRENCİ İNDİRİMİ yararlan":
+                inputState=="student"? "%15 VIP + %10 EK ÖĞRENCİ İNDİRİMİNDEN YARARLAN":
                 "%15 VIP + %10 EK ÖĞRENCİ İNDİRİMİ"}
               </div>
             </div>
