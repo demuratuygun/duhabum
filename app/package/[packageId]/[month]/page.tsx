@@ -14,6 +14,8 @@ import Checkout from "@/modules/components/dialogue/Checkout";
 import Payment from "@/modules/components/Payment";
 import packages from '../../../../content/package.json';
 
+const useLink = true;
+
 
 
 export default function Form({params}:{params:{packageId:number, month:string}}) {
@@ -21,6 +23,8 @@ export default function Form({params}:{params:{packageId:number, month:string}})
   const router = useRouter();
   const [data, setData] = useState<any>({});
   const [page, setPage] = useState(0);
+
+
 
 
   const setObject = (theObj:any, direction:number) => {
@@ -34,9 +38,40 @@ export default function Form({params}:{params:{packageId:number, month:string}})
     setPage( prevPage => prevPage+direction);
   }
 
-  useEffect(() => {
+  
+
+  const generateLink = async () => {
+
+    if (!data?.checkout?.option?.duration || 
+      !data?.checkout?.option?.plan || 
+      !data?.checkout?.option?.price) {
+      return 'paket tanimli degil';
+    }
+
+    var amount = Math.floor((data.discounts??[]).reduce((a:number,b:any)=>a*(100-b.rate)/100, data.checkout.option.price));
+
+    const response = await fetch('/api/GenerateLink', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          name: `Duhabum ${data.checkout.option.duration} aylık ${data.checkout.option.plan} Plan`, 
+          price: amount*100,
+          email: data.email
+        })
+    });
+    let generateLinkRespond = await response.json();
+    console.log(generateLinkRespond);
+    router.push(generateLinkRespond.link);
+
+    
+}
+
+  useEffect( () => {
     
     if( page<0 ) router.back();
+    if( useLink && page== questions.length-1 ) {
+      generateLink();
+    }
     else if( page>= questions.length ) router.push("/");
 
   }, [page]);
@@ -59,6 +94,9 @@ export default function Form({params}:{params:{packageId:number, month:string}})
               { value: data["phone"]??"", key:"phone", example:[ 'telefon girin', '0 555 555 55 55'], verify:"" }
             ]} 
           />,
+          useLink?
+          <div>Ödeme sayfasına yönlendiriliyorsunuz</div>
+          :
           <Payment data={data} setObject={( theList, direction) => setObject( theList, direction)} name={data["name"]??""} />,
           ];
 

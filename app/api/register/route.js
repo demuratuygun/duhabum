@@ -38,9 +38,9 @@ export async function POST(req) {
 
     // Check if the order exists in the basket
     const order = await basketCollection.findOne({ _id: merchant_oid });
-    if (!order) return new Response('OK');
+    if ( !order ) return new Response('OK');
 
-    if (status == 'success') {
+    if ( status == 'success' ) {
 
       const result = await purchaseCollection.updateOne(
         { _id: merchant_oid },
