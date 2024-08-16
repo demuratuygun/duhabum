@@ -60,7 +60,7 @@ export default function Countdown({close}: {close: Function}) {
   const countdown = () => {
     
     let now = new Date();
-    let midnight = new Date(2024, 7, 19, 17, 0, 0, 0);
+    let midnight = new Date(2024, 7, 20, 12, 0, 0, 0);
     let count = Math.floor( (midnight.getTime() - now.getTime()) / 1000);
     
     if (count > 0) {
@@ -153,13 +153,13 @@ export default function Countdown({close}: {close: Function}) {
               </div>
                     
               <div className={styles.countdownPromotion} >  
-                {inputState=="student"? "%25 İNDİRİM":null}
+                {inputState=="student"? "%35 İNDİRİM":null}
               </div>
 
               <div style={{ fontSize: inputState=="code"? "1.5rem" : '' }}>
                 {inputState=="code"? "72 saat geçerli indirim kodunu ödeme sayfasında “İndirim kodu” Kısmına yazabilirsiniz":
-                inputState=="student"? "%15 VIP + %10 EK ÖĞRENCİ İNDİRİMİNDEN YARARLAN":
-                "%15 VIP + %10 EK ÖĞRENCİ İNDİRİMİ"}
+                inputState=="student"? "%20 VIP + %10 EK ÖĞRENCİ İNDİRİMİNDEN YARARLAN":
+                "%20 VIP + %10 EK ÖĞRENCİ İNDİRİMİ"}
               </div>
             </div>
 
