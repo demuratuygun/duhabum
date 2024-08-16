@@ -153,7 +153,7 @@ export default function Countdown({close}: {close: Function}) {
               </div>
                     
               <div className={styles.countdownPromotion} >  
-                {inputState=="student"? "%35 İNDİRİM":null}
+                {inputState=="student"? "%30 İNDİRİM":null}
               </div>
 
               <div style={{ fontSize: inputState=="code"? "1.5rem" : '' }}>

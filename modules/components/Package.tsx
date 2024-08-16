@@ -81,13 +81,15 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
       </div>
 
 
-      <div key={'subtitle-'} className="text" style={{ zIndex:100, textAlign: "center", position: "relative", top: -8, fontWeight: 300, fontSize:"1.2rem", color: "#DFDFDF80" }}>
-        {duration==1?'toplam ': <span style={{textDecoration:'line-through',opacity:0.6}}>{padNumber(pack.prices[0]*duration+"")}</span>} 
-        {duration==1?'': <span style={{opacity:0.6}}> yerine ₺ </span> }
-        {padNumber(pack.prices[pack.duration.indexOf(duration)]+'')}
+      <div key={'subtitle-0'} className="text" style={{ zIndex:100,opacity:0.6, textAlign: "center", position: "relative", top: -8, fontWeight: 300, fontSize:"1.2rem", color: "#DFDFDF80" }}>
+        {duration==1? 
+          <div key="toplam">toplam {padNumber(pack.prices[pack.duration.indexOf(duration)]+'')}</div>
+          : 
+          <div key="yerine"><span style={{textDecoration:'line-through'}}>{padNumber(pack.prices[0]*duration+"")}</span> yerine ₺ {padNumber(pack.prices[pack.duration.indexOf(duration)]+'')}</div>
+        }
       </div>
 
-      <div key={'subtitle-'} className="text" style={{ zIndex:100, textAlign: "center", position: "relative", top: -8, fontWeight: 300, fontSize:"0.75rem", color: "#DFDFDF80" }}>
+      <div key={'subtitle-1'} className="text" style={{ zIndex:100, textAlign: "center", position: "relative", top: -8, fontWeight: 300, fontSize:"0.75rem", color: "#DFDFDF80" }}>
         *taksit seçeneklerimiz mevcuttur
       </div>
 

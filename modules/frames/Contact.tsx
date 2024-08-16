@@ -67,6 +67,8 @@ export default function ContactFrame() {
         </motion.div>
 
         {dragged?null:<div className={styles.nextComment} onClick={() => setX(prevX => prevX - 250)}><ArrowUp color='#222'/></div>}
+        {dragged?null:<div className={styles.nextComment} style={{backgroundColor:"#181818", bottom: '40%', left: '4%', rotate:'225deg'}} onClick={() => setX(prevX => prevX + 250)}><ArrowUp color='#eee'/></div>}
+
 
         <motion.div variants={container} initial="hidden" whileInView="visible" className={styles.social}>
             <SocialMedia />
