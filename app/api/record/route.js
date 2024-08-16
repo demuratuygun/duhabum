@@ -15,10 +15,11 @@ export async function POST(req) {
     const request = new NextRequest(req);
     const data = await request.json();
     console.log(data);
-    console.log("dfsdfsd");
     
 
     const docs = google.docs({ version: 'v1', auth: oAuth2Client });
+    const drive = google.drive({ version: 'v3', auth: oAuth2Client });
+
 
     const createResponse = await docs.documents.create({
       requestBody: {

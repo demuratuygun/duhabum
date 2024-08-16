@@ -1,16 +1,12 @@
 'use client'
-import { usePathname, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import Logo from '@/modules/icons/Logo';
 
 import Calculator from "@/modules/components/dialogue/Calculator";
 import Control from "@/modules/components/dialogue/Control";
 import Text from '@/modules/components/Text';
 import Select from "@/modules/components/dialogue/Select";
 import AskText from "@/modules/components/dialogue/AskText";
-import MakeOffer from "@/modules/components/dialogue/MakeOffer";
-import Checkout from "@/modules/components/dialogue/Checkout";
-import Payment from "@/modules/components/Payment";
 import { motion } from "framer-motion";
 
 
@@ -88,7 +84,6 @@ export default function Success({ params }: { params: { title: string } }) {
       setData( (prevData: any) => {
         let d = {...prevData};
         for (const [key, value] of Object.entries(theObj)) d[key] = value;
-        console.log(d);
         localStorage.setItem('data', JSON.stringify(d));
         return d;
       })
@@ -97,13 +92,11 @@ export default function Success({ params }: { params: { title: string } }) {
   
     const setList = (keys:string[], theList:any[], direction:number) => {
 
-      console.log(theList)
       setData( (prevData: any) => {
         let d = {...prevData};
         keys.forEach((element, i) => {
            d[element] = theList[i].val;
         });
-        console.log(d);
         localStorage.setItem('data', JSON.stringify(d));
   
         return d;
@@ -112,7 +105,6 @@ export default function Success({ params }: { params: { title: string } }) {
     }
   
     const turnPage = (dir:number) => {
-      console.log(dir)
       setPage( prevPage => prevPage+dir)
     } 
   
@@ -131,7 +123,6 @@ export default function Success({ params }: { params: { title: string } }) {
             });
       
             let resdata;
-            console.log(response)
   
             try {
               resdata = await response.json();
@@ -169,7 +160,17 @@ export default function Success({ params }: { params: { title: string } }) {
 
   
     const questions = [
-            <Info text="ödemenız başarıyla alınmıştır. Soracagimiz sorulara gore antreman plani olusturulacaktir lutfen dikkatli cevap verin" turnPage={turnPage} />,
+            data['name']?
+            <Info text="Ödemeniz başarıyla alınmıştır. Soracagimiz sorulara gore antreman plani olusturulacaktir lutfen dikkatli cevap verin" turnPage={turnPage} />
+            :
+            <AskText setObject={( theList, direction) => setObject( theList, direction) }
+              key="name" question="iletişim bilgileri"
+              entries={[
+              { value: data["name"]??"", key:"name", example:[ 'isim soyisim', 'duha duman'], verify:"" },
+              { value: data["email"]??"", key:"email", example:[ 'eposta girin'], verify:'' },
+              { value: data["phone"]??"", key:"phone", example:[ 'telefon girin', '0 555 555 55 55'], verify:'' }
+              ]} 
+            />,
             <AskText key="goal" setObject={( theList, direction) => setObject( theList, direction)}
               question="Duhabum Koçluk Hizmeti ile Hedefiniz Nedir?"
               entries={[ { value: data["goal"]??"", key:"goal", example:[ 'örneğin; kilo verip kas oranımı korumak', 'dengeli kilo alıp kas kütlesi eklemek'], verify:'', long:true } ]} 
@@ -249,22 +250,10 @@ export default function Success({ params }: { params: { title: string } }) {
                 {val:data["GymDaysinWeek"]??5, unit:"gün", label:"haftada", range:[1,7]}, 
                 {val:data["GymTimeinDay"]??90, unit:"dk", label:"günde", step:10, range:[0,300]} ]} 
               setObject={(theList:any[], direction:number) => setList(["GymDaysinWeek", "GymTimeinDay"], theList, direction)}
-            />
-
+            />,
+            <Info text="tesekkür ederiz size en kısa sürede whatsapp üzerinden dönüş sağlayacağız " turnPage={turnPage} />
     ];
 
-    if(!data['name']) questions.push(
-      <AskText setObject={( theList, direction) => setObject( theList, direction) }
-        key="name" question="iletişim bilgileri"
-        entries={[
-        { value: data["name"]??"", key:"name", example:[ 'isim soyisim', 'duha duman'], verify:"" },
-        { value: data["email"]??"", key:"email", example:[ 'eposta girin'], verify:'' },
-        { value: data["phone"]??"", key:"phone", example:[ 'telefon girin', '0 555 555 55 55'], verify:'' }
-        ]} 
-    />);
-    questions.push(
-      <Info text="tesekkür ederiz size en kısa sürede whatsapp üzerinden dönüş sağlayacağız " turnPage={turnPage} />
-    );
 
 
     return (
