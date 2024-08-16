@@ -30,7 +30,6 @@ export default function AskText({ question, entries, long=false, setObject }: Ca
 
 
   const handleKeydown = (e:KeyboardEvent) => {
-    console.log(track);
     setFocus(track);
   }
 
@@ -60,7 +59,6 @@ export default function AskText({ question, entries, long=false, setObject }: Ca
     let unverifyed = -1;
     for( let i=0; i<entries.length; i++ ) {
       let regex = new RegExp(entries[i]['verify']);
-      console.log(value, i);
       if( !regex.test( value[entries[i].key]??"" ) ) {
         unverifyed = i;
         break;

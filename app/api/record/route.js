@@ -15,7 +15,6 @@ export async function POST(req) {
     const request = new NextRequest(req);
     const data = await request.json();
     console.log(data);
-    
 
     const docs = google.docs({ version: 'v1', auth: oAuth2Client });
     const drive = google.drive({ version: 'v3', auth: oAuth2Client });
@@ -23,13 +22,11 @@ export async function POST(req) {
 
     const createResponse = await docs.documents.create({
       requestBody: {
-        title: data.name+" "+data.phone,
+        title: data.name+" "+data.phone+(data.checkout?'':' (onaysız)'),
       },
     });
 
     const documentId = createResponse.data.documentId;
-
-    
 
     let filldata = [
       
@@ -76,31 +73,28 @@ export async function POST(req) {
 
     let requests = [];
 
-    let personalInfoText = `${data.gender}  ${data.weight} kilo  ${data.height} cm  ${data.years} yaşında \n\nFiziksel aktivite durumu ${activityLevels[data.PAL-1]?.title || 'belirsiz'}: ${data.PAL} ${activityLevels[data.PAL-1]?.text || 'belirsiz'}`;
+    
+
+    let personalInfoText = `${data.name} ${data.email} ${data.phone}\n\n${data.gender} ${data.weight} kilo  ${data.height} cm  ${data.years} yaşında \n\nFiziksel aktivite durumu ${activityLevels[data.PAL-1]?.title || 'belirsiz'}: ${data.PAL} ${activityLevels[data.PAL-1]?.text || 'belirsiz'}\n\n`;
+    
+    let fullText = ``;
+
+    if (data?.checkout?.option?.plan) {
+      fullText += `${data.checkout.option.plan} ${data.checkout.option.duration} ay\n\n\n`;
+    }
+
+    fullText += `${personalInfoText}\n\n` +`Bazal metabolizma hızı: ${data.BMR} Toplam Günlük Enerji Harcaması: ${data.TDEE}\n\n`;
+
+    filldata.forEach((question) => {
+      fullText += `\n\n${question.q}\n${question.a}\n\n`;
+    });
 
     requests.push({
       insertText: {
-        location: {
-          index: 1,
-        },
-        text: personalInfoText + "\n\n",
+        location: { index: 1 },
+        text: fullText,
       },
     });
-
-    let currentIndex = personalInfoText.length + 3;
-
-    filldata.reverse().forEach((question, index) => {
-      requests.push({
-        insertText: {
-          location: {
-            index: currentIndex,
-          },
-          text: `\n\n${question.q}\n${question.a}\n\n`,
-        },
-      });
-    });
-
-
 
     // Update the document with the questions and answers
     await docs.documents.batchUpdate({

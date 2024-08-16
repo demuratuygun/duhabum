@@ -47,7 +47,7 @@ const TDEE:React.FC<TDEEProps> = ({ BMR, value, setList }) => {
         <Calculator key={'TDEE'} display={{label: "TDEE", unit: "Kalori / Gün", val: TDEE}}
           Values={[{label:"seviye", val:level+1, unit:"", range:[1,5]}]} 
           calculate={calculateTDEE} 
-          setObject={(theList:any[], direction:number) => setList(["PAL"], theList, direction)}
+          setObject={(theList:any[], direction:number) => setList(["PAL", "TDEE"], theList, direction)}
         />
         <motion.div initial={{opacity:0, y:-20}} animate={{opacity:1, y:0}} transition={{delay:0.5, duration:1}} className="noSelect" style={{ position:"absolute", left: 0, bottom: "8rem", height:"180px", width:"100%", display:"flex", alignItems: "center", justifyContent: "center", fontWeight: 200, color: "#DFDFDFa0", textAlign: "center", fontSize: "1.1rem", lineHeight: "1.36rem"}}>
           <div style={{ width: '320px', padding: '0px 1em' }}>
@@ -109,6 +109,8 @@ export default function Success({ params }: { params: { title: string } }) {
     } 
   
     useEffect(() => {
+
+      console.log(data);
   
       if( page<0 ) router.back();
       else if( page>= questions.length ) router.push("/");
@@ -148,7 +150,8 @@ export default function Success({ params }: { params: { title: string } }) {
     }, [page]);
   
     useEffect(() => {
-      let d:any = JSON.parse(localStorage.getItem('data')??'{}');
+      let d:any = JSON.parse(localStorage.getItem('data')??`{}`);
+      console.log(d);
       setData({...data, ...d});
     }, [])
     
@@ -184,7 +187,7 @@ export default function Success({ params }: { params: { title: string } }) {
                 {val:data["height"]??178, unit:"cm", label:"boy", range:[100,260]}, 
                 {val:data["years"]??19, unit:"yıl", label:"yaş", range:[6,100]}]} 
               calculate={calculateBMR} 
-              setObject={(theList:any[], direction:number) => setList(["weight", "height", "years"], theList, direction)}
+              setObject={(theList:any[], direction:number) => setList(["weight", "height", "years", "BMR"], theList, direction)}
             />,
             <Info text="Toplam Enerji Harcaması: vücudunuzun bir günde yaktığı toplam kalori miktarını hesaplayalım" turnPage={turnPage} />,
             <TDEE BMR={calculateBMR([data.weight, data.height, data.years])??1762} value={data["PAL"]??2} setList={setList} />,

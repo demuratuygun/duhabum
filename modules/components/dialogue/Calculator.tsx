@@ -62,7 +62,11 @@ export default function Calculator({ display, Description, Values, calculate, se
   }, [Description]);
 
   const turnPage = (direction: number) => {
-    setObject(values, direction);
+    let thevals:any[] = [...values];
+    if(calculate) {
+      thevals = [...values, {val:Math.floor(displayVal)}];
+    }
+    setObject(thevals, direction);
   };
 
   const handleChange = (index: number, newValue: number) => {
