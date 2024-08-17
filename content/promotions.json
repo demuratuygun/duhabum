@@ -6,10 +6,11 @@
     },
     
     "offers" : {
-        "20000": {"plan":"Premium", "duration": 15, "price": 12499},
-        "7000": {"plan":"Essential", "duration": 15, "price": 11985},
+        "20000": {"plan":"Premium", "duration": 15, "price": 11985},
+        "7000": {"plan":"Essential", "duration": 15, "price": 6999},
         "5900": {"plan":"Premium", "duration": 6, "price": 7499},
         "4000": {"plan":"Essential", "duration": 6, "price": 3999},
+        "2000": {"plan":"Premium", "duration": 2, "price": 3599},
         "700": {"plan":"Essential", "duration": 2, "price": 1899}
         
     }
