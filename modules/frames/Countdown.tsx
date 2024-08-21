@@ -47,7 +47,7 @@ export default function Countdown({close}: {close: Function}) {
   useEffect(() => {
     let code = localStorage.getItem("code");
     if(code) close();
-    countdown();
+    //countdown();
 
     const handleKeydownWrapper = (e: KeyboardEvent) => setFocus(true);
     window.addEventListener('keydown', handleKeydownWrapper);
@@ -144,7 +144,7 @@ export default function Countdown({close}: {close: Function}) {
 
           <div style={{ width: "100%", maxWidth: "700px", textAlign:"center", display: 'flex', justifyContent:'center', flexDirection:"column", color: '#fff', fontWeight: 400, fontSize:"1.1rem" }}>                
             <div className={styles.stopwatch}>
-              {inputState=="code"||inputState=="student"?<Text text={ inputState=="code"? (isStudent?"VIP720":"VIP620"): (Math.floor(counter/3600)+'').padStart(2, '0')+":"+(Math.floor(counter/60)%60+"").padStart(2, '0')+":"+(counter%60+"").padStart(2, '0') }/>:null}
+              {inputState=="code"||inputState=="student"? inputState=="code"? <Text text={  (isStudent?"VIP720":"VIP620") }/>:<Text text={(Math.floor(counter/3600)+'').padStart(2, '0')+":"+(Math.floor(counter/60)%60+"").padStart(2, '0')+":"+(counter%60+"").padStart(2, '0')}/>:null}
             </div>
 
             <div style={{ background: "radial-gradient(#000, #0000 80%)", width: "100%", padding:'2rem' }}>
