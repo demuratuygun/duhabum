@@ -48,7 +48,11 @@ export default function Form({params}:{params:{packageId:number, month:string}})
       return 'paket tanimli degil';
     }
 
-    var amount = Math.floor((data.discounts??[]).reduce((a:number,b:any)=>a*(100-b.rate)/100, data.checkout.option.price));
+    var amount = Math.floor(
+      (data.discounts??[]).reduce(
+        (a:number,b:any)=>a*(100-b.rate)/100, 
+        data.checkout.option.price)
+    );
 
     const response = await fetch('/api/GenerateLink', {
         method: 'POST',
@@ -69,7 +73,7 @@ export default function Form({params}:{params:{packageId:number, month:string}})
   useEffect( () => {
     
     if( page<0 ) router.back();
-    if( useLink && page== questions.length-1 ) {
+    if( useLink && page == questions.length-1 ) {
       generateLink();
     }
     else if( page>= questions.length ) router.push("/");
