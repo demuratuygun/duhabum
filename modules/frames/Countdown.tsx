@@ -171,7 +171,7 @@ export default function Countdown({close}: {close: Function}) {
             <div style={{ width: '100%',  display:'flex', justifyContent:'center', fontSize:"2rem" }}>
               <div className={styles.countdownWrap} style={{ fontSize: '1.5rem', width:"100%", display:'flex', justifyContent:"center", alignItems:"center", gap:"1rem" }}>
                 <button key="yes" onClick={() => handleSaveClick(true)} > ÖĞRENCİYİM </button>
-                <button key="no" onClick={() => handleSaveClick(false)} > SADEEC VIP </button>
+                <button key="no" onClick={() => handleSaveClick(false)} > SADECE VIP </button>
               </div>
             </div>
                   :
