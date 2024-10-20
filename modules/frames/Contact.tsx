@@ -39,7 +39,6 @@ export default function ContactFrame() {
   const [x, setX] = useState(300);
   const [dragged, setDragged] = useState(false);
 
-  
   return (
     <div className='select-none' style={{ position: "relative", display: "flex", flexDirection: 'column', justifyContent: "center", alignItems: "center", width: "100%", height: "100vh", paddingTop: "7vh" }}>
 
@@ -48,7 +47,7 @@ export default function ContactFrame() {
         <div className='hideingRound' style={{right: '0rem', filter: "blur(5px)"}}></div>
         <div className='hideingRound' style={{left: '0rem', background: 'radial-gradient(circle at 0%, #000, #0000 50%)', filter: "blur(5px)"}}></div>
 
-        <motion.div drag="x" initial={{ x }} onDrag={()=> setDragged(true)} dragConstraints={{ left: -600, right: 600 }} style={{ zIndex:900, x, transition: dragged?'':'1s ease' }}>
+        <motion.div drag="x" initial={{ x }} onDrag={()=> setDragged(true)} dragConstraints={{ left: -660, right: 660 }} style={{ zIndex:900, x, transition: dragged?'':'1s ease' }}>
           <motion.div className={'flex flex-row m-2 pb-8 z-50 h-max noSelect'} >  
             {[{name: "Efe Ö.", rate: 5, comment:'Bizzat Duha benimle ilgilendi ve birkaç kez telefondan bile konuştuk.'},
             {name: "Baran K.", rate: 5, comment:'Eğer programa gerçekten sadık kalırsanız değişmeme ihtimali yok. Ben 2 ayda 5 kg verdim.'},

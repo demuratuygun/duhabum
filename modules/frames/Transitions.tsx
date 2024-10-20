@@ -30,6 +30,7 @@ const item = {
 }
 
 export default function Transition() {
+
   const ref = useRef<HTMLDivElement | null>(null);
   const [elementTop, setElementTop] = useState(0);
   const [clientHeight, setClientHeight] = useState(0);
@@ -44,7 +45,7 @@ export default function Transition() {
       if (ref.current) {
         setElementTop(ref.current.getBoundingClientRect().top + window.scrollY);
         setClientHeight(window.innerHeight);
-        setWidth(window.innerWidth / 3);
+        setWidth(window.innerWidth);
       }
     };
 
@@ -60,7 +61,7 @@ export default function Transition() {
   const x = useTransform(
     scrollY,
     [elementTop - clientHeight, elementTop + clientHeight],
-    [width*4, -width*4]
+    [2000, 0]
   );
 
   return (
@@ -86,11 +87,10 @@ export default function Transition() {
         alt="duha bum in dark"
       />
       
-      <motion.div drag="x" initial={{ x: 1500 }} dragConstraints={{ left: -1200, right: 1200 }} style={{ zIndex:900, paddingBottom:"1.2rem" }}>
+      <motion.div drag="x" initial={{ x: 1800 }} dragConstraints={{ left: -1800, right: 1800 }} style={{ zIndex:900, paddingBottom:"1.2rem", x }}>
         <div style={{ display: 'flex', flexDirection: 'row', margin: 0, zIndex: 500 }}>
           {[1, 2, 3, 4, 5, 6].map((i) => (
-            <motion.div key={i} style={{ position:'relative', display: 'flex', flexDirection: 'row', margin: '0px 8px 20px 8px', width: 'max-content' }}
-            >
+            <motion.div key={i} style={{ position:'relative', display: 'flex', flexDirection: 'row', margin: '0px 18px 20px 18px', width: 'max-content' }}>
               <Image
                 draggable="false"
                 style={{ 
@@ -120,7 +120,7 @@ export default function Transition() {
                 width={300}
                 alt="duhabum body transition after"
               />
-              <div style={{position:'absolute', top:0, left: '50%', zIndex:1000, backgroundColor:"#B6ED26", color: '#000', padding:'2px 10px', borderRadius: '10px'}}>{durations[i-1]}</div>
+              <div style={{position:'absolute', bottom:0, left: '50%', zIndex:1000, backgroundColor:"#ccc", color: '#000', padding:'2px 10px', borderRadius: '10px'}}>{durations[i-1]}</div>
             </motion.div>
           ))}
         </div>

@@ -45,21 +45,23 @@ export default function MessageFrame() {
   
   ];
 
+  
+
   return (
-    <div style={{ position: 'relative', display: "flex", justifyContent: "center", alignItems: "center",width: "100vw",  padding: "0px", margin: "0px", }}>
+    <div style={{ position: 'relative', display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", minHeight:"100vh", padding: "0px", margin: "0px", }}>
 
         <motion.div viewport={{amount:"all"}} initial={{opacity:0}} whileInView={{opacity:1}} transition={{duration:3}} exit={{opacity:0}} className={styles.picture2}>
           <Image src="/faceindark2.png" layout="fill" objectFit="cover" alt="duha bum face in dark"/>
         </motion.div>
 
         <motion.div style={{ zIndex:900,  }}>
-          <div style={{ fontSize:'1rem', fontWeight: 250, color: '#B7FE04', letterSpacing:"0.1rem", paddingLeft:'1.2rem' }}>SIKÇA SORULAN SORULAR</div> 
+          <div style={{ fontSize:'1.2rem', fontWeight: 250, color: '#B7FE04', letterSpacing:"0.1rem", paddingLeft:'1.2rem' }}>SIKÇA SORULAN SORULAR</div> 
 
             <motion.div variants={container} className={'flex flex-col m-2 pb-8 z-50 h-max noSelect'} style={{maxWidth: 750}}>  
               {FAQ.map( (qa, i) => 
-              <motion.div key={'comment='+i} onClick={() => setAcitve(i)} variants={item} style={{ display: "flex", flexDirection: "column", justifyContent:'center', margin: "1rem", minWidth: "18rem", padding: "2.2rem 2rem" }} className='box'>                
+              <motion.div key={'comment='+i} onClick={() => setAcitve(active==i?-1:i)} variants={item} style={{ display: "flex", flexDirection: "column", justifyContent:'center', margin: "1rem", minWidth: "18rem", padding: "2.2rem 2rem", transition: '1s ease' }} className='box'>                
                   <div className='text' style={{ fontSize: "1.45rem", fontWeight: 500, position:'relative', top:-4, lineHeight:'1.7rem' }}> {qa.q} </div>
-                  {active==i && <div className='text' style={{ fontSize: "1.2rem", opacity: 0.7, paddingTop:'0.7rem' }}> {qa.a} </div>}
+                  {active==i && <div className='text' style={{ fontSize: "1.2rem", opacity: 0.6, paddingTop:'0.7rem' }}> {qa.a} </div>}
               </motion.div>
               )}
             </motion.div>
