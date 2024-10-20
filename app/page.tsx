@@ -27,9 +27,9 @@ export default function Home() {
         
         
         <IntroFrame />
-        <MessageFrame />
         <Transition />
         <PackageFrame />
+        <MessageFrame />
         <Process />
         <ContactFrame />
 

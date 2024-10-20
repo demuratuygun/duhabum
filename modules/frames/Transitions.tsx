@@ -36,6 +36,7 @@ export default function Transition() {
   const [width, setWidth] = useState(0);
 
   const { scrollY } = useScroll();
+  const durations = ['2 yil sonra', '4 ay sonra', '5 ay sonra', '1 ay sonra', '2 ay sonra', '1 ay sonra'];
 
   // Update dimensions on mount and when window is resized
   useEffect(() => {
@@ -85,31 +86,46 @@ export default function Transition() {
         alt="duha bum in dark"
       />
       
-      <motion.div drag="x" initial={{ x: 100 }} dragConstraints={{ left: -500, right: 500 }} style={{ zIndex:900, paddingBottom:"1.2rem" }}>
-      <div style={{ display: 'flex', flexDirection: 'row', margin: 0, zIndex: 500 }}>
-        {[1, 2, 3].map((i) => (
-          <motion.div key={i} style={{ x, display: 'flex', flexDirection: 'row', margin: '0px 8px 20px 8px', width: 'max-content' }}
-          >
-            <Image
-              draggable="false"
-              style={{ margin: '7px', borderRadius:'1rem', filter:'grayscale(100%)' }}
-              src={`/transitions/${i}before.jpeg`}
-              height={265}
-              width={200}
-              alt="duha bum in dark"
-            />
-            <Image
-              draggable="false"
-              style={{ margin: '7px', borderRadius:'1rem' }}
-              src={`/transitions/${i}after.jpeg`}
-              height={265}
-              width={200}
-              alt="duha bum in dark"
-            />
-          </motion.div>
-        ))}
-      </div>
+      <motion.div drag="x" initial={{ x: 1500 }} dragConstraints={{ left: -1200, right: 1200 }} style={{ zIndex:900, paddingBottom:"1.2rem" }}>
+        <div style={{ display: 'flex', flexDirection: 'row', margin: 0, zIndex: 500 }}>
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <motion.div key={i} style={{ position:'relative', display: 'flex', flexDirection: 'row', margin: '0px 8px 20px 8px', width: 'max-content' }}
+            >
+              <Image
+                draggable="false"
+                style={{ 
+                  height: '400px', 
+                  width: '300px', 
+                  margin: '7px', 
+                  borderRadius:'1rem', 
+                  filter:'grayscale(100%)',
+                  objectFit: 'cover'
+                }}
+                src={`/transitions/${i}before.jpeg`}
+                height={400}
+                width={300}
+                alt="duhabum body transition before"
+              />
+              <Image
+                draggable="false"
+                style={{ 
+                  height: '400px', 
+                  width: '300px', 
+                  margin: '7px', 
+                  borderRadius:'1rem', 
+                  objectFit: 'cover' 
+                }}
+                src={`/transitions/${i}after.jpeg`}
+                height={400}
+                width={300}
+                alt="duhabum body transition after"
+              />
+              <div style={{position:'absolute', top:0, left: '50%', zIndex:1000, backgroundColor:"#B6ED26", color: '#000', padding:'2px 10px', borderRadius: '10px'}}>{durations[i-1]}</div>
+            </motion.div>
+          ))}
+        </div>
       </motion.div>
+
       
       <motion.div className={styles.paragraph} variants={item}>
         3 aylık veya daha uzun bir programa kayıt olun. Antrenman, beslenme ve kardiyo planının en az %80'ini uygulayın.
@@ -126,7 +142,7 @@ export default function Transition() {
           }}
         >
           <div style={{ fontSize: '1em', fontWeight: 400, color: '#B7FE04aa' }}>
-            IADE POLITIKAMIZ
+            GARANTİ POLİTİKAMIZ
           </div>
           <div style={{ padding: '0.1em 0rem' }}>
             <ArrowUp />

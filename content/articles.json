@@ -1,11 +1,11 @@
 {
     "tr": {
         "IadePolitikamiz": {
-            "title": "İade Politikamız",
+            "title": "Garanti Politikamız",
             "content": [
                 {"paragraph": "Duhabum Fitness Online Koçluk Hizmeti olarak müşteri memnuniyeti önceliğimizdir. Sunduğumuz hizmetten tam anlamıyla memnun kalmamanız durumunda iade politikamız aşağıdaki koşullara göre işler:"},
                 {"intro": "Ödeme Yapıldı Ama Sürece Başlanmadı: ", "paragraph": "Eğer öğrenci programı almışsa ve sürece başlamamışsa öğrenci için üzerinde çalışılan beslenme, antrenman ve kardiyo programının ücreti (699 TL) düşülerek diğer tutarın tamamı iade edilir."},
-                {"intro": "Program Süresi İçinde İade Talebi: ", "paragraph": "Eğer öğrenci programın ortasında iade talebinde bulunmak isterse, örneğin 3 aylık bir program aldı ve 1. aydan sonra iade talebinde bulunuyorsa, 1. ayın ücreti indirimsiz fiyattan düşülerek kalan tutar iade edilir."},
+                {"intro": "Program Süresi İçinde İade Talebi: ", "paragraph": "Eğer öğrenci, programın ortasında iade talebinde bulunmak isterse, örneğin 3 aylık bir program aldıysa ve 2. ayın sonunda iade talebinde bulunuyorsa, 2 aylık program ücreti indirimsiz fiyattan düşülerek kalan tutar iade edilir. İndirimsiz aylık ücretimiz Essential paket için 1.099 TL, Premium paket için ise 1.999 TL'dir. Yani, 1.099 TL x 2 (ay) veya 1.999 TL x 2 (ay) tutarı hesaplanarak ödenen tutardan düşülür. İndirimsiz aylık ücretler paketler seçeneklerde görülebilmektedir."},
                 {"paragraph": "İade taleplerinizde, ödeme yapılan yönteme bağlı olarak iade işlemleriniz en kısa sürede gerçekleştirilir."},
                 {"paragraph": "Lütfen iade talebiniz için iletişim bilgileri üzerinden bizimle iletişime geçiniz."}
             ]
