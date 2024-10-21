@@ -94,30 +94,30 @@ export default function Transition() {
               <Image
                 draggable="false"
                 style={{ 
-                  height: '400px', 
-                  width: '300px', 
+                  height: '320px', 
+                  width: '250px', 
                   margin: '7px', 
                   borderRadius:'1rem', 
                   filter:'grayscale(100%)',
                   objectFit: 'cover'
                 }}
                 src={`/transitions/${i}before.jpeg`}
-                height={400}
-                width={300}
+                height={320}
+                width={250}
                 alt="duhabum body transition before"
               />
               <Image
                 draggable="false"
                 style={{ 
-                  height: '400px', 
-                  width: '300px', 
+                  height: '320px', 
+                  width: '250px', 
                   margin: '7px', 
                   borderRadius:'1rem', 
                   objectFit: 'cover' 
                 }}
                 src={`/transitions/${i}after.jpeg`}
-                height={400}
-                width={300}
+                height={320}
+                width={250}
                 alt="duhabum body transition after"
               />
               <div style={{position:'absolute', bottom:0, left: '50%', zIndex:1000, backgroundColor:"#ccc", color: '#000', padding:'2px 10px', borderRadius: '10px'}}>{durations[i-1]}</div>
