@@ -32,37 +32,19 @@ const item = {
 export default function Transition() {
 
   const ref = useRef<HTMLDivElement | null>(null);
-  const [elementTop, setElementTop] = useState(0);
-  const [clientHeight, setClientHeight] = useState(0);
-  const [width, setWidth] = useState(0);
+  const [x, setX] = useState(1450);
+  const [mobile, setMobile] = useState(true);
 
-  const { scrollY } = useScroll();
+
   const durations = ['2 yil sonra', '4 ay sonra', '5 ay sonra', '1 ay sonra', '2 ay sonra', '1 ay sonra'];
 
-  // Update dimensions on mount and when window is resized
   useEffect(() => {
-    const updateDimensions = () => {
-      if (ref.current) {
-        setElementTop(ref.current.getBoundingClientRect().top + window.scrollY);
-        setClientHeight(window.innerHeight);
-        setWidth(window.innerWidth);
-      }
-    };
-
-    // Ensure this only runs on the client side
-    if (typeof window !== 'undefined') {
-      updateDimensions();
-      window.addEventListener('resize', updateDimensions);
-
-      return () => window.removeEventListener('resize', updateDimensions);
+    if(window.innerWidth>500) {
+      setMobile(false);
+      setX(1200);
     }
-  }, [ref]);
+  }, [])
 
-  const x = useTransform(
-    scrollY,
-    [elementTop - clientHeight, elementTop + clientHeight],
-    [2000, 0]
-  );
 
   return (
     <div
@@ -87,14 +69,14 @@ export default function Transition() {
         alt="duha bum in dark"
       />
       
-      <motion.div drag="x" initial={{ x: 1800 }} dragConstraints={{ left: -1800, right: 1800 }} style={{ zIndex:900, paddingBottom:"1.2rem", x }}>
+      <motion.div drag="x" dragConstraints={{ left: -1800, right: 1800 }} style={{ zIndex:900,  x, transition: '1s ease' }}>
         <div style={{ display: 'flex', flexDirection: 'row', margin: 0, zIndex: 500 }}>
           {[1, 2, 3, 4, 5, 6].map((i) => (
-            <motion.div key={i} style={{ position:'relative', display: 'flex', flexDirection: 'row', margin: '0px 18px 20px 18px', width: 'max-content' }}>
+            <motion.div key={i} style={{ position:'relative', display: 'flex', flexDirection: 'row', margin: '0px 8px 20px 8px', width: 'max-content' }}>
               <Image
                 draggable="false"
                 style={{ 
-                  height: '320px', 
+                  height: '320px',
                   width: '250px', 
                   margin: '7px', 
                   borderRadius:'1rem', 
@@ -125,6 +107,10 @@ export default function Transition() {
           ))}
         </div>
       </motion.div>
+
+      <div className={styles.nextComment} style={{ display: 'flex', top: mobile?'25%':'35%' }} onClick={() => setX(prevX => prevX - 260)}><ArrowUp color='#222'/></div>
+      <div className={styles.nextComment} style={{ backgroundColor:"#222", top: mobile?'25%':'35%', left: '4%', rotate:'225deg', display: 'flex' }} onClick={() => setX(prevX => prevX + 260)}><ArrowUp color='#eee'/></div>
+
 
       
       <motion.div className={styles.paragraph} variants={item}>

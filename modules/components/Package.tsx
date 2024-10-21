@@ -47,8 +47,8 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
       </div>
     :null}
 
-    {pack.plan=="Premium"?
-      <div style={{ margin: '1rem', position:"absolute", left:0, top: 0, background: "url('/waves.gif') no-repeat center", rotate:"180deg", backgroundSize:"cover", opacity:0.25, filter: 'hue-rotate(160deg)', zIndex:1, width: "calc(100% - 2rem)", height: "calc(100% - 2rem)", borderRadius:"14px" }}></div>
+    {pack.plan=="Premium"? //filter: 'hue-rotate(160deg)',
+      <div style={{ margin: '1rem', position:"absolute", left:0, top: 0, background: "url('/waves.gif') no-repeat center", backgroundSize:"cover", opacity:0.25, zIndex:1, width: "calc(100% - 2rem)", height: "calc(100% - 2rem)", borderRadius:"14px" }}></div>
     :null}
 
 
@@ -102,7 +102,7 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
 
 
 
-      <ul style={{ margin: "1rem 0rem 1rem 1.6rem", paddingBottom: "0.8rem", listStyleImage: "url('check.svg')", color: "#DFDFDF80", fontWeight: 500 }}>
+      <ul style={{ margin: "1rem 0rem 1rem 1.6rem", paddingBottom: "0.8rem", listStyleImage: "url('check.svg')", color: "#bbb", fontWeight: 500 }}>
         { pack.content.map((item, i) =>
           item != '100% gelişim garantisi' || duration > 2 ?
             <li key={i} 
