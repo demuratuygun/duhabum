@@ -52,7 +52,7 @@ export default function Process() {
 
         <motion.div 
           className={styles.paragraph} 
-          variants={item}>
+          initial={{ y: -60, opacity: 0 }} animate={{ y:0, opacity: 1, transition: { delay: 1, duration: 2 }}}>
           Programlarımızı oluştururken en son bilimsel araştırmaları ve fitness trendlerini takip ediyoruz. Eğitim ve beslenme konusundaki en güncel bilgileri sizlere sunarak, en etkili ve güvenli yöntemlerle çalışmanızı sağlıyoruz. 
           <a href='/article/Isleyis'
             className='noSelect icons' 

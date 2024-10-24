@@ -24,19 +24,15 @@ const container = {
   }
 }
 
-const item = {
-  hidden: { y: 0, opacity: 0 },
-  visible: { opacity: 1, transition: { delay: 1.2, duration: 1 } }
-}
-
 export default function Transition() {
 
   const ref = useRef<HTMLDivElement | null>(null);
   const [x, setX] = useState(1450);
   const [mobile, setMobile] = useState(true);
+  const [dragged, setDragged] = useState(false);
 
 
-  const durations = ['2 yil sonra', '4 ay sonra', '5 ay sonra', '1 ay sonra', '2 ay sonra', '1 ay sonra'];
+  const durations = ['2 yıl sonra', '4 ay sonra', '5 ay sonra', '1 ay sonra', '2 ay sonra', '1 ay sonra'];
 
   useEffect(() => {
     if(window.innerWidth>500) {
@@ -69,7 +65,7 @@ export default function Transition() {
         alt="duha bum in dark"
       />
       
-      <motion.div drag="x" dragConstraints={{ left: -1800, right: 1800 }} style={{ zIndex:900,  x, transition: '1s ease' }}>
+      <motion.div drag="x" onDrag={()=> setDragged(true)}  dragConstraints={{ left: -1500, right: 1500 }} style={{ zIndex:900,  x, transition: dragged?'':'1s ease' }}>
         <div style={{ display: 'flex', flexDirection: 'row', margin: 0, zIndex: 500 }}>
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <motion.div key={i} style={{ position:'relative', display: 'flex', flexDirection: 'row', margin: '0px 8px 20px 8px', width: 'max-content' }}>
@@ -81,11 +77,12 @@ export default function Transition() {
                   margin: '7px', 
                   borderRadius:'1rem', 
                   filter:'grayscale(100%)',
-                  objectFit: 'cover'
+                  objectFit: 'cover',
+                  backgroundColor:'#272727'
                 }}
                 src={`/transitions/${i}before.jpeg`}
-                height={320}
-                width={250}
+                height={640}
+                width={500}
                 alt="duhabum body transition before"
               />
               <Image
@@ -95,25 +92,26 @@ export default function Transition() {
                   width: '250px', 
                   margin: '7px', 
                   borderRadius:'1rem', 
-                  objectFit: 'cover' 
+                  objectFit: 'cover',
+                  backgroundColor:'#272727'
                 }}
                 src={`/transitions/${i}after.jpeg`}
-                height={320}
-                width={250}
+                height={640}
+                width={500}
                 alt="duhabum body transition after"
               />
-              <div style={{position:'absolute', bottom:0, left: '50%', zIndex:1000, backgroundColor:"#ccc", color: '#000', padding:'2px 10px', borderRadius: '10px'}}>{durations[i-1]}</div>
+              <div style={{position:'absolute', bottom:10, left: '52%', zIndex:1000, backgroundColor:"#C9C9C9", color: '#000', padding:'2px 10px', borderRadius: '10px'}}>{durations[i-1]}</div>
             </motion.div>
           ))}
         </div>
       </motion.div>
 
-      <div className={styles.nextComment} style={{ display: 'flex', top: mobile?'25%':'35%' }} onClick={() => setX(prevX => prevX - 260)}><ArrowUp color='#222'/></div>
-      <div className={styles.nextComment} style={{ backgroundColor:"#222", top: mobile?'25%':'35%', left: '4%', rotate:'225deg', display: 'flex' }} onClick={() => setX(prevX => prevX + 260)}><ArrowUp color='#eee'/></div>
+      {dragged?null:<div className={styles.nextComment} style={{ top: mobile?'25%':'35%' }} onClick={() => setX(prevX => prevX - 270)}><ArrowUp color='#222'/></div>}
+      {dragged?null:<div className={styles.nextComment} style={{ backgroundColor:"#222", top: mobile?'25%':'35%', left: '4%', rotate:'225deg' }} onClick={() => setX(prevX => prevX + 270)}><ArrowUp color='#eee'/></div>}
 
 
       
-      <motion.div className={styles.paragraph} variants={item}>
+      <motion.div className={styles.paragraph} initial={{ y: 60, opacity: 0 }} animate={{ y:mobile?-10:10, opacity: 1, transition: { delay: 1, duration: 2 }}}>
         3 aylık veya daha uzun bir programa kayıt olun. Antrenman, beslenme ve kardiyo planının en az %80'ini uygulayın.
         Değişim görmezseniz paranız iade!
         <a

@@ -49,7 +49,8 @@ export default function ContactFrame() {
 
         <motion.div drag="x" initial={{ x }} onDrag={()=> setDragged(true)} dragConstraints={{ left: -660, right: 660 }} style={{ zIndex:900, x, transition: dragged?'':'1s ease' }}>
           <motion.div className={'flex flex-row m-2 pb-8 z-50 h-max noSelect'} >  
-            {[{name: "Efe Ö.", rate: 5, comment:'Bizzat Duha benimle ilgilendi ve birkaç kez telefondan bile konuştuk.'},
+            {[
+            {name: "Efe Ö.", rate: 5, comment:'Bizzat Duha benimle ilgilendi ve birkaç kez telefondan bile konuştuk.'},
             {name: "Baran K.", rate: 5, comment:'Eğer programa gerçekten sadık kalırsanız değişmeme ihtimali yok. Ben 2 ayda 5 kg verdim.'},
             {name: "Emirhan Ö.", rate: 4, comment:'Programım ve beslenme planım gerçekten işe yaradı. Mesajlaşmalar biraz daha hızlı olursa çok daha iyi olabilir'},
             {name: "Deniz B.", rate: 5, comment:"Daha önce aldığım eğitimlerde influencer yerine onun çalışanları ile konuşuyordum. Burada bizzat Duha'nın benimle ilgilenmesi beni çok mutlu etti."},

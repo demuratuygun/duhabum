@@ -38,7 +38,7 @@ export default function MessageFrame() {
 
   const [active, setAcitve] = useState(-1);
   const FAQ = [
-    { q:'Programı aldıktan sonra iade etme seçeneğiniz var mı?', a:'Evet, iade etme seçeneğiniz var. İstediğiniz zaman iade talebinde bulunabilirsiniz. Daha fazla bilgi için garantı polıtıkamızı inceleyin.'},
+    { q:'Programı aldıktan sonra iade etme seçeneğiniz var mı?', a:'Evet, iade etme seçeneğiniz var. İstediğiniz zaman iade talebinde bulunabilirsiniz. Daha fazla bilgi için iade politikamızı inceleyin.'},
     { q:'Programı aldıktan sonra dondurma seçeneğim var mı?', a: 'Evet, programınızı bir defaya mahsus olmak üzere 1 ay süreyle dondurabilirsiniz.' },
     { q:'Eğer değişim görmezsem paramın tamamı iade edilecek mi?', a:'Evet, 3 aylık ve üzeri programlardan birini aldıysanız ve programa %80 oranında uyduğunuz halde herhangi bir değişim görmezseniz, paranız iade edilecektir.'},
     { q:'Antrenman ve beslenme programı nasıl hazırlanıyor?', a:'Size 20 soruluk bir anket gönderiyoruz ve bu ankete göre kişiselleştirilmiş beslenme ve antrenman programı hazırlıyoruz.' }

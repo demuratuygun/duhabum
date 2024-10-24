@@ -150,6 +150,11 @@ export default function Success({ params }: { params: { title: string } }) {
     }, [page]);
   
     useEffect(() => {
+      
+      if (typeof window !== 'undefined' && window.fbq) {
+        window.fbq('track', 'PageView', { page_path: window.location.pathname });
+      }
+      
       let d:any = JSON.parse(localStorage.getItem('data')??`{}`);
       console.log(d);
       setData({...data, ...d});

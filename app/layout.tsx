@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import FacebookPixel from "@/modules/components/FacebookPixel";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,9 +27,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&family=Sarpanch:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
       
+      
       </head>
       <body className={inter.className}>
           {children}
+          <FacebookPixel />
       </body>
     </html>
   );

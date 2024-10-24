@@ -24,7 +24,24 @@ export default function Form({params}:{params:{packageId:number, month:string}})
   const [data, setData] = useState<any>({});
   const [page, setPage] = useState(0);
 
+  useEffect( () => {
+    
+    console.log(data);
 
+    if (typeof window !== 'undefined' && window.fbq && data.checkout?.option) {
+      // Track AddToCart event
+      let trackobj = {
+        content_name: data.checkout.option.duration+' Aylık Duhabum '+data.checkout.option.plan+' Paketi',
+        content_ids: [params.packageId],
+        content_type: 'product',
+        value: data.checkout.option.price, // value of the package/product
+        currency: 'TL'
+      }
+      console.log(trackobj)
+      window.fbq('track', 'UpdateCart', trackobj);
+    }
+    
+  }, [data] )
 
 
   const setObject = (theObj:any, direction:number) => {
@@ -75,14 +92,42 @@ export default function Form({params}:{params:{packageId:number, month:string}})
     if( page<0 ) router.back();
     if( useLink && page == questions.length-1 ) {
       generateLink();
+
+      if (typeof window !== 'undefined' && window.fbq && data.checkout?.option) {
+        window.fbq('track', 'Purchase', {
+          content_name: data.checkout.option.duration+' Aylık Duhabum '+data.checkout.option.plan+' Paketi',
+          content_ids: [params.packageId],
+          content_type: 'product',
+          value: data.checkout.option.price, // value of the package/product
+          currency: 'TL'
+        });
+      }
+
     }
     else if( page>= questions.length ) router.push("/");
 
   }, [page]);
 
   useEffect(() => {
+
+    if (typeof window !== 'undefined' && window.fbq) {
+      window.fbq('track', 'PageView', { page_path: window.location.pathname });
+      
+      // Track AddToCart event
+      let trackobj = {
+        content_name: params.month+' Aylık Duhabum '+packages.tr[params.packageId].plan+' Paketi',
+        content_ids: [params.packageId],
+        content_type: 'product',
+        value: packages.tr[params.packageId].prices[packages.tr[params.packageId].duration.indexOf(parseInt(params.month))], // value of the package/product
+        currency: 'TL'
+      }
+      console.log(trackobj)
+      window.fbq('track', 'AddToCart', trackobj);
+    }
+
     let d:any = JSON.parse(localStorage.getItem('data')??'{}');
     setData({...data, ...d});
+
   }, [])
   
 
@@ -96,6 +141,9 @@ export default function Form({params}:{params:{packageId:number, month:string}})
             ]} 
           />,
   */
+
+
+
 
   const questions = [
           <MakeOffer plan={packages.tr[params.packageId]} months={parseInt(params.month)} setObject={( theList, direction) => setObject( theList, direction)}/>,
