@@ -38,7 +38,7 @@ export default function Form({params}:{params:{packageId:number, month:string}})
         currency: 'TL'
       }
       console.log(trackobj)
-      window.fbq('track', 'UpdateCart', trackobj);
+      window.fbq('track', 'AddToCart', trackobj);
     }
     
   }, [data] )
