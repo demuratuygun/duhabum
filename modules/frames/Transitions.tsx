@@ -114,8 +114,8 @@ export default function Transition() {
       <motion.div className={styles.paragraph} initial={{ y: 60, opacity: 0 }} animate={{ y:mobile?-10:10, opacity: 1, transition: { delay: 1, duration: 2 }}}>
         3 aylık veya daha uzun bir programa kayıt olun. Antrenman, beslenme ve kardiyo planının en az %80'ini uygulayın.
         Değişim görmezseniz paranız iade!
-        <a
-          href="/article/IadePolitikamiz"
+        <a  
+          href="/article/IadePolitikamiz#paragraph4"
           className="noSelect icons"
           style={{
             width: '100%',
