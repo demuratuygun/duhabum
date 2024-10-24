@@ -58,7 +58,6 @@ export default function Article({ params }: { params: { title: string } }) {
                 setSelectedText( selectedText );
             } else setSelectedText( undefined );
         });
-        
     }, []);
 
 

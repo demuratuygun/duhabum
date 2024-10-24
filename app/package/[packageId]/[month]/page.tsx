@@ -32,7 +32,7 @@ export default function Form({params}:{params:{packageId:number, month:string}})
       // Track AddToCart event
       let trackobj = {
         content_name: data.checkout.option.duration+' Aylık Duhabum '+data.checkout.option.plan+' Paketi',
-        content_ids: [params.packageId],
+        content_ids: params.packageId,
         content_type: 'product',
         value: data.checkout.option.price, // value of the package/product
         currency: 'TL'
@@ -96,7 +96,7 @@ export default function Form({params}:{params:{packageId:number, month:string}})
       if (typeof window !== 'undefined' && window.fbq && data.checkout?.option) {
         window.fbq('track', 'Purchase', {
           content_name: data.checkout.option.duration+' Aylık Duhabum '+data.checkout.option.plan+' Paketi',
-          content_ids: [params.packageId],
+          content_ids: params.packageId,
           content_type: 'product',
           value: data.checkout.option.price, // value of the package/product
           currency: 'TL'
@@ -116,7 +116,7 @@ export default function Form({params}:{params:{packageId:number, month:string}})
       // Track AddToCart event
       let trackobj = {
         content_name: params.month+' Aylık Duhabum '+packages.tr[params.packageId].plan+' Paketi',
-        content_ids: [params.packageId],
+        content_ids: params.packageId,
         content_type: 'product',
         value: packages.tr[params.packageId].prices[packages.tr[params.packageId].duration.indexOf(parseInt(params.month))], // value of the package/product
         currency: 'TL'

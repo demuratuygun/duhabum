@@ -1,15 +1,16 @@
-'use client'
+'use client';
+
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation'; // Import usePathname for navigation tracking
 
 export default function FacebookPixel() {
+  const pathname = usePathname();
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // Check if fbq already exists
       if (!window.fbq) {
         const fbq: Fbq = function () {
-          // Convert IArguments to a proper array
           const args = Array.prototype.slice.call(arguments);
-
           if (window.fbq?.callMethod) {
             window.fbq.callMethod.apply(window.fbq, args);
           } else {
@@ -17,28 +18,24 @@ export default function FacebookPixel() {
           }
         };
 
-        // Assign fbq and _fbq to the window object
         window.fbq = fbq;
         window.fbq.queue = [];
         window.fbq.loaded = true;
         window.fbq.version = '2.0';
 
-        // Create and insert the Facebook Pixel script
         const script = document.createElement('script');
         script.async = true;
         script.src = 'https://connect.facebook.net/en_US/fbevents.js';
         const firstScript = document.getElementsByTagName('script')[0];
         firstScript.parentNode?.insertBefore(script, firstScript);
 
-        // Initialize Facebook Pixel with your Pixel ID
-        window.fbq('init', '563456096339972');
-        window.fbq('track', 'PageView');
-      } else {
-        // If fbq already exists, just track the page view
-        window.fbq('track', 'PageView');
+        window.fbq('init', '563456096339972'); // Replace with your Pixel ID
       }
+
+      // Track the page view
+      //window.fbq('track', 'PageView');
     }
-  }, []);
+  }, [pathname]); // Dependency array includes pathname to trigger on page changes
 
   return (
     <>
