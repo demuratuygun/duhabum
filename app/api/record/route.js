@@ -6,13 +6,12 @@ const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
 const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
 
-const serviceAccount = JSON.parse(process.env.serviceAccount);
 
 // Create a JWT client
 const auth = new google.auth.JWT(
-  serviceAccount.client_email,
+  process.env.SERVICE_ACCOUNT_EMAIL,
   null,
-  serviceAccount.private_key,
+  process.env.SERVICE_ACCOUNT_KEY,
   ['https://www.googleapis.com/auth/documents', 'https://www.googleapis.com/auth/drive'],
 );
 
