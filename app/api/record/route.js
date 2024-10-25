@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { google } from 'googleapis';
 
 
+const SERVICE_ACCOUNT_EMAIL = process.env.SERVICE_ACCOUNT_EMAIL;
+const SERVICE_ACCOUNT_KEY = process.env.SERVICE_ACCOUNT_KEY;
+
 // Create a JWT client
 const auth = new google.auth.JWT(
   process.env.SERVICE_ACCOUNT_EMAIL,
