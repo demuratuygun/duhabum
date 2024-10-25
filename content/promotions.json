@@ -1,8 +1,6 @@
 {
     "codes" : {
-        "OGR15": [{"rate": 20, "name": "öğrenci indirimi"}],
-        "VIP620": [{"rate": 10, "name": "vip indirimi"}],
-        "VIP720": [{"rate": 10, "name": "vip indirimi"},{"rate": 10, "name": "öğrenci indirimi"}]
+        "BUM10": [{"rate": 10, "name": "vip indirimi"}]
     },
     
     "offers" : {

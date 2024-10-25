@@ -138,6 +138,7 @@ export default function Success({ params }: { params: { title: string } }) {
             } else {
               console.log(`Error creating document: ${resdata.error}`);
             }
+            
           } catch (error) {
             console.error('Network error:', error);
             console.log('Network error occurred. Please try again.');

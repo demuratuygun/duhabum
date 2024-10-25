@@ -47,7 +47,7 @@ export default function Countdown({close}: {close: Function}) {
   useEffect(() => {
     let code = localStorage.getItem("code");
     if(code) close();
-    //countdown();
+    countdown();
 
     const handleKeydownWrapper = (e: KeyboardEvent) => setFocus(true);
     window.addEventListener('keydown', handleKeydownWrapper);
@@ -57,10 +57,11 @@ export default function Countdown({close}: {close: Function}) {
 
   }, []);
 
+  
+  const midnight = new Date((new Date()).getTime() + 3 * 60 * 1000);
+
   const countdown = () => {
-    
     let now = new Date();
-    let midnight = new Date(2024, 7, 22, 0, 0, 0, 0);
     let count = Math.floor( (midnight.getTime() - now.getTime()) / 1000);
     
     if (count > 0) {
@@ -149,16 +150,16 @@ export default function Countdown({close}: {close: Function}) {
 
             <div style={{ background: "radial-gradient(#000, #0000 80%)", width: "100%", padding:'2rem' }}>
               <div>
-                  {inputState=="student"? "Tüm üyelerimize tüm paketlerde geçerli": inputState=="code"? "kodun kopyalandı!" :null}
+                  {inputState=="student"? "whatsapp üzerinden iletişime geç indirim kodunu al": inputState=="code"? "kodun kopyalandı!" :null}
               </div>
                     
               <div className={styles.countdownPromotion} >  
-                {inputState=="student"? "%20 İNDİRİM":null}
+                {inputState=="student"? "%10 İNDİRİM":null}
               </div>
 
               <div style={{ fontSize: inputState=="code"? "1.5rem" : '' }}>
                 {inputState=="code"? "72 saat geçerli indirim kodunu ödeme sayfasında “İndirim kodu” Kısmına yazabilirsiniz":
-                inputState=="student"? "%10 VIP + %10 EK ÖĞRENCİ İNDİRİMİNDEN YARARLAN":
+                inputState=="student"? "yararlanmak için mesaj bırak":
                 "%10 VIP + %10 EK ÖĞRENCİ İNDİRİMİ"}
               </div>
             </div>
@@ -170,8 +171,7 @@ export default function Countdown({close}: {close: Function}) {
           { inputState=="code"?null: inputState=="student"?
             <div style={{ width: '100%',  display:'flex', justifyContent:'center', fontSize:"2rem" }}>
               <div className={styles.countdownWrap} style={{ fontSize: '1.5rem', width:"100%", display:'flex', justifyContent:"center", alignItems:"center", gap:"1rem" }}>
-                <button key="yes" onClick={() => handleSaveClick(true)} > ÖĞRENCİYİM </button>
-                <button key="no" onClick={() => handleSaveClick(false)} > SADECE VIP </button>
+                <button key="yes" onClick={() => window.open("https://wa.me/message/54EF3YKBYGZGG1", "_blank")}>indirim kodunu al </button>{/* onClick={() => handleSaveClick(true)}*/}
               </div>
             </div>
                   :
