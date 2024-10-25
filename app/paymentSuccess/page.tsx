@@ -138,14 +138,14 @@ export default function Success({ params }: { params: { title: string } }) {
             } else {
               console.log(`Error creating document: ${resdata.error}`);
             }
-            
+
           } catch (error) {
             console.error('Network error:', error);
             console.log('Network error occurred. Please try again.');
           }
       }
       
-      if ( page==questions.length-1 ) 
+      //if ( page==questions.length-1 ) 
         createDocument();
   
     }, [page]);
