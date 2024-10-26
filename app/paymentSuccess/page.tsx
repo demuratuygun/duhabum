@@ -145,7 +145,7 @@ export default function Success({ params }: { params: { title: string } }) {
           }
       }
       
-      //if ( page==questions.length-1 ) 
+      if ( page==questions.length-1 ) 
         createDocument();
   
     }, [page]);
