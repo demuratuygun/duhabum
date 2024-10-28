@@ -17,7 +17,6 @@ import packages from '../../../../content/package.json';
 const useLink = true;
 
 
-
 export default function Form({params}:{params:{packageId:number, month:string}}) {
 
   const router = useRouter();

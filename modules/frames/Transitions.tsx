@@ -27,17 +27,17 @@ const container = {
 export default function Transition() {
 
   const ref = useRef<HTMLDivElement | null>(null);
-  const [x, setX] = useState(1450);
+  const [x, setX] = useState(1730);
   const [mobile, setMobile] = useState(true);
   const [dragged, setDragged] = useState(false);
 
 
-  const durations = ['2 yıl sonra', '4 ay sonra', '5 ay sonra', '1 ay sonra', '2 ay sonra', '1 ay sonra'];
+  const durations = ['2 yıl sonra', '10 hafta sonra', '4 ay sonra', '5 ay sonra', '1 ay sonra', '2 ay sonra', '1 ay sonra'];
 
   useEffect(() => {
     if(window.innerWidth>500) {
       setMobile(false);
-      setX(1200);
+      setX(1490);
     }
   }, [])
 
@@ -65,9 +65,9 @@ export default function Transition() {
         alt="duha bum in dark"
       />
       
-      <motion.div drag="x" onDrag={()=> setDragged(true)}  dragConstraints={{ left: -1500, right: 1500 }} style={{ zIndex:900,  x, transition: dragged?'':'1s ease' }}>
+      <motion.div drag="x" onDrag={()=> setDragged(true)}  dragConstraints={{ left: -1700, right: 1700 }} style={{ zIndex:900,  x, transition: dragged?'':'1s ease' }}>
         <div style={{ display: 'flex', flexDirection: 'row', margin: 0, zIndex: 500 }}>
-          {[1, 2, 3, 4, 5, 6].map((i) => (
+          {[1, 2, 3, 4, 5, 6, 7].map((i) => (
             <motion.div key={i} style={{ position:'relative', display: 'flex', flexDirection: 'row', margin: '0px 8px 20px 8px', width: 'max-content' }}>
               <Image
                 draggable="false"
