@@ -106,7 +106,7 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
         { pack.content.map((item, i) =>
           item != '100% gelişim garantisi' || duration > 2 ?
             <li key={i} 
-              className={ (pack.plan=="Premium" && ( i<=2)) || (pack.plan=="Essential" && ( i<=0)) ? styles.gradientText:''} 
+              //className={ (pack.plan=="Premium" && ( i<=2)) || (pack.plan=="Essential" && ( i<=0)) ? styles.gradientText:''} 
               style={{ paddingBottom:'0.9rem', paddingLeft: "3px" }}>
                 {item}
             </li>
