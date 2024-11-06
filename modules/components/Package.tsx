@@ -61,7 +61,7 @@ export default function Package({ pack, click }: { pack: PackageType, click?: (m
       { duration == 1 ? null :
         <div style={{ zIndex:100, position: "absolute", top: '-0.8rem', width: "calc(100% - 6rem)", display:'flex', justifyContent:'center' }}>
           <div style={{ width:'fit-content', textAlign:"center", backgroundColor: '#B7FE04', color: "#222", padding: '0.3rem 1rem', borderRadius: "0.5rem", fontSize: "1rem", fontWeight: 500, lineHeight:'1rem' }}>
-            { pack.plan=="Premium"? "En Kapsamlı Plan": "En Popüler Plan" }
+            { pack.plan=="Premium"? "Son 2 Kontenjan ": "Son 3 Kontenjan" }
           </div>
         </div>
       }

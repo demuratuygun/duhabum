@@ -72,10 +72,6 @@ export default function MakeOffer({plan, months, setObject}:{ plan:packagetype, 
         <>
           <div className={styles.container} style={{gap: "1.5rem", maxWidth:'21rem'}}>
 
-            <div className={styles.stopwatch} style={{ textAlign:'center', textTransform:'uppercase' }}>
-              son 3 kontenjan
-            </div>
-
             { options.map( (option, index) => {
 
                 const amount = option.price;
