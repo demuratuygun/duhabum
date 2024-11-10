@@ -25,7 +25,6 @@ export default function Home() {
       
       <div style={{ position: "absolute", top: 0, left:0, display: 'flex', flexDirection: 'column', gap: "200px", width: '100%', overflow: 'clip' }}>
         
-        
         <IntroFrame />
         <Transition />
         <PackageFrame />
