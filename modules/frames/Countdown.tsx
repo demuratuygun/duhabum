@@ -171,17 +171,25 @@ export default function Countdown({close}: {close: Function}) {
           { inputState=="code"?null: inputState=="student"?
             <div style={{ width: '100%',  display:'flex', justifyContent:'center', fontSize:"2rem" }}>
               <div className={styles.countdownWrap} style={{ fontSize: '1.5rem', width:"100%", display:'flex', justifyContent:"center", alignItems:"center", gap:"1rem" }}>
-                <button key="yes" onClick={() => window.open("https://wa.me/message/54EF3YKBYGZGG1", "_blank")}>indirim kodunu al </button>{/* onClick={() => handleSaveClick(true)}*/}
+                <button key="yes" onClick={() => {
+                    window.fbq && window.fbq('track', 'Lead', {
+                      content_name: 'WhatsApp Lead',
+                      content_category: 'Contact',
+                      currency: 'TL',
+                      value: 0
+                    });
+                    window.open("https://wa.me/message/54EF3YKBYGZGG1", "_blank");
+                  }}>indirim kodunu al </button>{/* onClick={() => handleSaveClick(true)}*/}
               </div>
             </div>
-                  :
+            :
             <div style={{ width: '100%', display:'flex', justifyContent:'center', fontSize:"2rem" }}>
               <div className={styles.countdownWrap}>
                 <TextEnter key={inputState} focus={focus} examples={["e posta"]} border onChange={onChange} />
                 <button key="next" onClick={() => handleEmailClick()} className={styles.countdownButton}>→</button>
               </div>
             </div>
-                  
+          
           }
           </div>
                 

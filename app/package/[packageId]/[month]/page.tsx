@@ -2,13 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion, useScroll } from "framer-motion";
-
-import Calculator from "@/modules/components/dialogue/Calculator";
-import Control from "@/modules/components/dialogue/Control";
-import Text from '@/modules/components/Text';
-import Select from "@/modules/components/dialogue/Select";
-import AskText from "@/modules/components/dialogue/AskText";
 import MakeOffer from "@/modules/components/dialogue/MakeOffer";
 import Checkout from "@/modules/components/dialogue/Checkout";
 import Payment from "@/modules/components/Payment";
