@@ -161,7 +161,7 @@ textarea::placeholder{
 
 textarea:focus::placeholder {
   color: #DFDFDF60;
-  background-color: #000;
+  background-color: #0000;
   text-align: center;
 }
 
@@ -186,7 +186,7 @@ input {
 }
 
 input:focus {
-  background-color: #5552;
+  background-color: #0000;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 11px 20px;
@@ -195,7 +195,7 @@ input:focus {
 }
 
 input.verifyed:focus {
-  background-color: #5554;
+  background-color: #0000;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   padding: 11px 20px;
