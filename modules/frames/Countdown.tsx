@@ -150,7 +150,7 @@ export default function Countdown({close}: {close: Function}) {
 
             <div style={{ background: "radial-gradient(#000, #0000 80%)", width: "100%", padding:'2rem' }}>
               <div>
-                  {inputState=="student"? "İndirim kodu: BUM10": inputState=="code"? "kodun kopyalandı!" :null}
+                  {inputState=="student"? "İLK ÜYELERİMİZE ÖZEL": inputState=="code"? "kodun kopyalandı!" :null}
               </div>
                     
               <div className={styles.countdownPromotion} >  
@@ -159,7 +159,7 @@ export default function Countdown({close}: {close: Function}) {
 
               <div style={{ fontSize: inputState=="code"? "1.5rem" : '' }}>
                 {inputState=="code"? "72 saat geçerli indirim kodunu ödeme sayfasında “İndirim kodu” Kısmına yazabilirsiniz":
-                inputState=="student"? "ödeme sayfasında indirim kodunu girebilirsiniz":
+                inputState=="student"? "İndirim kodu: BUM10":
                 "%10 VIP + %10 EK ÖĞRENCİ İNDİRİMİ"}
               </div>
             </div>
