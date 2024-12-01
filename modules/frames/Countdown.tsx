@@ -152,17 +152,15 @@ export default function Countdown() {
 
             <div style={{ background: "radial-gradient(#000, #0000 80%)", width: "100%", padding:'2rem' }}>
               <div>
-                  {inputState=="student"? "Kişiye Özel Ücretsiz Vücut Analizi Ve Ekstra": inputState=="code"? "kodun kopyalandı!" :null}
+                  Kişiye Özel Ücretsiz Vücut Analizi Ve Ekstra
               </div>
                     
               <div className={styles.countdownPromotion} >  
-                {inputState=="student"? "%10 İNDİRİM":null}
+                %10 İNDİRİM
               </div>
 
-              <div style={{ fontSize: inputState=="code"? "1.5rem" : '' }}>
-                {inputState=="code"? "72 saat geçerli indirim kodunu ödeme sayfasında “İndirim kodu” Kısmına yazabilirsiniz":
-                inputState=="student"? "Tek yapman gereken, hemen WhatsApp’tan bize yazmak":
-                "%10 VIP + %10 EK ÖĞRENCİ İNDİRİMİ"}
+              <div >
+                Tek yapman gereken, hemen WhatsApp’tan bize yazmak
               </div>
             </div>
 
@@ -170,10 +168,9 @@ export default function Countdown() {
 
           <div style={{ width:"100%" }}>
 
-          { inputState=="code"?null: inputState=="student"?
             <div style={{ width: '100%',  display:'flex', justifyContent:'center', fontSize:"2rem" }}>
               <div className={styles.countdownWrap} style={{ fontSize: '1.5rem', width:"100%", display:'flex', justifyContent:"center", alignItems:"center", gap:"1rem" }}>
-                {/*<button key="yes" onClick={() => {
+                <button key="yes" onClick={() => {
                     window.fbq && window.fbq('track', 'Lead', {
                       content_name: 'WhatsApp Lead',
                       content_category: 'Contact',
@@ -181,18 +178,10 @@ export default function Countdown() {
                       value: 0
                     });
                     window.open("https://wa.me/message/54EF3YKBYGZGG1", "_blank");
-                  }}>indirim kodunu al </button> onClick={() => handleSaveClick(true)}*/}
+                  }}>iletişime geç </button>
               </div>
             </div>
-            :
-            <div style={{ width: '100%', display:'flex', justifyContent:'center', fontSize:"2rem" }}>
-              <div className={styles.countdownWrap}>
-                <TextEnter key={inputState} focus={focus} examples={["e posta"]} border onChange={onChange} />
-                <button key="next" onClick={() => handleEmailClick()} className={styles.countdownButton}>→</button>
-              </div>
-            </div>
-          
-          }
+            
           </div>
                 
         </div>
