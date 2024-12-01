@@ -6,8 +6,9 @@ import MakeOffer from "@/modules/components/dialogue/MakeOffer";
 import Checkout from "@/modules/components/dialogue/Checkout";
 import Payment from "@/modules/components/Payment";
 import packages from '../../../../content/package.json';
+import AskText from "@/modules/components/dialogue/AskText";
 
-const useLink = true;
+const useLink = false;
 
 
 export default function Form({params}:{params:{packageId:number, month:string}}) {
@@ -19,19 +20,7 @@ export default function Form({params}:{params:{packageId:number, month:string}})
   useEffect( () => {
     
     console.log(data);
-
-    if (typeof window !== 'undefined' && window.fbq && data.checkout?.option) {
-      // Track AddToCart event
-      let trackobj = {
-        content_name: data.checkout.option.duration+' Aylık Duhabum '+data.checkout.option.plan+' Paketi',
-        content_ids: params.packageId,
-        content_type: 'product',
-        value: data.checkout.option.price, // value of the package/product
-        currency: 'TL'
-      }
-      console.log(trackobj)
-      window.fbq('track', 'AddToCart', trackobj);
-    }
+    localStorage.setItem('data', JSON.stringify(data));
     
   }, [data] )
 
@@ -40,8 +29,6 @@ export default function Form({params}:{params:{packageId:number, month:string}})
     setData( (prevData: any) => {
       let d = {...prevData};
       for (const [key, value] of Object.entries(theObj)) d[key] = value;
-      console.log(d);
-      localStorage.setItem('data', JSON.stringify(d));
       return d;
     })
     setPage( prevPage => prevPage+direction);
@@ -82,19 +69,8 @@ export default function Form({params}:{params:{packageId:number, month:string}})
   useEffect( () => {
     
     if( page<0 ) router.back();
-    if( useLink && page == questions.length-1 ) {
+    if( useLink && page == 2 ) {
       generateLink();
-
-      if (typeof window !== 'undefined' && window.fbq && data.checkout?.option) {
-        window.fbq('track', 'Purchase', {
-          content_name: data.checkout.option.duration+' Aylık Duhabum '+data.checkout.option.plan+' Paketi',
-          content_ids: params.packageId,
-          content_type: 'product',
-          value: data.checkout.option.price, // value of the package/product
-          currency: 'TL'
-        });
-      }
-
     }
     else if( page>= questions.length ) router.push("/");
 
@@ -113,12 +89,12 @@ export default function Form({params}:{params:{packageId:number, month:string}})
         value: packages.tr[params.packageId].prices[packages.tr[params.packageId].duration.indexOf(parseInt(params.month))], // value of the package/product
         currency: 'TL'
       }
-      console.log(trackobj)
+      console.log(trackobj);
       window.fbq('track', 'AddToCart', trackobj);
     }
 
     let d:any = JSON.parse(localStorage.getItem('data')??'{}');
-    setData({...data, ...d});
+    setData({...data, ...d, package_id: params.packageId});
 
   }, [])
   
@@ -134,17 +110,24 @@ export default function Form({params}:{params:{packageId:number, month:string}})
           />,
   */
 
-
-
-
+  
   const questions = [
-          <MakeOffer plan={packages.tr[params.packageId]} months={parseInt(params.month)} setObject={( theList, direction) => setObject( theList, direction)}/>,
-          <Checkout setObject={( theList, direction) => setObject( theList, direction)} data={data.checkout??{}}/>,
-          useLink?
-          <div>Ödeme sayfasına yönlendiriliyorsunuz</div>
-          :
-          <Payment data={data} setObject={( theList, direction) => setObject( theList, direction)} name={data["name"]??""} />,
-          ];
+          
+      <MakeOffer plan={packages.tr[params.packageId]} months={parseInt(params.month)} setObject={( theList, direction) => setObject( theList, direction)}/>,
+      <Checkout setObject={( theList, direction) => setObject( theList, direction)} data={data.checkout??{}}/>,
+          
+      useLink?<div>Ödeme sayfasına yönlendiriliyorsunuz</div>:
+      <AskText setObject={( theList, direction) => setObject( theList, direction) }
+        key="name" question="iletişim bilgileri"
+        entries={[
+          { value: data["name"]??"", key:"name", example:[ 'isim soyisim', 'duha duman'], verify:"^[a-zA-ZçÇüÜğĞİiıIşŞöÖ ]{3,100}$" },
+          { value: data["email"]??"", key:"email", example:[ 'eposta girin'], verify:"^[a-zA-Z0-9][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" },
+          { value: data["phone"]??"", key:"phone", example:[ 'telefon girin', '0 555 555 55 55'], verify:'^[0-9 ()-]{5,24}$' }
+        ]} 
+      />,
+      <Payment data={data} setObject={( theList, direction) => setObject( theList, direction)} name={data["name"]??""} />
+
+   ];
 
 
   return (

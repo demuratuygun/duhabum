@@ -151,6 +151,17 @@ export default function Success({ params }: { params: { title: string } }) {
     }, [page]);
   
     useEffect(() => {
+      console.log(data);
+
+      if (typeof window !== 'undefined' && window.fbq && data.checkout?.option) {
+        window.fbq('track', 'Purchase', {
+          content_name: data.checkout.option.duration+' Aylık Duhabum '+data.checkout.option.plan+' Paketi',
+          content_ids: data?.package_id??1,
+          content_type: 'product',
+          value: data.checkout.option.price, // value of the package/product
+          currency: 'TL'
+        });
+      }
       
       if (typeof window !== 'undefined' && window.fbq) {
         window.fbq('track', 'PageView', { page_path: window.location.pathname });

@@ -36,17 +36,19 @@ interface datatype {
   isStudent?:boolean
 }
 
-export default function Countdown({close}: {close: Function}) {
+export default function Countdown() {
 
   const [counter, setCounter] = useState(0);
   const [isStudent, setIsStudent] = useState(false);
   const [data, setData] = useState<datatype>({});
   const [inputState, setInputState] = useState<string>("student");//email
   const [focus, setFocus] = useState(false);
+  const [close, setClose] = useState(false);
+
 
   useEffect(() => {
     let code = localStorage.getItem("code");
-    if(code) close();
+    if(code) setClose(true);
     countdown();
 
     const handleKeydownWrapper = (e: KeyboardEvent) => setFocus(true);
@@ -127,15 +129,15 @@ export default function Countdown({close}: {close: Function}) {
     
   }
 
-  return (
+  return ( close?null:
 
     <div style={{ position: "fixed", top:0, left:0, width:'100vw', height:'100vh', zIndex:1000, transition: '1s ease', overflow:'clip'}}>
 
-      <div style={{ backgroundColor:'#0008', position:'absolute', top:0, left:0, width:'100vw', height:'100vh', zIndex:999, borderRadius:0, border:'none' }} onClick={() => close()}></div>
+      <div style={{ backgroundColor:'#0008', position:'absolute', top:0, left:0, width:'100vw', height:'100vh', zIndex:999, borderRadius:0, border:'none' }} onClick={() => setClose(true)}></div>
 
       <div className={styles.emailFrame} onClick={() => setFocus(false)} style={{overflow:'scroll'}}>
         
-        <div style={{ position: "absolute", top:'1rem', right: '1rem', zIndex:998 }} onClick={() => close()}>
+        <div style={{ position: "absolute", top:'1rem', right: '1rem', zIndex:998 }} onClick={() => setClose(true)}>
           <Cancel/>
         </div>
 
@@ -150,7 +152,7 @@ export default function Countdown({close}: {close: Function}) {
 
             <div style={{ background: "radial-gradient(#000, #0000 80%)", width: "100%", padding:'2rem' }}>
               <div>
-                  {inputState=="student"? "İLK ÜYELERİMİZE ÖZEL": inputState=="code"? "kodun kopyalandı!" :null}
+                  {inputState=="student"? "Kişiye Özel Ücretsiz Vücut Analizi Ve Ekstra": inputState=="code"? "kodun kopyalandı!" :null}
               </div>
                     
               <div className={styles.countdownPromotion} >  
@@ -159,7 +161,7 @@ export default function Countdown({close}: {close: Function}) {
 
               <div style={{ fontSize: inputState=="code"? "1.5rem" : '' }}>
                 {inputState=="code"? "72 saat geçerli indirim kodunu ödeme sayfasında “İndirim kodu” Kısmına yazabilirsiniz":
-                inputState=="student"? "İndirim kodu: BUM10":
+                inputState=="student"? "Tek yapman gereken, hemen WhatsApp’tan bize yazmak":
                 "%10 VIP + %10 EK ÖĞRENCİ İNDİRİMİ"}
               </div>
             </div>

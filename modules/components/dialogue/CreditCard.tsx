@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import styles from './creditcard.module.css';
+import { inherits } from 'util';
 //https://www.freepnglogos.com
 
 const container = {
@@ -229,6 +230,7 @@ export default function CreditCard({name='', brand='', allValid, focusTo, getBIN
             expireInput.current?.focus();
         const value = event.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
         setCvvCode(value);
+        
         if( value.length >= 3 ) {
             if( expireDate.length==5 && expireDateValid) {
                 if( cardName.length<3 ) {
@@ -241,7 +243,7 @@ export default function CreditCard({name='', brand='', allValid, focusTo, getBIN
                     cc_owner: cardName,
                     card_number: cardNumber,
                     expiry_date: expireDate,
-                    cvv: cvvCode
+                    cvv: value
                 });
             } else {
                 setTimeout(() => expireInput.current?.focus(), 700);
@@ -288,7 +290,7 @@ export default function CreditCard({name='', brand='', allValid, focusTo, getBIN
 
                 <div style={{ zIndex: 10, width:"100%", height:"100%", backgroundColor:"#4440", borderRadius:10, position:"absolute", top:0}} onClick={handleClick}></div>
                 
-                <div style={{position:'absolute', top:'30%', left:'2rem', opacity:0.3, fontWeight:300}}>{brand}</div>
+                <div style={{position:'absolute', top:'30%', left:'2rem', opacity:brand=='geçersiz kart'?1:0.3, fontWeight:300, color: brand=='geçersiz kart'?"#d36":undefined}}>{brand}</div>
 
                 <Image  onClick={handleClick} style={{ visibility: "visible", margin: "2rem", filter: 'grayscale(120%)', transition: 'transform 1s' }} draggable="false" src="/chip.png" height={38} width={50} alt="chip" />
                 { pattern=='mastercard' || pattern=='visa'?

@@ -75,7 +75,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
         data.total = amount;
         setAmount(amount);
 
-    }, []);
+    }, [])
 
 
     const  getBIN = async (binNumber:string) => {
@@ -87,6 +87,10 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
         });
 
         let binResponse = await response.json();
+        
+        if( binResponse.error ) 
+            binResponse.brand = 'geçersiz kart'
+        
         setBin(binResponse);
         
     }
@@ -100,28 +104,31 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                 installment_count: installment==1?0:installment, 
                 card_type: bin.brand, 
                 ratios: bin.ratios, 
-                ratioToken: bin.itoken 
+                itoken: bin.itoken 
             })
         });
         let generatePaymentRespond = await response.json();
+        console.log(generatePaymentRespond)
         await setPaymentRequest(generatePaymentRespond);
+        return generatePaymentRespond; 
         
     }
 
     const turnPage = async (direction: number) => {
         
-        async function makePayment() {
+        async function makePayment( paymentRequest:PaymentDetailsType ) {
 
             if(paymentRequest) {
 
                 let paymentDetails:PaymentDetailsType = {...paymentRequest};
                 
                 paymentDetails.cc_owner = card.cc_owner;
-                paymentDetails.card_number = card.card_number.replace(/\s+/g, '');;
+                paymentDetails.card_number = card.card_number.replace(/\s+/g, '');
                 paymentDetails.expiry_month = card.expiry_date.split('/')[0];
                 paymentDetails.expiry_year = card.expiry_date.split('/')[1];
                 paymentDetails.cvv = card.cvv;
                 paymentDetails.debug_on = 1;
+                paymentDetails.installment_count = installment==1?0:installment;
 
                 const form = document.createElement('form');
                 form.method = 'POST';
@@ -136,6 +143,8 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                 }
 
                 document.body.appendChild(form);
+                //alert('"'+paymentDetails.card_number+'"')
+                
                 form.submit();
 
             }
@@ -144,7 +153,9 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
         }
 
         if( card.cvv ) {
-            makePayment();
+            let generatePaymentRespond = await generatePayment();
+            console.log(generatePaymentRespond)
+            makePayment(generatePaymentRespond);
         }
         else if( direction > 0) setFocusCard(prevFocusCard => !prevFocusCard); 
         else setObject( {}, -1);
@@ -157,6 +168,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
             await generatePayment();
         }
     }
+
     
     return (
         <>
@@ -165,7 +177,7 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
             
             <div style={{ width: "100%", fontSize:"3rem", fontWeight:300 ,display: "flex", justifyContent:'space-between', alignItems:"baseline", padding: "1rem" }} className="text">
                 <div style={{ opacity:0.5 }} className="text noSelect">{padNumber(Math.floor(amount/checkout.option.duration))} ₺ x {checkout.option.duration} ay</div>
-                <div>{padNumber(paymentRequest?.payment_amount??amount)}<span style={{fontWeight:300, paddingLeft:7}}>₺</span></div>
+                <div>{(paymentRequest?.payment_amount ? padNumber(paymentRequest.payment_amount??'0.00').slice(0,-3):amount)}<span style={{fontWeight:300, paddingLeft:7}}>₺</span></div>
             </div>
 
             <CreditCard name={name??""} allValid={(card)=> handleValid(card)} focusTo={focusCard} getBIN={getBIN} brand={bin?.brand??""}/>
@@ -177,17 +189,27 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                     label='taksit'
                     unit='ay'
                     range={[1,Object.keys(bin.ratios).length+1]}
-                    onChange={(val:number) => {
+                    onChange={ (val:number) => {
+                        if( val==installment ) return;
+                        console.log('installent chage entered');
                         // update amout
                         var amount = Math.floor((data.discounts??[]).reduce((a:number,b:discount)=>a*(100-b.rate)/100, checkout.option.price));
-                        if( installment>1 ) {
-                            let ratio = bin.ratios[installment-2];
+                        if( val>1 ) {
+                            let ratio = bin.ratios[val-2];
                             amount = Math.floor( (1+ratio/100) * amount );
                         }
+                        setPaymentRequest( prev => {
+                            if(!prev) return prev;
+                            let pr = {...prev};
+                            pr.payment_amount = amount+'.00';
+                            console.log(pr)
+                            return pr;
+                        });
                         data.total = amount;
                         setAmount(amount);
-                        setInstallment(val)}
-                    }
+                        setInstallment(val);
+                        
+                    }}
                 />
             </div>
             :null

@@ -57,8 +57,9 @@ export async function POST(req) {
     // verify installment ratios
     if( data.installment_count>1 ) {
       const itoken = createHmac('sha256', merchant_key).update(merchant_id + JSON.stringify(data.ratios) + merchant_salt).digest('base64');
+      console.log(data.itoken)
       if( itoken != data.itoken )
-        return NextResponse.json({error:'taksit oranlari degistirilmis'});
+        return NextResponse.json({error:'taksit oranlari degistirilmis', ratios: data.ratios});
       else {
         let ratio = data.ratios[data.installment_count-2];
         amount = Math.floor( (1+ratio/100) * amount );
