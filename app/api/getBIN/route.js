@@ -64,6 +64,7 @@ export async function POST(req) {
     });
 
     const installRes = await installResponse.json();
+    console.log(installRes)
 
     if (!installRes.status || installRes.status !== 'success') {
       console.error('Error in installment rates response:', installRes);

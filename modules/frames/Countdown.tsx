@@ -177,7 +177,7 @@ export default function Countdown() {
                       currency: 'TL',
                       value: 0
                     });
-                    window.open("https://wa.me/message/54EF3YKBYGZGG1", "_blank");
+                    window.open("https://wa.me/905102200242?text=Merhaba, Uzaktan Eğitim hakkında bilgi almak istiyorum.", "_blank");
                   }}>iletişime geç </button>
               </div>
             </div>
