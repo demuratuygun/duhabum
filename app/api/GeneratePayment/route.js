@@ -16,6 +16,8 @@ const generateUniqueTimestamp = () => {
   return `IN${now}${randomComponent}`;
 };
 
+// gets payment details liek amount, plan, duration, code, installment_count, ratios, itoken
+
 export async function POST(req) {
 
   try {
@@ -52,7 +54,7 @@ export async function POST(req) {
 
 
     // evaluate and verify amount
-    var amount = Math.floor(discounts.reduce((a,b)=>a*(100-b.rate)/100, plan.price));
+    var discounedAmount = Math.floor(discounts.reduce((a,b)=>a*(100-b.rate)/100, plan.price));
     
     // verify installment ratios
     if( data.installment_count>1 ) {
@@ -62,10 +64,11 @@ export async function POST(req) {
         return NextResponse.json({error:'taksit oranlari degistirilmis', ratios: data.ratios});
       else {
         let ratio = data.ratios[data.installment_count-2];
-        amount = Math.floor( (1+ratio/100) * amount );
+        discounedAmount = discounedAmount/((100-ratio)/100);
       }
     }
-    amount = amount+".00";
+    var amount = discounedAmount.toFixed(2);
+
 
 
     // generate basket

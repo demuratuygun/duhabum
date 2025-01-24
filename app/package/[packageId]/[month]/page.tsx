@@ -17,8 +17,12 @@ export default function Form({params}:{params:{packageId:number, month:string}})
   const [data, setData] = useState<any>({});
   const [page, setPage] = useState(0);
 
+  const packageId = parseInt(localStorage.getItem('packageId')??params.packageId.toString());
+  const month = localStorage.getItem('month')??params.month;
+  
   useEffect( () => {
-    
+
+    if( Object.keys(data).length == 0 ) return;
     console.log(data);
     localStorage.setItem('data', JSON.stringify(data));
     
@@ -33,8 +37,6 @@ export default function Form({params}:{params:{packageId:number, month:string}})
     })
     setPage( prevPage => prevPage+direction);
   }
-
-  
 
   const generateLink = async () => {
 
@@ -63,8 +65,7 @@ export default function Form({params}:{params:{packageId:number, month:string}})
     console.log(generateLinkRespond);
     router.push(generateLinkRespond.link);
 
-    
-}
+  }
 
   useEffect( () => {
     
@@ -83,10 +84,10 @@ export default function Form({params}:{params:{packageId:number, month:string}})
       
       // Track AddToCart event
       let trackobj = {
-        content_name: params.month+' Aylık Duhabum '+packages.tr[params.packageId].plan+' Paketi',
-        content_ids: params.packageId,
+        content_name: month+' Aylık Duhabum '+packages.tr[packageId].plan+' Paketi',
+        content_ids: packageId,
         content_type: 'product',
-        value: packages.tr[params.packageId].prices[packages.tr[params.packageId].duration.indexOf(parseInt(params.month))], // value of the package/product
+        value: packages.tr[packageId].prices[packages.tr[packageId].duration.indexOf(parseInt(month))], // value of the package/product
         currency: 'TL'
       }
       console.log(trackobj);
@@ -94,26 +95,13 @@ export default function Form({params}:{params:{packageId:number, month:string}})
     }
 
     let d:any = JSON.parse(localStorage.getItem('data')??'{}');
-    setData({...data, ...d, package_id: params.packageId});
+    setData({...data, ...d, package_id: packageId});
 
   }, [])
-  
 
-  /*
-            <AskText setObject={( theList, direction) => setObject( theList, direction) }
-            key="name" question="iletişim bilgileri"
-            entries={[
-              { value: data["name"]??"", key:"name", example:[ 'isim soyisim', 'duha duman'], verify:"" },
-              { value: data["email"]??"", key:"email", example:[ 'eposta girin', 'adsoyad@gmail.com'], verify:"" },
-              { value: data["phone"]??"", key:"phone", example:[ 'telefon girin', '0 555 555 55 55'], verify:"" }
-            ]} 
-          />,
-  */
-
-  
   const questions = [
           
-      <MakeOffer plan={packages.tr[params.packageId]} months={parseInt(params.month)} setObject={( theList, direction) => setObject( theList, direction)}/>,
+      <MakeOffer plan={packages.tr[packageId]} months={parseInt(month)} setObject={( theList, direction) => setObject( theList, direction)}/>,
       <Checkout setObject={( theList, direction) => setObject( theList, direction)} data={data.checkout??{}}/>,
           
       useLink?<div>Ödeme sayfasına yönlendiriliyorsunuz</div>:
@@ -128,7 +116,6 @@ export default function Form({params}:{params:{packageId:number, month:string}})
       <Payment data={data} setObject={( theList, direction) => setObject( theList, direction)} name={data["name"]??""} />
 
    ];
-
 
   return (
 

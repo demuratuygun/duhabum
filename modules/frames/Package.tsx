@@ -16,7 +16,11 @@ export default function PackageFrame() {
         <Package
           key={i}
           pack={pack}
-          click={(month:number) => router.push("/package/" + i + "/" + month)}
+          click={(month:number) => {
+            localStorage.setItem('packageId', i.toString());
+            localStorage.setItem('month', month.toString());
+            router.push("/package/" + i + "/" + month)
+          }}
         />
       ))}
     </div>

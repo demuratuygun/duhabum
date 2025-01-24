@@ -9,6 +9,12 @@ import Select from "@/modules/components/dialogue/Select";
 import AskText from "@/modules/components/dialogue/AskText";
 import { motion } from "framer-motion";
 
+import crypto from "crypto";
+
+function hashData(data:string) {
+  return crypto.createHash("sha256").update(data).digest("hex");
+}
+
 
 interface InfoProps { text:string, turnPage: (param: number) => void }
 const Info:React.FC<InfoProps> = ({ text, turnPage }) => {
@@ -153,15 +159,50 @@ export default function Success({ params }: { params: { title: string } }) {
     useEffect(() => {
       console.log(data);
 
+      const event_id = crypto.randomUUID();
+
       if (typeof window !== 'undefined' && window.fbq && data.checkout?.option) {
         window.fbq('track', 'Purchase', {
           content_name: data.checkout.option.duration+' Aylık Duhabum '+data.checkout.option.plan+' Paketi',
           content_ids: data?.package_id??1,
           content_type: 'product',
-          value: data.checkout.option.price, // value of the package/product
-          currency: 'TL'
+          value: data.checkout.option.price, // value of the package/product Math.floor(discounts.reduce((a,b)=>a*(100-b.rate)/100, plan.price))
+          currency: 'TL',
+          event_id
         });
       }
+
+      const sendConversionEvent = async () => {
+        try {
+          const response = await fetch("/api/sendEvent", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              event_name: "Purchase",
+              event_time: Math.floor(Date.now() / 1000), // Current timestamp
+              user_data: {
+                em: [hashData(data.email)], 
+                ph: [hashData(data.phone)],
+              },
+              custom_data: {
+                currency: "TL",
+                value: data.checkout.option.price, 
+              },
+              event_id
+            }),
+          });
+      
+          const result = await response.json();
+          console.log("Meta CAPI response:", result);
+        } catch (error) {
+          console.error("Error sending Meta CAPI event:", error);
+        }
+      };
+
+      sendConversionEvent();
+      
       
       if (typeof window !== 'undefined' && window.fbq) {
         window.fbq('track', 'PageView', { page_path: window.location.pathname });
@@ -169,6 +210,7 @@ export default function Success({ params }: { params: { title: string } }) {
       
       let d:any = JSON.parse(localStorage.getItem('data')??`{}`);
       console.log(d);
+      d.code = "";
       setData({...data, ...d});
     }, [])
     

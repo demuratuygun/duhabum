@@ -87,7 +87,10 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
         });
 
         let binResponse = await response.json();
+
+        console.log(binResponse)
         
+
         if( binResponse.error ) 
             binResponse.brand = 'geçersiz kart'
         
@@ -163,13 +166,14 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
     };
 
     const handleValid = async (thecard:any) => {
+        console.log(thecard.card_number)
         if( thecard.cvv && !(card.cvv==thecard.cvv && thecard.cc_owner==card.cc_owner && thecard.card_number==card.card_number && thecard.expiry_date==card.expiry_date) ) {
             setCard(thecard);
             await generatePayment();
         }
     }
 
-    
+    //5406  6754  0667  5403
     return (
         <>
 
@@ -190,18 +194,19 @@ export default function Payment({ data, name, setObject}:{ data:any, name:string
                     unit='ay'
                     range={[1,Object.keys(bin.ratios).length+1]}
                     onChange={ (val:number) => {
+
                         if( val==installment ) return;
                         console.log('installent chage entered');
                         // update amout
                         var amount = Math.floor((data.discounts??[]).reduce((a:number,b:discount)=>a*(100-b.rate)/100, checkout.option.price));
                         if( val>1 ) {
                             let ratio = bin.ratios[val-2];
-                            amount = Math.floor( (1+ratio/100) * amount );
+                            amount = amount/((100-ratio)/100);
                         }
                         setPaymentRequest( prev => {
                             if(!prev) return prev;
                             let pr = {...prev};
-                            pr.payment_amount = amount+'.00';
+                            pr.payment_amount = amount.toFixed(2);
                             console.log(pr)
                             return pr;
                         });

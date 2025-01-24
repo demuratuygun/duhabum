@@ -9,6 +9,7 @@ export default function FacebookPixel() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (!window.fbq) {
+        
         const fbq: Fbq = function () {
           const args = Array.prototype.slice.call(arguments);
           if (window.fbq?.callMethod) {
@@ -29,7 +30,7 @@ export default function FacebookPixel() {
         const firstScript = document.getElementsByTagName('script')[0];
         firstScript.parentNode?.insertBefore(script, firstScript);
 
-        window.fbq('init', '563456096339972'); // Replace with your Pixel ID
+        window.fbq('init', '563456096339972'); 
       }
 
       // Track the page view
