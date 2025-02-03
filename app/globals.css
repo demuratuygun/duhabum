@@ -6,6 +6,117 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  scroll-behavior: smooth;
+}
+
+main {
+  height: 100vh;
+  width: 100vw;
+  position: flex;
+  top: 0;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+section {
+  scroll-snap-align: start;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: white;
+}
+
+h1 {
+  margin: 0%;
+  width: 80vw;
+  font-family: 'Saira', sans-serif;
+  font-size: 7rem;
+  line-height: 7.4rem;
+  text-align: center;
+  font-weight: 400;
+  color: #DFDFDF;
+  text-transform: uppercase;
+}
+
+h2 {
+  margin: 0%;
+  width: 80vw;
+  font-family: 'Saira', sans-serif;
+  font-size: 4.5rem;
+  line-height: 1.2;
+  text-align: center;
+  font-weight: 400;
+  color: #DFDFDF;
+}
+
+h3 {
+  margin: 0%;
+  width: 80vw;
+  font-family: 'Saira', sans-serif;
+  font-size: 3.8rem;
+  line-height: 1.2;
+  text-align: center;
+  font-weight: 500;
+  color: #DFDFDF;
+}
+
+h4 {
+  margin: 0%;
+  width: 80vw;
+  font-family: 'Saira', sans-serif;
+  font-size: 2.6rem;
+  line-height: 3rem;
+  text-align: center;
+  font-weight: 400;
+  color: #DFDFDF;
+}
+
+
+h5 {
+  margin: 0%;
+  width: 80vw;
+  font-family: 'Saira', sans-serif;
+  font-size: 2rem;
+  line-height: 1.4;
+  text-align: center;
+  font-weight: 200;
+  color: #DFDFDF;
+}
+
+h6 {
+  margin: 0%;
+  width: 80vw;
+  font-family: 'Saira', sans-serif;
+  font-size: 2.1rem;
+  line-height: 1.7;
+  text-align: center;
+  font-weight: 400;
+  color: #DFDFDF;
+}
+
+p.nordic {
+  font-family: 'Saira', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #DFDFDF;
+  margin: 1rem;
+  max-width: 300px;
+  text-align: center;
+}
+
+button.nordic  {
+  background-color: #B7FE04;
+  color: #222;
+  padding: 1rem 2rem;
+  border-radius: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+  transition: 1s ease;
+}
 
 :root {
   --foreground-rgb: 214, 219, 220;
@@ -32,7 +143,7 @@ body {
 
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
   background: #000;
@@ -335,5 +446,25 @@ input::-ms-input-placeholder { /* Edge 12 -18 */
   .hideingRound{
     display: none;
   }
+
+  h1 {
+    font-size: 4.5rem;
+    line-height: 4.9rem;
+  }
+
+  h2 {
+    font-size: 2.7rem;
+    line-height: 3.1rem;
+  }
+
+  h5 {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+
+  h6 {
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+  }  
 
 }
