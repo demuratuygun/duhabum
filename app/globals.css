@@ -12,6 +12,27 @@ body {
 
 
 
+main {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  height: 100vh;
+  width: 100vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: auto;
+}
+
 .frame {
   overscroll-behavior: none;
   height: fit-content;
@@ -45,7 +66,7 @@ h3 { font-size: 3.6rem; font-weight: 320; margin: 3% 5%; }
 h4 { font-size: 2.6rem; font-weight: 500; margin: 2% 15%; }
 h5 { font-size: 2.2rem; font-weight: 400; margin: 1.5% 15%; }
 h6 { font-size: 1.6rem; font-weight: 400; margin: 1.4% 15%; }
-p.nordic { font-size: 1.5rem; line-height: 1.48; margin: 1% 18%; }
+p.nordic { font-size: 1.4rem; line-height: 1.48; margin: 1% 18%; }
 
 
 button.nordic  {
@@ -64,6 +85,14 @@ button.nordic:hover {
   background-color: #fff2;
   color: #fff;
   border: 0px;
+}
+
+div.nordic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
 }
 
 div.nordicimg {
