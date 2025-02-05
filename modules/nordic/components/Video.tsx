@@ -5,7 +5,7 @@ import styles from './nordic.module.css';
 import { motion } from 'framer-motion';
 
 
-  export default function Video({ active=true }: { active?: boolean }) {
+  export default function Video({ src, title, active=false }: { src: string, title: string, active?: boolean }) {
 
     const videoRef = useRef<HTMLVideoElement|null>(null)
     const [muted, setMuted] = useState(active);
@@ -78,16 +78,13 @@ import { motion } from 'framer-motion';
 
     return (
 
-      <div className={styles.container}>
+      <div style={{ position:'relative', width:'calc(100vw - 26px)', margin:'13px', display:'flex', justifyContent:'center', alignItems:'center' }}>
       
-        <video
+        <video ref={videoRef}
           onClick={() => setPlaying(!playing)}
-          ref={videoRef}
-          //width="560"
-          //height="315"
-          style={{ maxHeight: '80vh', zIndex: 0 }}
-          src={"/proof.mp4"}
-          title="Big Buck Bunny - Sample Video"
+          style={{ maxHeight:'80vh', zIndex: 0 }}
+          src={src}
+          title={title}
           autoPlay={playing}
           muted={muted}
           loop={false}
@@ -96,13 +93,13 @@ import { motion } from 'framer-motion';
           onDoubleClick={handleDoubleClick}
         />
 
+
+        { !playing &&
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2 }}
-        >
-        { !playing &&
-        <div className={styles.box} style={{  position:'absolute', top:0, padding:'12px 20px', height:'50px', width:'fit-content', display: 'flex', justifyContent: 'space-around', gap: '18px', zIndex:100, }}>
+          className={styles.box} style={{  position:'absolute', top:0, padding:'12px 20px', height:'50px', width:'fit-content', display: 'flex', justifyContent: 'space-around', gap: '18px', zIndex:100, }}>
           <div onClick={() => setPlaying(!playing)} style={{width:'24px' }}>
           {playing?
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M620-220q-24.54 0-42.27-17.73Q560-255.46 560-280v-400q0-24.54 17.73-42.27Q595.46-740 620-740h30q24.54 0 42.27 17.73Q710-704.54 710-680v400q0 24.54-17.73 42.27Q674.54-220 650-220h-30Zm-310 0q-24.54 0-42.27-17.73Q250-255.46 250-280v-400q0-24.54 17.73-42.27Q285.46-740 310-740h30q24.54 0 42.27 17.73Q400-704.54 400-680v400q0 24.54-17.73 42.27Q364.54-220 340-220h-30Z"/></svg>
@@ -126,9 +123,9 @@ import { motion } from 'framer-motion';
           {/* 1x speed button */}
           <div style={{userSelect: 'none', fontSize:'1rem',fontWeight:600, letterSpacing:'-1px', color:'#fff'}} onClick={() => setPlayspeed((prevPlaySpeed) => Math.max(0.5, (prevPlaySpeed+0.25) %2))}>{playspeed}x</div>
 
-        </div>
+        </motion.div>
     }
-      </motion.div>
+      
       </div>
     );
   }

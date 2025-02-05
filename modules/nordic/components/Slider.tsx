@@ -1,59 +1,87 @@
 'use client';
 
-import { useState, ReactNode, ReactElement, useEffect } from 'react';
+import { useState, ReactNode, ReactElement, useEffect, useRef } from 'react';
 import { animate, motion, useMotionValue } from 'framer-motion';
 
-export default function Slider({ children, initalIndex=0, slideWidth=300, pagerRadius=6 }: 
+export default function Slider({ children, initalIndex=0, slideWidth=300, style={} }: 
     { children: ReactNode[], 
         initalIndex?:number, 
         slideWidth?: number,
         pagerRadius?: number
+        style?: any
     }) {
-
         
-
+    const containerRef = useRef<HTMLDivElement>(null);
     const [activeIndex, setActiveIndex] = useState(initalIndex-1); // Track active slide index
-    const x = useMotionValue(-(initalIndex-1) * slideWidth + children.length *slideWidth/2 - slideWidth/2); // Track x position of the slider
 
-
+    useEffect(() => {
+      setActiveIndex(initalIndex);
+      if (containerRef.current) {
+        const container = containerRef.current as HTMLDivElement;
+        const child = container.children[initalIndex] as HTMLElement;
+        
+        if (child) {
+          container.scrollTo({
+            left: child.offsetLeft+child.clientWidth/2-container.clientWidth/2,  // Scroll to the child's horizontal position
+            behavior: 'smooth'       // Optional: animate the scroll
+          });
+        }
+      }
+    }, [initalIndex]);
+    
 
     // Function to handle pager clicks
     const handlePagerClick = (index: number) => {
+        console.log(index)
         setActiveIndex(index); // Update active index
-        console.log(index * slideWidth)
-        //x.set(-index * slideWidth + children.length *slideWidth/2 - slideWidth/2); // Move slider to the corresponding slide
-        animate(x, -index * slideWidth + children.length *slideWidth/2 - slideWidth/2, { type: 'spring', stiffness: 300, damping: 30 }); // Animate to the nearest slide
-    };
-
-    const handleDragEnd = () => {
-        const currentX = x.get(); // Get current x position
-        const newIndex = Math.round((-currentX + children.length/2*slideWidth) / slideWidth); // Calculate nearest slide index
-        console.log(currentX, (-currentX + children.length/2*slideWidth))
-        setActiveIndex(newIndex); // Update active index
+        if (containerRef.current) {
+          const container = containerRef.current as HTMLDivElement;
+          const child = container.children[index] as HTMLElement;
+          if (child) {
+            child.scrollIntoView({
+              behavior: 'smooth', // smooth scrolling
+              block: 'nearest', 
+              inline: 'center', // center the child element
+            } as ScrollIntoViewOptions);
+          }
+        }
       };
     
   return (
-    <div aria-label="Draggable Image Slider">
-      <motion.div
+    <div aria-label="Draggable Image Slider" 
+      style={{ 
+        margin: '0rem', 
+        height: '80vh', 
+        display:'flex', 
+        flexDirection:'column', 
+        justifyContent:'center', 
+        alignItems:'center',
+        ...style
+      }}>
+      <div
+        
+        ref={containerRef}
+        className='noSelect'
         style={{
           display: 'flex',
           flexDirection: 'row',
-          overflow: 'hidden',
-          width: 'fit-content',
+          width: '100vw',
           cursor: 'grab',
-          x,
+          scrollSnapType: 'x mandatory',
+          overflowY: 'hidden',
+          overflowX: 'scroll',
+          padding: '0px 50%',
+          scrollbarWidth: 'none'
         }}
-        drag="x" // Enable horizontal dragging
-        //dragConstraints={{ left: -(children.length - 1) * slideWidth, right: 0 }} // Constrain dragging
-        dragElastic={0.1} // Reduce elastic effect to make it stay where dragged
-        dragMomentum={false} // Disable momentum to prevent sliding after release
-        whileTap={{ cursor: 'grabbing' }} // Change cursor on drag
-        onDragEnd={handleDragEnd}
       >
         {children.map((child, index) => (
           <motion.div
             key={index}
-            style={{ flexShrink: 0 }} // Ensure each child doesn't shrink
+            style={{ 
+              scrollSnapAlign: 'center',
+              width: 'fit-content',
+             }}
+            onPointerDown={()=> handlePagerClick(index)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: index / 2, duration: 2 }}
@@ -61,32 +89,28 @@ export default function Slider({ children, initalIndex=0, slideWidth=300, pagerR
             {child}
           </motion.div>
         ))}
-      </motion.div>
+      </div>
 
       {/* Pager */}
-      <motion.div initial={{opacity:0}} animate={{opacity:1}} style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+      <motion.div initial={{opacity:0}} animate={{opacity:1}} style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem', zIndex:1000 }}>
 
         {children.map((child, index) => 
-          Math.abs(activeIndex-index)<pagerRadius ?
-            (<div
-            key={index}
-            onClick={() => handlePagerClick(index)} // Handle pager click
-            style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                textAlign: 'center',
-                width: '32px',
-                height: '32px',
-                margin: '0 5px',
-                color: activeIndex === index ? '#fff' : '#fff4', // Highlight active pager
-                cursor: 'pointer',
-              //backgroundImage: `url(${(child as ReactElement).props?.src})`,
-            }}
-            aria-label={`Go to slide ${index + 1}`}
-          >{index+1}</div>)
-          :Math.abs(activeIndex-index)<pagerRadius+3 ?
-            (<div key={index} style={{color:'#fff4', cursor: 'pointer'}} onClick={() => handlePagerClick(index)}>.</div>)
-          :null
+            <div key={index} onClick={() => handlePagerClick(index)} 
+              style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textAlign: 'center',
+                  width: '2rem',
+                  height: '2rem',
+                  margin: '5px',
+                  borderRadius: '0.5rem',
+                  color: activeIndex === index ? '#fff' : '#fff4', // Highlight active pager
+                  background: activeIndex === index ? '#fff' :'#fff2',
+                  cursor:'pointer'
+                //backgroundImage: `url(${(child as ReactElement).props?.src})`,
+              }}
+          >
+          </div>
         )}
       </motion.div>
     </div>
