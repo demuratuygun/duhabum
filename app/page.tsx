@@ -17,7 +17,7 @@ import Countdown from '@/modules/frames/Countdown';
 export default function Home() {
 
   return (
-    <main style={{ width: "100vw", overflow: 'clip' }} id="LangingPage">
+    <div style={{ width: "100vw", overflow: 'clip' }} id="LangingPage">
 
       <div style={{ position: "fixed", top: "-200px", left: "calc(25vw - 400px)", rotate: "-12deg", zIndex: 10 }}><Light/></div>
       <div style={{ position: "fixed", top: '0px', right: "0px", width: "100vw", margin: "0px", zIndex: 1000 }}><Header/></div>
@@ -36,6 +36,6 @@ export default function Home() {
 
       </div>
         
-    </main>
+    </div>
   );
 }
