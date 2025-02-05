@@ -93,8 +93,7 @@ export default function Checkout({ data, setObject}:{ data:checkoutType, setObje
 
 
 
-
-            <div style={{ marginBottom: "2rem", width:"100%", lineHeight:"1.5rem", position:'relative', fontWeight: 300 }}>
+            <div style={{ marginBottom: "2rem", width:"100%", maxWidth:'400px', lineHeight:"1.5rem", position:'relative', fontWeight: 300 }}>
 
                 <div style={{ color:"#fffa", width: "100%", display: "flex", justifyContent:'space-between', padding: '0.9rem' }}>
                     <div className="text noSelect">{data.option.duration} aylık {data.option.plan} Plan </div>
