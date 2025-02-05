@@ -139,7 +139,7 @@ export default async function main({ params }: { params: { title: string } }) {
 
       {data.sections.map(( section, index ) => 
         <section key={index}>
-          <div className="frame">
+          <div key={index} className="frame">
           {section.map((element, index) => render(element, index) )}
           </div>
         </section>
