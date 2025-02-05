@@ -17,7 +17,7 @@
     {
         "plan": "Essential", 
         "default":12, 
-        "prices": [1299, 2999, 6999], 
+        "prices": [1499, 2999, 6999], 
         "duration": [1,3,12], 
         "unit":"ay",  
         "content": [
@@ -32,7 +32,7 @@
     {
         "plan": "Premium", 
         "default":12, 
-        "prices": [1999,4999,9999], 
+        "prices": [2499,4999,9999], 
         "duration": [1,3,12], 
         "unit":"ay", 
         "content": [
