@@ -11,8 +11,9 @@ import { motion } from "framer-motion";
 
 import crypto from "crypto";
 
+
 function hashData(data:string) {
-  return crypto.createHash("sha256").update(data).digest("hex");
+  if(data) return crypto.createHash("sha256")?.update(data).digest("hex");
 }
 
 
@@ -73,7 +74,7 @@ const TDEE:React.FC<TDEEProps> = ({ BMR, value, setList }) => {
 
 
 
-export default function Success({ params }: { params: { title: string } }) {
+export default function Success() {
     
     const router = useRouter();
     const [data, setData] = useState<any>({
@@ -159,7 +160,7 @@ export default function Success({ params }: { params: { title: string } }) {
     useEffect(() => {
       console.log(data);
 
-      const event_id = crypto.randomUUID();
+      const event_id = `${Date.now()}`;
 
       if (typeof window !== 'undefined' && window.fbq && data.checkout?.option) {
         window.fbq('track', 'Purchase', {
@@ -188,7 +189,7 @@ export default function Success({ params }: { params: { title: string } }) {
               },
               custom_data: {
                 currency: "TL",
-                value: data.checkout.option.price, 
+                value: data.checkout?.option.price, 
               },
               event_id
             }),
