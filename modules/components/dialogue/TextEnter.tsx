@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
-import { motion } from 'framer-motion';
 import styles from './dialogue.module.css';
 import Text from '../Text'; 
 
@@ -28,35 +27,14 @@ export default function TextEnter({ verify, Value, examples, long=false, caret=t
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
 
-  const container = {
-    hidden: { opacity: 0, scale: 0 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delayChildren: 1,
-        staggerChildren: 0.6
-      }
-    }
-  };
-
-  const item = {
-    hidden: { y: -20, opacity: 0, scale: 0.7 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      scale: 1
-    }
-  };
-
-  const giveExample = (set:number) => {
+  useEffect( () => {
+    const giveExample = (set:number) => {
       setExample(set);
       setTimeout( () => giveExample((set+1)%examples.length), examples[set].length*200+3000 );
-  }
-  
-  useEffect( () => {
+    }
     giveExample(0);
   }, []);
+
 
   useEffect( () => {
     let ref = long? textareaRef: inputRef;
@@ -68,25 +46,20 @@ export default function TextEnter({ verify, Value, examples, long=false, caret=t
     setValue(e.target.value);
   }
 
-
-
   return (
-        <motion.div 
-          className={styles.TextEnterContainer}
-          variants={container}
-          initial="hidden"
-          animate="visible"
-        >
+        <div className={styles.TextEnterContainer}>
             { long?
-              <textarea style={{ width:'100%', height: Math.max((value.length/12),6)+"em", zIndex:1000, position:"relative", textAlign: value.length>0?'center':'left', backgroundColor: '#0000' }} 
+              <textarea className='bum' style={{ width:'100%', height: Math.max((value.length/12),6)+"em", zIndex:1000, textAlign: value.length>0?'center':'left' }} 
                 placeholder={examples[0]}
-                onFocus={() => {setIsFocus(true);onFocus()}}
+                onFocus={() => {setIsFocus(true); onFocus()}}
                 onBlur={() => {setIsFocus(false); onBlur();}}   
                 onChange={handleChange}
                 value={value} ref={textareaRef}
               />
               :
-              <input style={{ width:'100%', zIndex:1000, position:"relative", textAlign: value.length>0?'center':'left',  padding: "0.8rem", border: border?'#003862 solid 1px':'none', backgroundColor: '#0000' }}
+              <input 
+                className='bum' 
+                style={{ width:'100%', zIndex:1000, textAlign: value.length>0?'center':'left', border: border?'#003862 solid 1px':'#fff1 solid 1px' }}
                 placeholder={examples[0]}
                 onFocus={() => {setIsFocus(true);onFocus();}} 
                 onBlur={() => {setIsFocus(false); onBlur();}} 
@@ -96,17 +69,16 @@ export default function TextEnter({ verify, Value, examples, long=false, caret=t
             }
             
             {
-            value.length==0 && !isFocus? examples.map( 
-                (opt, i) => i==example?
-                    <div key={'example'+i} className={styles.askTextExample} style={{zIndex:0}}>
+            value.length==0 && !isFocus && examples.map( 
+                (opt, i) => i==example &&
+                    <div key={'example'+i} className={styles.askTextExample} style={{zIndex:0,}}>
                         <Text text={examples[example]} speed={0.1}/>
                     </div>
-                :null)
-            :null
+                )
             }
 
-            {!caret || (isFocus || value.length>0)?null:<div className={styles.askTextCaret}></div>}
+            {!caret || (isFocus || value.length>0) ? null: <div className={styles.askTextCaret}></div>}
 
-        </motion.div>
+        </div>
   );
 }

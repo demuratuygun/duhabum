@@ -1,13 +1,64 @@
 
-.gallaryContainer {
+.container{
   position: relative;
-  width: 100%;
+  width: 100vw;
+  height: fit-content;
+  max-width: 450px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.VideoControls {
+  background-color: #0006;
+  backdrop-filter: blur(5px);
+  border-radius: 13px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: absolute;
+  right:auto;
+  padding:20px 20px;
+  max-height: 80vh;
+  max-width: 90vw;
+  display: flex;
+  flex-direction:column;
+  justify-content: space-around;
+  gap: 18px;
+  z-index:1000;
+  transition: 1s ease;
+}
+
+.pickerOption {
+  width: 100%;
+  height: fit-content;
+  background-color: var(--primary-variant);
+  font-family: 'Saira', sans-serif;
+  font-weight: 300;
+  font-size: 1.2rem;
+  padding: 1.2rem 1rem;
+  margin: 0.4rem;
+  border-radius: 22px;
+  text-align: center;
+  transition: 1s ease;
+  color: #222;
   overflow: hidden;
-  margin: 16vh 0vw 30vh 0vw;
+}
+
+.pickerOption:hover {
+  padding: 1.3rem 0.8rem;
+}
+
+.gallaryContainer {
+  width: 100vw;
+  display: flex;
+  overflow: visible;
+  padding: 0% 15%;
+  margin: 64px;
   place-content: center;
   flex-wrap: wrap;
+  margin-left: -48%;
 }
 
 .gallaryColumn {
@@ -15,20 +66,96 @@
   flex-direction: column;
   place-content: center;
   will-change: transform;
+  margin-bottom: 10vh;
+  max-width: 800px;
 }
 
-.box {
-  background-color: #1d1d1d36;
-  border-radius: 13px;
-  padding: 20px;
-  margin: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.gallaryItem {
+  padding: 3%;
 }
 
-.container{
+
+.pickContainer {
+  font-family: 'Saira', sans-serif;
+  transition: 1s ease;
+  border: 1px solid #fff1;
+  width: 100%;
+  max-width: 450px;
+  margin: 0.75rem;
+  padding: 0.2rem 0.8rem 0.3rem 0.8rem;
+  text-align: center;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #E7E7E7;
+  border-radius: 1rem;
+  overflow: hidden;
   position: relative;
-  padding: 0%
 }
+.pickNumber {
+  color: #222;
+  font-size: 1.8rem;
+  background-color: #0000;
+  font-weight: 400;
+  text-align: right;
+  vertical-align: baseline;
+  border-radius: 1rem;
+  max-width: 240px;
+}
+.blink {
+  animation: blink 1.4s step-end infinite;
+}
+@keyframes blink {
+  0%, 100% {
+      opacity: 1;
+  }
+  50% {
+      opacity: 0.5;
+  }
+}
+.pickLabel{
+  color: #222;
+  font-size: 1.3rem;
+  font-weight: 400;
+  padding-right: 5px;
+  text-align: center;
+  vertical-align: baseline;
+}
+.pickUnit {
+  color: #222;
+  font-size: 1.2rem;
+  font-weight: 400;
+  padding-left: 5px;
+  vertical-align: baseline;
+}
+.pickSign {
+  height: 100%;
+  width: 50px;
+  border-radius: 1rem;
+  color: #222;
+  padding: 0px 2% 0.5% 2%;
+  font-size: 2.5rem;
+  font-weight: 100;
+  vertical-align: baseline;
+  transition: 1.5s ease;
+}
+.numberHighlight {
+  position: absolute;
+  background-color: #fff0;
+  width: 6.5rem;
+  height: 6.5rem;
+  border-radius: 2.5rem;
+  transition: 1.5s ease;
+  background: radial-gradient(#fff1, #0000);
+}
+.numberHighlight:hover {
+  background-color: #ffffff11;
+}
+
 
 .videobackground {
   position: absolute;
@@ -43,7 +170,6 @@
 }
 
 .video {
-  background-color: #fff2;
   border-radius: 13px;
   animation: fadeIn 2s ease-out;
 }
@@ -67,6 +193,36 @@
 @media only screen and (max-width: 500px) {
   .container {
     padding: 5%
+  }
+
+  .gallaryContainer {
+  
+    padding: 0px;
+    margin-left: -4%;
+
+  }
+  .gallaryColumn {
+    margin-bottom: 20vh;
+  }
+
+  .numberHighlight:hover {
+    animation: fadeToBlack 0s 2s forwards;
+    transition: 1.5s ease;
+  }
+
+  .pickContainer{
+    padding: 0.2rem 0rem 0.3rem 0rem;
+    margin: 0.75rem 0rem;
+    font-size: 1.2rem;
+  }
+
+  @keyframes fadeToBlack {
+    from {
+      background-color: #fff1;
+    }
+    to {
+      background-color: #fff0;
+    }
   }
 
 }

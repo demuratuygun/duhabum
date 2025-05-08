@@ -124,7 +124,7 @@ export default function AskText({ question, entries, long=false, setObject }: Ca
       
       </div>
 
-      <Control turnPage={turnPage} />
+      {/* <Control turnPage={turnPage} /> */}
  
     </>
   );

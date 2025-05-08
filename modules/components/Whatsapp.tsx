@@ -13,7 +13,7 @@ const container = {
     }
   },
 }
-  
+
 const item = {
   hidden: {  opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 }
@@ -24,6 +24,7 @@ export default function whatsapp({}) {
     const [open, setOpen] = useState( false );
     const [textOpen, setTextOpen] = useState( false );
     const [Message, setMessage] = useState( "Merhaba, Uzaktan Eğitim hakkında bilgi almak istiyorum." );
+    
 
     useEffect(() => {
       const handleScroll = () => {

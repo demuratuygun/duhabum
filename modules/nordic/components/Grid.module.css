@@ -1,0 +1,24 @@
+/* ImageGrid.module.css */
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+    gap: 16px;
+    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  
+  .gridItem {
+    position: relative;
+    /* aspect-ratio: 16/9; */
+    min-height: 400px;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  
+  .image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+  

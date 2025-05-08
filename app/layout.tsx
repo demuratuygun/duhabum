@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import FacebookPixel from "@/modules/components/FacebookPixel";
+import { EngagesProvider } from "@/context/EngageContext";
+import { TrackingProvider } from "@/context/TrackingContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +32,11 @@ export default function RootLayout({
         
       </head>
       <body className={inter.className}>
-        {children}
+            <EngagesProvider>
+            <TrackingProvider>
+                {children}
+            </TrackingProvider>
+            </EngagesProvider>
         <FacebookPixel />
       </body>
     </html>

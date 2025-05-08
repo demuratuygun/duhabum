@@ -5,6 +5,8 @@ import { animate, motion, useMotionValue, useScroll, useSpring, useTransform } f
 import styles from './nordic.module.css';
 import React from 'react';
 import { get } from 'http';
+import ImageView from './ImageView';
+import { useRouter } from 'next/navigation';
 
 
 interface ColumnType {
@@ -17,7 +19,6 @@ interface ColumnType {
 
 const GalleryContent:ColumnType[] = [
   {
-    size: 'L',
     images: [
       { src: '/transitions/1before.jpeg', alt: 'Image 1' },
       { src: '/transitions/1after.jpeg', alt: 'Image 1' },
@@ -28,54 +29,23 @@ const GalleryContent:ColumnType[] = [
     ]
 
   },
-  {
-    size: 'XS',
-    images: [
-      { src: '/transitions/4before.jpeg', alt: 'Image 1' },
-      { src: '/transitions/4after.jpeg', alt: 'Image 2' },
-      { src: '/transitions/5before.jpeg', alt: 'Image 1' },
-      { src: '/transitions/5after.jpeg', alt: 'Image 1' },
-      { src: '/transitions/6before.jpeg', alt: 'Image 1' },
-      { src: '/transitions/6after.jpeg', alt: 'Image 2' },
-    ]
-  },
-  {
-    size: 'S',
-    images: [
-      { src: '/transitions/1before.jpeg', alt: 'Image 1' },
-      { src: '/transitions/1after.jpeg', alt: 'Image 1' },
-      { src: '/transitions/2before.jpeg', alt: 'Image 1' },
-      { src: '/transitions/2after.jpeg', alt: 'Image 2' },
-      { src: '/transitions/3before.jpeg', alt: 'Image 1' },
-      { src: '/transitions/3after.jpeg', alt: 'Image 1' },
-    ]
-
-  },
-  {
-    size: 'L',
-    images: [
-      { src: '/transitions/4before.jpeg', alt: 'Image 1' },
-      { src: '/transitions/4after.jpeg', alt: 'Image 2' },
-      { src: '/transitions/5before.jpeg', alt: 'Image 1' },
-      { src: '/transitions/5after.jpeg', alt: 'Image 1' },
-      { src: '/transitions/6before.jpeg', alt: 'Image 1' },
-      { src: '/transitions/6after.jpeg', alt: 'Image 2' },
-    ]
-  }
   
 ];
 
 
-export default function Gallery({ children, fixedHeight=false, maxColHeight=undefined }: { children?: ReactNode[], fixedHeight?:boolean, maxColHeight?: number | undefined }) {
+export default function Gallery({ id, children = [], data, fixedHeight=true, maxColWidth=undefined, onScrollNext=()=>null } : 
+  { id:string; children?: ReactNode[], data:any, fixedHeight?:boolean, maxColWidth?: number[] | undefined, onScrollNext?: Function }) {
 
+    const router = useRouter();
     const [activeIndex, setActiveIndex] = useState(-1); // Track active item index
     const [contentWidth, setContentWidth] = useState(0);
     const [itemWidth, setItemWidth] = useState(0);
+    const [viewRlement, setViewElement] = useState<{id:string} | null>(null);
     const containerRef = useRef<HTMLDivElement | null>(null);
 
     const gridColumnMap = {
       XS: 0.3,
-      S: 0.4,
+      S: 0.3,
       M: 0.5,
       L: 0.6,
       XL: 1
@@ -87,7 +57,7 @@ export default function Gallery({ children, fixedHeight=false, maxColHeight=unde
         if (containerRef.current) {
           let contentWidth = containerRef.current.offsetWidth;
           if(contentWidth > 500) {
-            contentWidth = (contentWidth*0.8);
+            contentWidth = (contentWidth*0.7);
             setItemWidth(contentWidth/2);
           } else {
             contentWidth = (contentWidth);
@@ -97,59 +67,51 @@ export default function Gallery({ children, fixedHeight=false, maxColHeight=unde
         }
       };
 
-      let mainFrame = document.getElementById('mainFrame');
-      mainFrame?.addEventListener('scroll', ()=> console.log('ff'));
-
       updateWidth();
       window.addEventListener('resize', updateWidth);
       return () => window.removeEventListener('resize', updateWidth);
 
     }, []);
-    
 
+
+
+    const {scrollY} = useScroll();
     
-    
+    console.log(containerRef.current?.offsetTop ?? 0, (containerRef.current?.offsetTop ?? 0) + (containerRef.current?.offsetHeight ?? 0))
 
   return (
-      <div ref={containerRef} style={{ transform: 'rotate(5deg)' }}
-        className={styles.gallaryContainer}
-      >
-        {GalleryContent.map((column, colIndex) => (
-          <motion.div key={colIndex}
-            animate={{ y: [50+colIndex*50, 0] }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
-            }}
+    <> 
+
+    <div ref={containerRef} className={styles.gallaryContainer} id={id} data-track >
+      {children.map((column, colIndex) => {
+        const start = containerRef.current?.offsetTop??0;
+        const end = start + (containerRef.current?.offsetHeight ?? 0);
+        const parallaxY = useSpring(
+          useTransform(scrollY, [start, end], [0, (colIndex+1) * 400]),
+          {
+            stiffness: 100,
+            damping: 30,
+            restDelta: 0.001,
+          }
+        );
+
+        return (
+          <motion.div
+            key={colIndex}
             className={styles.gallaryColumn}
-            style={{maxHeight: maxColHeight, }}
+            style={{ y: parallaxY, maxWidth: maxColWidth ? maxColWidth[colIndex] : 800 }}
           >
-            {column.images.map((image, index) => (
-              <motion.div key={index} 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: index / 2 + colIndex/2, duration: 2 }}
-                style={{ 
-                  width: itemWidth * gridColumnMap[column.size??"M"]-20,
-                  height: fixedHeight ? `250px` : 'auto',
-                  margin: '10px',
-                  borderRadius:'13px',
-                  position: 'relative', 
-                  overflow: 'hidden'
-                }}>
-                <img
-                  draggable={false}
-                  src={image.src}
-                  alt={image.alt}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
-              </motion.div>
-            ))}
+            {column}
           </motion.div>
-        ))}
-      </div>
+        );
+      })}
+      
+    </div>
+    
+    <div className='cloud' style={{ width:'100vw', height:'100vh', margin:'-24%', zIndex:0 }}></div>
+    <h3 style={{ width:'100%', textAlign:'center', zIndex: 1000, position: 'relative', marginBottom:'10rem' }}>iste viral degisimim</h3>
+
+    </>
   );
 }
 
