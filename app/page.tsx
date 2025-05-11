@@ -402,7 +402,7 @@ const data = {
       "ui": "video",
       "src": "https://duhasite.b-cdn.net/alpha/10.webm",
       "title": "Günlük Takip Sistemi",
-      "noConrtol": true,
+      "noControl": true,
       "style": {
         "width": "100%",
         "height": 700
@@ -433,7 +433,7 @@ const data = {
       "ui": "video",
       "src": "https://duhasite.b-cdn.net/alpha/13.webm",
       "title": "Beslenme Planlaması",
-      "noConrtol": true,
+      "noControl": true,
       "style": {
         "width": "100%",
         "height": 700
@@ -469,7 +469,7 @@ const data = {
       "ui": "video",
       "src": "https://duhasite.b-cdn.net/alpha/9.webm",
       "title": "Beslenme Planlaması",
-      "noConrtol": true,
+      "noControl": true,
       "style": {
         "width": "100%",
         "height": 700
@@ -500,7 +500,7 @@ const data = {
       "ui": "video",
       "src": "https://duhasite.b-cdn.net/alpha/12.webm",
       "title": "Supplement Planlaması",
-      "noConrtol": true,
+      "noControl": true,
       "style": {
         "width": "100%",
         "height": 700
@@ -531,7 +531,7 @@ const data = {
       "ui": "video",
       "src": "https://duhasite.b-cdn.net/alpha/takippsistemi.webm",
       "title": "Supplement Planlaması",
-      "noConrtol": true,
+      "noControl": true,
       "style": {
         "width": "100%",
         "height": 700
@@ -567,7 +567,7 @@ const data = {
       "ui": "video",
       "src": "https://duhasite.b-cdn.net/alpha/14.webm",
       "title": "Supplement Planlaması",
-      "noConrtol": true,
+      "noControl": true,
       "style": {
         "width": "100%",
         "height": 700
@@ -593,7 +593,7 @@ const data = {
       "ui": "video",
       "src": "https://duhasite.b-cdn.net/alpha/sesligoruntulu%20konusma.webm",
       "title": "Supplement Planlaması",
-      "noConrtol": true,
+      "noControl": true,
       "style": {
         "width": "100%",
         "height": 700
@@ -780,7 +780,7 @@ export default function main() {
     { "id": "ui_3", "ui": "p", "text": "Ancak bir türlü istediğin o vücuda ulaşamıyor musun?" },
     { "id": "ui_4", "ui": "p",  "text": "Peki sana, sadece 12 haftada hayal ettiğin vücuda ulaşacağını söylesem ve bunun garantisini versem. Bu, hayatında her şeyi değiştirmez miydi?" },
     { "id": "ui_5", "ui": "p", "text": "Eğer son soruya cevabın evet ise, 12 haftalık bu challenge senin hayatını tamamen değiştirecek! Benim ve 200'den fazla öğrencimin hayatını değiştirdiği gibi, ve bunun sana garantisini veriyorum!" },
-    { "id": "ui_5.1", "ui": "video", "src": "https://duhasite.b-cdn.net/alpha/1.webm", "title": "Merhaba, ben Duha! Fitness serüvenim 3 yıl önce başladı", noConrtol:true, style:{ width: '100%', aspectRatio:1.55 } },
+    { "id": "ui_5.1", "ui": "video", "src": "https://duhasite.b-cdn.net/alpha/1.webm", "title": "Merhaba, ben Duha! Fitness serüvenim 3 yıl önce başladı", noControl:true, style:{ width: '100%', aspectRatio:1.55 } },
 
 
 
@@ -788,7 +788,7 @@ export default function main() {
     { "id": "ui_5.2", "ui": "h3", "text": [{t:"Merhaba,", nl:true}," ben Duha!"], style: { flex:'0 0 66%', minWidth: '100%' }},
     { "id": "ui_5.3", "ui": "p", "text": "Fitness serüvenim 3 yıl önce başladı. Eskiden lisanslı bir futbolcuydum, ancak bir maç sırasında ayağımın çatlamasıyla hayatım altüst oldu." },
     { "id": "ui_5.4", "ui": "p", "text": "Futbolu bırakmak zorunda kalmak benim için büyük bir yıkımdı. Kendimi kaybolmuş hissediyordum… Ama pes etmek yerine, bu zor dönemi bir fırsata çevirmeye karar verdim." },
-    { "id": "ui_5.5", "ui": "video", "src": "https://duhasite.b-cdn.net/alpha/7.webm", "title": "yesil bayramic spor takim fotografi", noConrtol:true, style:{ width: '100%',aspectRatio:1.66 }},
+    { "id": "ui_5.5", "ui": "video", "src": "https://duhasite.b-cdn.net/alpha/7.webm", "title": "yesil bayramic spor takim fotografi", noControl:true, style:{ width: '100%',aspectRatio:1.66 }},
     { "id": "ui_9", "ui": "p", "text": "İyileşme sürecimde tüm enerjimi fitness ve sağlıklı yaşama adadım. Kendime meydan okuyarak sosyal medyada 12 haftalık bir dönüşüm challenge’ı başlattım." },
 
 
@@ -798,7 +798,7 @@ export default function main() {
     { "id": "ui_11", "ui": "h6", "text": [{t:["İşte 12 haftada gerçekleşen o viral değişimim!"] }] },
 
     { ui:'gallery', id:'ui_15hg', maxColWidth:[400], data: [[
-      { "id": "ui_11.1", "ui": "video", "src": "https://duhasite.b-cdn.net/alpha/5.webm", "title": "12 haftada gerçekleşen o viral değişimim", noConrtol:true, style:{ height: '100%',  }},
+      { "id": "ui_11.1", "ui": "video", "src": "https://duhasite.b-cdn.net/alpha/5.webm", "title": "12 haftada gerçekleşen o viral değişimim", noControl:true, style:{ height: '100%',  }},
     ]]},
     
     
@@ -818,7 +818,7 @@ export default function main() {
       { "id": "ui_32", "ui": "p", "text": "✔ Egzersiz Video Destekleri ile her hareketin doğru formda yapılmasını sağlayacak detaylı video anlatımları sunulur." },
       { "id": "ui_33", "ui": "p", "text": "✔ Günlük rutinleriniz, egzersiz geçmişiniz ve antrenman sıklığınız dikkate alınarak özel bir planlama yapılır." },
 
-      { "id": "ui_34", "ui": "video", "src": "https://duhasite.b-cdn.net/alpha/10.webm", "title": "Günlük Takip Sistemi", noConrtol:true, style:{ width:'100%', height: 700 }},
+      { "id": "ui_34", "ui": "video", "src": "https://duhasite.b-cdn.net/alpha/10.webm", "title": "Günlük Takip Sistemi", noControl:true, style:{ width:'100%', height: 700 }},
 
 
 
@@ -840,7 +840,7 @@ export default function main() {
       { "id": "ui_39", "ui": "h6", "text": "✔ Kardiyo yoğunluğu ve süresi, hedeflerinize ve fiziksel durumunuza göre belirlenir." },
       { "id": "ui_13.1", "ui": "button", "text": "Hemen Başla!", "href": "/action" },
 
-      { "id": "ui_40", "ui": "video", "src": "https://duhasite.b-cdn.net/alpha/9.webm", "title": "Özel Kardiyo Planlaması", noConrtol:true, style:{ width: '100%', height: 700}},
+      { "id": "ui_40", "ui": "video", "src": "https://duhasite.b-cdn.net/alpha/9.webm", "title": "Özel Kardiyo Planlaması", noControl:true, style:{ width: '100%', height: 700}},
        
 
 
@@ -849,14 +849,14 @@ export default function main() {
       { "id": "ui_44", "ui": "h6", "text": "✔ Alerji, intolerans ve sağlık durumunuz göz önünde bulundurulur." },
       { "id": "ui_45", "ui": "h6", "text": "✔ Hedeflerinize (yağ yakımı, kas kazanımı, sağlık) uygun beslenme programı oluşturulur." },
 
-      { "id": "ui_46", "ui": "video", "src": "https://duhasite.b-cdn.net/alpha/13.webm", "title": "Beslenme Planlaması", noConrtol:true, style:{ width: '100%', height: 700}},
+      { "id": "ui_46", "ui": "video", "src": "https://duhasite.b-cdn.net/alpha/13.webm", "title": "Beslenme Planlaması", noControl:true, style:{ width: '100%', height: 700}},
 
 
 
       { "id": "ui_47", "ui": "h2", "text": "Supplement Planlaması" },
       { "id": "ui_49", "ui": "h6", "text": "✔ Belirlenen ihtiyaçlara göre, uygun supplementler seçilir ve kullanım talimatları verilir." },
         
-      {  "id": "ui_50", "ui": "video", "src": "https://duhasite.b-cdn.net/alpha/12.webm", "title": "Supplement Planlaması", noConrtol:true, style:{ width: '100%', height: 700}},
+      {  "id": "ui_50", "ui": "video", "src": "https://duhasite.b-cdn.net/alpha/12.webm", "title": "Supplement Planlaması", noControl:true, style:{ width: '100%', height: 700}},
 
       
 

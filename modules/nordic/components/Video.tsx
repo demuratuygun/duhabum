@@ -5,12 +5,12 @@ import styles from './nordic.module.css';
 import { motion } from 'framer-motion';
 import { useEngages } from '@/context/EngageContext';
 
-  export default function Video({ id, src, title, active=true, noConrtol=false, style }: { 
+  export default function Video({ id, src, title, active=true, noControl=false, style }: { 
     id:string,
-    src: any, 
-    title: any, 
+    src: string, 
+    title: string, 
     active?: any, 
-    noConrtol:boolean, 
+    noControl:boolean, 
     style?:any 
   }) {
 
@@ -96,7 +96,7 @@ import { useEngages } from '@/context/EngageContext';
 
       <motion.div className='media'
         viewport={{ amount:'some' }}
-        initial={ noConrtol?{}:{ opacity:0, filter: 'blur(400px)', scaleY:0.5, scaleX:1.5 }}
+        initial={ noControl?{}:{ opacity:0, filter: 'blur(400px)', scaleY:0.5, scaleX:1.5 }}
         whileInView={{ opacity: 1, filter: 'blur(0px)', scaleY:1, scaleX:1 }}
         transition={{ delay:0, duration:1 }}
         style={{ 
@@ -108,7 +108,7 @@ import { useEngages } from '@/context/EngageContext';
           }}>
       
         <video ref={videoRef} id={id} data-track 
-          onClick={() => { if(!noConrtol) setPlaying(!playing)} }
+          onClick={() => { if(!noControl) setPlaying(!playing)} }
           style={{ 
             zIndex: 0, 
             borderRadius:'13px', 
@@ -131,7 +131,7 @@ import { useEngages } from '@/context/EngageContext';
           onDoubleClick={handleDoubleClick}
         />
 
-        { !noConrtol && (!playing||muted) && 
+        { !noControl && (!playing||muted) && 
         <div className={styles.VideoControls} >
           <div onClick={() => setPlaying(!playing)} style={{width:'36px', display:playing&&muted?'none':'block' }}>
           { playing?

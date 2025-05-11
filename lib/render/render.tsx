@@ -49,9 +49,9 @@ export function render(component:any) {
       id={component.id} 
       style={component.style??{}} 
       title={component.title??""} 
-      src={component.src} 
+      src={component.src??""} 
       active={component.active??true} 
-      noConrtol={component.noConrtol??false}
+      noControl={component.noControl??false}
     />
   )
   }else if (component.ui == 'gallery') 
