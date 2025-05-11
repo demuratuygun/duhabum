@@ -114,6 +114,7 @@ import { useEngages } from '@/context/EngageContext';
             ...style,
           
           }}
+          preload="metadata"
           src={src}
           title={title}
           autoPlay={active}
