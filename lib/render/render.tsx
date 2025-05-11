@@ -44,7 +44,15 @@ export function render(component:any) {
     </Slider> )
   else if (component.ui == 'video') {
     return( 
-    <Video key={component.id} id={component.id} style={component.style??{}} title={component.title??""} src={component.src} active={component.active??true} noConrtol={component.noConrtol??false}/>
+    <Video 
+      key={component.id} 
+      id={component.id} 
+      style={component.style??{}} 
+      title={component.title??""} 
+      src={component.src} 
+      active={component.active??true} 
+      noConrtol={component.noConrtol??false}
+    />
   )
   }else if (component.ui == 'gallery') 
     return (
