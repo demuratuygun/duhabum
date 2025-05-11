@@ -12,7 +12,7 @@ const data = {
   
     //{ id:'marqqkdf', ui: 'Marquee', text:['60.000₺ değerınde BÜYÜK ÖDÜL!', '60.000₺ değerınde BÜYÜK ÖDÜL!', '60.000₺ değerınde BÜYÜK ÖDÜL!'] },
 
-    { "id": "garanti", "ui": "h3", "text": "100% SONUC GARANTISI AKSI TAKDIRDE PARANIZ IADE!", style: { textAlign: "center", } },
+    { "id": "garanti22", "ui": "h3", "text": "100% SONUC GARANTISI AKSI TAKDIRDE PARANIZ IADE!", style: { textAlign: "center", } },
 
       {'id': 'dda', ui: 'form', 
 

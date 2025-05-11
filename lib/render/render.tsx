@@ -19,12 +19,12 @@ export function render(component:any) {
   if (component.ui == 'img') 
   return (
     <div key={component.id} style={{ backgroundColor: 'var(--background-color)', ...component.style }} className={['nordicimg', 'noSelect', 'media', ...component.class??[]]?.join(' ')} >
-      <Image id={component.id} 
+      <img id={component.id} 
         data-track
         draggable={false}
         src={component.src}
         alt={component.alt}
-        fill={true}
+        //fill={true}
         loading="lazy"
         //sizes={`${component.style?.width ?? '200px'}, ${component.style?.height ?? '300px'}`}
         style={{ objectFit: 'cover' }}
@@ -43,7 +43,9 @@ export function render(component:any) {
       {component.data.map((data:any) => render(data) )}
     </Slider> )
   else if (component.ui == 'video') {
-    return( <Video key={component.id} id={component.id} style={component.style??{}} title={component.title} src={component.src} active={component.active??true} noConrtol={component.noConrtol??false}/>)
+    return( 
+    <Video key={component.id} id={component.id} style={component.style??{}} title={component.title??""} src={component.src} active={component.active??true} noConrtol={component.noConrtol??false}/>
+  )
   }else if (component.ui == 'gallery') 
     return (
     <Gallery id={component.id} key={component.id} fixedHeight={false} data={component.data} maxColWidth={component.maxColWidth}>

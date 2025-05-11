@@ -5,7 +5,14 @@ import styles from './nordic.module.css';
 import { motion } from 'framer-motion';
 import { useEngages } from '@/context/EngageContext';
 
-  export default function Video({ id, src, title, active=true, noConrtol=false, style }: { id:string, src: string, title: string, active?: boolean, noConrtol:boolean, style?:any }) {
+  export default function Video({ id, src, title, active=true, noConrtol=false, style }: { 
+    id:string,
+    src: string, 
+    title: string, 
+    active?: boolean, 
+    noConrtol:boolean, 
+    style?:any 
+  }) {
 
     const videoRef = useRef<HTMLVideoElement|null>(null)
 
