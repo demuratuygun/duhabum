@@ -7,10 +7,10 @@ import { useEngages } from '@/context/EngageContext';
 
   export default function Video({ id, src, title, active=true, noControl=false, style }: { 
     id:string,
-    src: string, 
-    title: string, 
+    src?: string, 
+    title?: string, 
     active?: any, 
-    noControl:boolean, 
+    noControl?:boolean, 
     style?:any 
   }) {
 
