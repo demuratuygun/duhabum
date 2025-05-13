@@ -49,6 +49,8 @@ export function render(component:any) {
       id={component.id} 
       style={component.style??{}} 
       title={component.title??""} 
+
+      
       src={component.src??""} 
       active={component.active??true} 
       noControl={component.noControl??false}
